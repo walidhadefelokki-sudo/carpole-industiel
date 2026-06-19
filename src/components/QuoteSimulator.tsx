@@ -305,71 +305,6 @@ export default function QuoteSimulator() {
                     />
                   </div>
 
-                  {/* Step 6: Client details section */}
-                  <div className="bg-neutral-900/40 p-6 sm:p-8 rounded-xl border border-white/5 space-y-5">
-                    <div className="flex items-center gap-2">
-                      <ClipboardList className="h-5 w-5 text-brand-yellow" />
-                      <span className="block text-sm font-display font-black text-brand-yellow uppercase tracking-wider">
-                        Vos coordonnées professionnelles
-                      </span>
-                    </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-[10px] uppercase font-semibold font-sans tracking-wider text-zinc-400 mb-1.5">Nom Complet *</label>
-                        <input
-                          required
-                          type="text"
-                          name="clientName"
-                          id="client-name"
-                          placeholder="Ex: Karim Benhadj"
-                          value={formData.clientName}
-                          onChange={handleChange}
-                          className="w-full bg-neutral-950 border border-white/10 rounded-lg px-4 py-3 text-zinc-200 text-sm focus:outline-none focus:border-brand-yellow"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-[10px] uppercase font-semibold font-sans tracking-wider text-zinc-400 mb-1.5">Téléphone mobile *</label>
-                        <input
-                          required
-                          type="tel"
-                          name="clientPhone"
-                          id="client-phone"
-                          placeholder="Ex: 0550 XX XX XX"
-                          value={formData.clientPhone}
-                          onChange={handleChange}
-                          className="w-full bg-neutral-950 border border-white/10 rounded-lg px-4 py-3 text-zinc-200 text-sm focus:outline-none focus:border-brand-yellow"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-[10px] uppercase font-semibold font-sans tracking-wider text-zinc-400 mb-1.5">Adresse Email</label>
-                        <input
-                          type="email"
-                          name="clientEmail"
-                          id="client-email"
-                          placeholder="Ex: contact@entreprise.dz"
-                          value={formData.clientEmail}
-                          onChange={handleChange}
-                          className="w-full bg-neutral-950 border border-white/10 rounded-lg px-4 py-3 text-zinc-200 text-sm focus:outline-none focus:border-brand-yellow"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-[10px] uppercase font-semibold font-sans tracking-wider text-zinc-400 mb-1.5">Nom Entreprise (Optionnel)</label>
-                        <input
-                          type="text"
-                          name="clientCompany"
-                          id="client-company"
-                          placeholder="Ex: SARL Trans Logistics Froid"
-                          value={formData.clientCompany}
-                          onChange={handleChange}
-                          className="w-full bg-neutral-950 border border-white/10 rounded-lg px-4 py-3 text-zinc-200 text-sm focus:outline-none focus:border-brand-yellow"
-                        />
-                      </div>
-                    </div>
-                    {submitError && (
-                      <p className="text-red-400 font-sans text-xs font-semibold">{submitError}</p>
-                    )}
-                  </div>
-
                 </div>
 
                 {/* RIGHT COLUMN: Configuration recap & CTA (No prices) */}
@@ -462,6 +397,71 @@ export default function QuoteSimulator() {
                           </div>
                           <span className="font-extrabold text-neutral-900">Atelier Constantine</span>
                         </div>
+                      </div>
+
+                      {/* Client details section in light mode */}
+                      <div className="bg-zinc-50 p-5 rounded-xl border border-zinc-200/80 space-y-4 mt-6">
+                        <div className="flex items-center gap-2 pb-2 border-b border-zinc-200/60">
+                          <ClipboardList className="h-4 w-4 text-neutral-900" />
+                          <span className="block text-xs font-display font-black text-neutral-950 uppercase tracking-widest">
+                            Vos coordonnées professionnelles
+                          </span>
+                        </div>
+                        <div className="space-y-3">
+                          <div>
+                            <label className="block text-[9px] uppercase font-bold font-sans tracking-wider text-zinc-500 mb-1">Nom Complet *</label>
+                            <input
+                              required
+                              type="text"
+                              name="clientName"
+                              id="client-name"
+                              placeholder="Ex: Karim Benhadj"
+                              value={formData.clientName}
+                              onChange={handleChange}
+                              className="w-full bg-white border border-zinc-300 rounded-lg px-3 py-2 text-neutral-800 text-xs focus:outline-none focus:border-brand-yellow focus:ring-1 focus:ring-brand-yellow/30 transition-colors"
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-[9px] uppercase font-bold font-sans tracking-wider text-zinc-500 mb-1">Téléphone mobile *</label>
+                            <input
+                              required
+                              type="tel"
+                              name="clientPhone"
+                              id="client-phone"
+                              placeholder="Ex: 0550 XX XX XX"
+                              value={formData.clientPhone}
+                              onChange={handleChange}
+                              className="w-full bg-white border border-zinc-300 rounded-lg px-3 py-2 text-neutral-800 text-xs focus:outline-none focus:border-brand-yellow focus:ring-1 focus:ring-brand-yellow/30 transition-colors"
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-[9px] uppercase font-bold font-sans tracking-wider text-zinc-500 mb-1">Adresse Email</label>
+                            <input
+                              type="email"
+                              name="clientEmail"
+                              id="client-email"
+                              placeholder="Ex: contact@entreprise.dz"
+                              value={formData.clientEmail}
+                              onChange={handleChange}
+                              className="w-full bg-white border border-zinc-300 rounded-lg px-3 py-2 text-neutral-800 text-xs focus:outline-none focus:border-brand-yellow focus:ring-1 focus:ring-brand-yellow/30 transition-colors"
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-[9px] uppercase font-bold font-sans tracking-wider text-zinc-500 mb-1">Nom Entreprise (Optionnel)</label>
+                            <input
+                              type="text"
+                              name="clientCompany"
+                              id="client-company"
+                              placeholder="Ex: SARL Trans Logistics Froid"
+                              value={formData.clientCompany}
+                              onChange={handleChange}
+                              className="w-full bg-white border border-zinc-300 rounded-lg px-3 py-2 text-neutral-800 text-xs focus:outline-none focus:border-brand-yellow focus:ring-1 focus:ring-brand-yellow/30 transition-colors"
+                            />
+                          </div>
+                        </div>
+                        {submitError && (
+                          <p className="text-red-500 font-sans text-xs font-semibold">{submitError}</p>
+                        )}
                       </div>
                     </div>
 
