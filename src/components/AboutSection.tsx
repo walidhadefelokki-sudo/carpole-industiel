@@ -1,6 +1,7 @@
 import React from 'react';
 import { ShieldCheck, Target, Award, Users, MapPin, Milestone } from 'lucide-react';
 import { motion } from 'motion/react';
+import { imageBodywork } from '../data';
 
 export default function AboutSection() {
   const values = [
@@ -41,7 +42,7 @@ export default function AboutSection() {
             
             <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white/50 bg-neutral-300 aspect-4/3">
               <img
-                src="/src/assets/images/truck_bodywork_assembly_1781872797628.jpg"
+                src={imageBodywork}
                 alt="Atelier de Constantine"
                 className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"

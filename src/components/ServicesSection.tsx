@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { servicesData } from '../data';
+import { servicesData, imageBodywork, imageFrigo, imageConstantinePorteur } from '../data';
 import { Truck, Snowflake, Wrench, CheckCircle2, Shield, ArrowRight } from 'lucide-react';
 import { motion } from 'motion/react';
 
@@ -87,13 +87,13 @@ export default function ServicesSection({ onQuoteClick }: ServicesSectionProps) 
             <div className="lg:col-span-5 bg-neutral-950 p-8 sm:p-12 text-white flex flex-col justify-between relative overflow-hidden">
               <div className="absolute inset-0 opacity-15">
                 {selectedServiceId === 'carrosserie' && (
-                  <img src="/src/assets/images/truck_bodywork_assembly_1781872797628.jpg" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                  <img src={imageBodywork} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
                 )}
                 {selectedServiceId === 'refrigeration' && (
-                  <img src="/src/assets/images/truck_frigo_installation_1781872814520.jpg" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                  <img src={imageFrigo} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
                 )}
                 {selectedServiceId === 'maintenance' && (
-                  <img src="/src/assets/images/refrigerated_truck_constantine_1781872831310.jpg" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                  <img src={imageConstantinePorteur} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
                 )}
               </div>
               

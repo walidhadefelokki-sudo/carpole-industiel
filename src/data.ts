@@ -1,4 +1,9 @@
 import { ServiceItem, GalleryItem, FeedbackItem, QuoteInput, QuoteEstimate } from './types';
+import imageBodywork from './assets/images/truck_bodywork_assembly_1781872797628.jpg';
+import imageFrigo from './assets/images/truck_frigo_installation_1781872814520.jpg';
+import imageConstantinePorteur from './assets/images/refrigerated_truck_constantine_1781872831310.jpg';
+
+export { imageBodywork, imageFrigo, imageConstantinePorteur };
 
 export const servicesData: ServiceItem[] = [
   {
@@ -50,7 +55,7 @@ export const galleryData: GalleryItem[] = [
     id: 'real-1',
     title: 'Montage de carrosserie isotherme',
     category: 'carrosserie',
-    imageUrl: '/src/assets/images/truck_bodywork_assembly_1781872797628.jpg',
+    imageUrl: imageBodywork,
     description: 'Techniciens en plein assemblage de panneaux composites isolés haute densité sur un porteur rigide dans notre nouvel atelier.',
     location: 'Atelier Central, Constantine'
   },
@@ -58,7 +63,7 @@ export const galleryData: GalleryItem[] = [
     id: 'real-2',
     title: 'Installation d’un groupe frigorifique Carrier',
     category: 'frigo',
-    imageUrl: '/src/assets/images/truck_frigo_installation_1781872814520.jpg',
+    imageUrl: imageFrigo,
     description: 'Pose finale et raccordement électrique d’un système de froid négatif (-18°C) sur la cloison frontale d’un camion de distribution de produits surgelés.',
     location: 'Zone Industrielle, Constantine'
   },
@@ -66,7 +71,7 @@ export const galleryData: GalleryItem[] = [
     id: 'real-3',
     title: 'Camion frigorifique prêt à la livraison',
     category: 'realisation',
-    imageUrl: '/src/assets/images/refrigerated_truck_constantine_1781872831310.jpg',
+    imageUrl: imageConstantinePorteur,
     description: 'Projet d’intégration complet (carrosserie isolée étanche + groupe de réfrigération thermo-contrôlé) livré pour une entreprise de logistique laitière nationale.',
     location: 'Hauts Plateaux, Constantine'
   },

@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { Shield, Sparkles, AlertTriangle, ArrowRight, ArrowDown } from 'lucide-react';
+import { imageConstantinePorteur } from '../data';
 
 interface HeroProps {
   onCtaClick: (targetId: string) => void;
@@ -35,7 +36,7 @@ export default function Hero({ onCtaClick }: HeroProps) {
       {/* Background Graphic Asset with Dark Opacity Overlay */}
       <div className="absolute inset-0 z-0">
         <img
-          src="/src/assets/images/refrigerated_truck_constantine_1781872831310.jpg"
+          src={imageConstantinePorteur}
           alt="Camion Frigorifique Carpôle à Constantine"
           className="w-full h-full object-cover object-center opacity-30 transform scale-105 filter saturate-75 brightness-75 transition-all duration-1000"
           referrerPolicy="no-referrer"
