@@ -34,16 +34,30 @@ export default function Hero({ onCtaClick }: HeroProps) {
       className="relative min-h-screen bg-neutral-950 flex flex-col justify-center pt-24 overflow-hidden"
     >
       {/* Background Graphic Asset with Dark Opacity Overlay */}
-      <div className="absolute inset-0 z-0">
-        <img
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <motion.img
           src={imageConstantinePorteur}
           alt="Camion Frigorifique Carpôle à Constantine"
-          className="w-full h-full object-cover object-center opacity-30 transform scale-105 filter saturate-75 brightness-75 transition-all duration-1000"
+          animate={{
+            scale: [1.02, 1.15, 1.05, 1.02],
+            x: [0, 15, -10, 0],
+            y: [0, -10, 5, 0],
+          }}
+          transition={{
+            duration: 25,
+            repeat: Infinity,
+            repeatType: 'mirror',
+            ease: 'easeInOut',
+          }}
+          className="w-full h-full object-cover object-center opacity-65 sm:opacity-50 md:opacity-30 filter saturate-[95%] brightness-[85%] scale-105"
           referrerPolicy="no-referrer"
         />
-        {/* Dark radial and gradient fallback */}
-        <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/80 to-transparent"></div>
-        <div className="absolute inset-0 bg-radial-gradient from-transparent to-neutral-950/90 duration-300"></div>
+        {/* Dark radial and gradient overlay - responsive opacity to keep text absolutely readable */}
+        <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/85 sm:via-neutral-950/80 md:via-neutral-950/70 to-neutral-950/20"></div>
+        <div className="absolute inset-0 bg-radial-gradient from-transparent to-neutral-950/90 md:to-neutral-950/80"></div>
+        
+        {/* Subtle decorative grid/dots or moving lights of industrial theme for extra creative touch on mobile */}
+        <div className="absolute inset-0 bg-[radial-gradient(#ffffff08_1px,transparent_1px)] [background-size:24px_24px] opacity-60"></div>
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-16 lg:py-24 flex flex-col justify-center h-full">
