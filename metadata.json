@@ -1,0 +1,6 @@
+{
+  "name": "Carpôle Industriel",
+  "description": "Site professionnel de Carpôle Industriel à Constantine, Algérie - Spécialiste de l'installation de carrosseries de camions et d'équipements frigorifiques.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
