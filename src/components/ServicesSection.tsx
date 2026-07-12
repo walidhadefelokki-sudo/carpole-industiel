@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { servicesData, imageBodywork, imageFrigo, imageConstantinePorteur } from '../data';
 import { Truck, Snowflake, Wrench, CheckCircle2, Shield, ArrowRight } from 'lucide-react';
 import { motion } from 'motion/react';
+import imageMeatInterior from '../assets/images/isothermal_meat_interior_1781889077703.jpg';
+import imageEmptyInterior from '../assets/images/isothermal_empty_interior_1781889101777.jpg';
 
 interface ServicesSectionProps {
   onQuoteClick: () => void;
@@ -135,9 +137,19 @@ export default function ServicesSection({ onQuoteClick }: ServicesSectionProps) 
                             VUE TECHNIQUE
                           </button>
                         </div>
-
-                        {carrosserieView === 'principale' ? (
+                                        {carrosserieView === 'principale' ? (
                           <div className="space-y-3">
+                            <div className="relative aspect-[16/10] w-full rounded-xl overflow-hidden border border-zinc-250 shadow-sm bg-neutral-900">
+                              <img 
+                                src={imageMeatInterior} 
+                                alt="Intérieur carrosserie avec crochets viande" 
+                                className="w-full h-full object-cover"
+                                referrerPolicy="no-referrer"
+                              />
+                              <div className="absolute bottom-2 left-2 bg-neutral-950/80 px-2 py-0.5 rounded text-[8px] font-mono text-white">
+                                VUE PRINCIPALE
+                              </div>
+                            </div>
                             <p className="text-zinc-800 font-sans text-xs font-semibold leading-relaxed">
                               Isolation renforcée sous vide pour le transport basse température (-20°C) de produits congelés.
                             </p>
@@ -178,6 +190,17 @@ export default function ServicesSection({ onQuoteClick }: ServicesSectionProps) 
                           </div>
                         ) : (
                           <div className="space-y-3">
+                            <div className="relative aspect-[16/10] w-full rounded-xl overflow-hidden border border-zinc-250 shadow-sm bg-neutral-900">
+                              <img 
+                                src={imageEmptyInterior} 
+                                alt="Intérieur carrosserie technique vide" 
+                                className="w-full h-full object-cover"
+                                referrerPolicy="no-referrer"
+                              />
+                              <div className="absolute bottom-2 left-2 bg-neutral-950/80 px-2 py-0.5 rounded text-[8px] font-mono text-white">
+                                VUE TECHNIQUE
+                              </div>
+                            </div>
                             <h5 className="text-[10px] font-mono text-amber-600 uppercase tracking-widest font-black mb-2">
                               SÉCURITÉ THERMIQUE CERTIFIÉE
                             </h5>
@@ -253,7 +276,7 @@ export default function ServicesSection({ onQuoteClick }: ServicesSectionProps) 
             
             {/* Visual Left Frame */}
             <div className="lg:col-span-5 bg-neutral-950 p-8 sm:p-12 text-white flex flex-col justify-between relative overflow-hidden">
-              <div className="absolute inset-0 opacity-15">
+              <div className="absolute inset-0 opacity-30">
                 {selectedServiceId === 'carrosserie' && (
                   <img src={imageBodywork} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
                 )}
@@ -293,128 +316,158 @@ export default function ServicesSection({ onQuoteClick }: ServicesSectionProps) 
               {selectedServiceId === 'carrosserie' ? (
                 <div>
                   {/* Category & Title */}
-                  <div className="flex items-center justify-between flex-wrap gap-2 mb-4 border-b border-zinc-100 pb-3">
-                    <span className="text-[10px] font-mono font-black text-zinc-500 tracking-wider">
-                      CARROSSERIE ISOTHERME RENFORCÉE (CLASSE C)
-                    </span>
-                    <div className="flex bg-zinc-100 rounded-lg p-0.5 border border-zinc-200/50">
-                      <button
-                        onClick={() => setCarrosserieView('principale')}
-                        className={`px-3 py-1 text-[10px] font-display font-black uppercase rounded-md tracking-wider transition-all duration-150 ${
-                          carrosserieView === 'principale'
-                            ? 'bg-neutral-900 text-brand-yellow shadow-sm'
-                            : 'text-zinc-600 hover:text-zinc-900'
-                        }`}
-                      >
-                        VUE PRINCIPALE
-                      </button>
-                      <button
-                        onClick={() => setCarrosserieView('technique')}
-                        className={`px-3 py-1 text-[10px] font-display font-black uppercase rounded-md tracking-wider transition-all duration-150 ${
-                          carrosserieView === 'technique'
-                            ? 'bg-neutral-900 text-brand-yellow shadow-sm'
-                            : 'text-zinc-600 hover:text-zinc-900'
-                        }`}
-                      >
-                        VUE TECHNIQUE
-                      </button>
-                    </div>
+                  <div className="flex items-center gap-2 text-zinc-400 font-mono text-[10px] uppercase tracking-wider mb-2 font-black">
+                    <Wrench className="h-3.5 w-3.5 inline text-zinc-500" /> FICHE D'INGÉNIERIE CARPÔLE
                   </div>
 
-                  <h3 className="text-xl sm:text-2xl font-display font-black text-brand-charcoal mb-4 uppercase tracking-tight">
-                    PANNEAUX SANDWICH HAUTE PERFORMANCE 100MM
+                  <h3 className="text-2xl sm:text-3xl font-display font-black text-brand-charcoal mb-1 uppercase tracking-tight">
+                    CARROSSERIE ISOTHERME RENFORCÉE (CLASSE C)
                   </h3>
 
-                  {carrosserieView === 'principale' ? (
-                    <motion.div
-                      initial={{ opacity: 0, y: 4 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.2 }}
-                      className="space-y-6"
-                    >
-                      <div className="space-y-3 text-left">
-                        <p className="text-zinc-800 font-sans text-base font-semibold leading-relaxed">
-                          Isolation renforcée sous vide pour le transport basse température (-20°C) de produits congelés.
-                        </p>
-                        <p className="text-zinc-500 font-sans text-sm leading-relaxed">
-                          Nos ingénieurs et techniciens réalisent ces assemblages certifiés au sein de notre atelier moderne à Constantine, validant chaque étape selon de sévères critères d'isolation thermique.
-                        </p>
+                  <div className="text-[10px] font-mono font-black text-zinc-400 uppercase tracking-widest mb-4">
+                    PANNEAUX SANDWICH HAUTE PERFORMANCE 100MM
+                  </div>
+
+                  <hr className="border-t border-zinc-200/80 mb-6" />
+
+                  {/* Inside layout splits text vs side-by-side images */}
+                  <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 items-start">
+                    
+                    {/* Left content block: 6cols */}
+                    <div className="xl:col-span-7 space-y-4 text-left">
+                      <p className="text-zinc-950 font-sans text-sm sm:text-base font-bold leading-relaxed">
+                        Isolation renforcée sous vide pour le transport basse température (-20°C) de produits congelés.
+                      </p>
+                      
+                      {/* Internal Subtabs */}
+                      <div className="flex bg-zinc-100 rounded-lg p-0.5 border border-zinc-200/50 w-full mb-3">
+                        <button
+                          onClick={() => setCarrosserieView('principale')}
+                          className={`flex-1 py-1 text-[10px] font-display font-black uppercase rounded-md tracking-wider transition-all duration-150 text-center ${
+                            carrosserieView === 'principale'
+                              ? 'bg-neutral-900 text-brand-yellow shadow-sm'
+                              : 'text-zinc-600 hover:text-zinc-950'
+                          }`}
+                        >
+                          Atouts clés
+                        </button>
+                        <button
+                          onClick={() => setCarrosserieView('technique')}
+                          className={`flex-1 py-1 text-[10px] font-display font-black uppercase rounded-md tracking-wider transition-all duration-150 text-center ${
+                            carrosserieView === 'technique'
+                              ? 'bg-neutral-900 text-brand-yellow shadow-sm'
+                              : 'text-zinc-600 hover:text-zinc-950'
+                          }`}
+                        >
+                          Caractéristiques
+                        </button>
                       </div>
 
-                      <div className="pt-4 border-t border-zinc-100">
-                        <h4 className="text-xs font-mono font-bold text-neutral-950 uppercase tracking-widest mb-3">
-                          ATOUTS D'INGÉNIERIE INTÉGRÉS
-                        </h4>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-4">
+                      {carrosserieView === 'principale' ? (
+                        <motion.div
+                          initial={{ opacity: 0, y: 3 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          className="space-y-2 pt-1"
+                        >
                           <div className="flex items-start gap-2">
-                            <span className="text-brand-yellow text-sm font-black shrink-0 mt-0.5">&gt;</span>
-                            <span className="font-sans text-xs text-zinc-700 font-semibold leading-normal">
-                              Plancher renforcé antidérapant en aluminium larmé résistant aux transpalettes
+                            <span className="text-brand-yellow text-xs font-black shrink-0 mt-0.5">&gt;</span>
+                            <span className="font-sans text-xs text-zinc-700 font-semibold leading-relaxed">
+                              Plancher renforcé antidérapant en aluminium larmé résistant aux transpalettes.
                             </span>
                           </div>
                           <div className="flex items-start gap-2">
-                            <span className="text-brand-yellow text-sm font-black shrink-0 mt-0.5">&gt;</span>
-                            <span className="font-sans text-xs text-zinc-700 font-semibold leading-normal">
-                              Rails d'arrimage encastrés en acier inoxydable et plinthe en alu
+                            <span className="text-brand-yellow text-xs font-black shrink-0 mt-0.5">&gt;</span>
+                            <span className="font-sans text-xs text-zinc-700 font-semibold leading-relaxed">
+                              Rails d'arrimage encastrés en acier inoxydable et plinthe en alu.
                             </span>
                           </div>
                           <div className="flex items-start gap-2">
-                            <span className="text-brand-yellow text-sm font-black shrink-0 mt-0.5">&gt;</span>
-                            <span className="font-sans text-xs text-zinc-700 font-semibold leading-normal">
-                              Double joints de portes en élastomère EPDM anti-givre
+                            <span className="text-brand-yellow text-xs font-black shrink-0 mt-0.5">&gt;</span>
+                            <span className="font-sans text-xs text-zinc-700 font-semibold leading-relaxed">
+                              Double joints de portes en élastomère EPDM anti-givre.
                             </span>
                           </div>
                           <div className="flex items-start gap-2">
-                            <span className="text-brand-yellow text-sm font-black shrink-0 mt-0.5">&gt;</span>
-                            <span className="font-sans text-xs text-zinc-700 font-semibold leading-normal">
-                              Huisserie arrière et visserie 100% Inox 314
+                            <span className="text-brand-yellow text-xs font-black shrink-0 mt-0.5">&gt;</span>
+                            <span className="font-sans text-xs text-zinc-700 font-semibold leading-relaxed">
+                              Huisserie arrière et visserie 100% Inox 314.
                             </span>
                           </div>
+                        </motion.div>
+                      ) : (
+                        <motion.div
+                          initial={{ opacity: 0, y: 3 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          className="grid grid-cols-2 gap-2 pt-1"
+                        >
+                          <div className="bg-zinc-50 border border-zinc-150 p-2.5 rounded text-left">
+                            <div className="text-[8px] font-mono text-zinc-400 font-bold uppercase">Isolation</div>
+                            <div className="text-xs font-display font-black text-neutral-900 mt-0.5">80 à 100 mm</div>
+                          </div>
+                          <div className="bg-zinc-50 border border-zinc-150 p-2.5 rounded text-left">
+                            <div className="text-[8px] font-mono text-zinc-400 font-bold uppercase">Trans. K</div>
+                            <div className="text-xs font-display font-black text-neutral-900 mt-0.5">0,36 W/m²K</div>
+                          </div>
+                          <div className="bg-zinc-50 border border-zinc-150 p-2.5 rounded text-left">
+                            <div className="text-[8px] font-mono text-zinc-400 font-bold uppercase">Température</div>
+                            <div className="text-xs font-display font-black text-neutral-900 mt-0.5">-20°C à -25°C</div>
+                          </div>
+                          <div className="bg-zinc-50 border border-zinc-150 p-2.5 rounded text-left">
+                            <div className="text-[8px] font-mono text-zinc-400 font-bold uppercase">ATP</div>
+                            <div className="text-xs font-display font-black text-neutral-900 mt-0.5">FRC (Classe C)</div>
+                          </div>
+                        </motion.div>
+                      )}
+
+                      <p className="text-zinc-500 font-sans text-xs leading-relaxed pt-2">
+                        Nos ingénieurs et techniciens réalisent ces assemblages certifiés au sein de notre atelier moderne à Constantine, validant chaque étape selon de sévères critères d'isolation thermique.
+                      </p>
+                    </div>
+
+                    {/* Right images block: 6cols */}
+                    <div className="xl:col-span-5 grid grid-cols-1 gap-4">
+                      {/* Image Card 1: VUE PRINCIPALE */}
+                      <motion.div 
+                        whileHover={{ scale: 1.02 }}
+                        onClick={() => setCarrosserieView('principale')}
+                        className={`group relative aspect-[4/3] rounded-xl overflow-hidden cursor-pointer border shadow transition-all duration-300 bg-neutral-900 ${
+                          carrosserieView === 'principale' ? 'border-brand-yellow ring-2 ring-brand-yellow/30' : 'border-zinc-200 hover:border-zinc-350'
+                        }`}
+                      >
+                        <img 
+                          src={imageMeatInterior} 
+                          alt="Intérieur carrosserie avec crochets viande" 
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                          referrerPolicy="no-referrer"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+                        <div className="absolute bottom-3 left-3 bg-neutral-950/80 backdrop-blur-sm px-2.5 py-1 rounded text-[9px] font-mono font-bold tracking-widest text-white border border-white/10 group-hover:bg-brand-yellow group-hover:text-black transition-colors">
+                          VUE PRINCIPALE
                         </div>
-                      </div>
-                    </motion.div>
-                  ) : (
-                    <motion.div
-                      initial={{ opacity: 0, y: 4 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.2 }}
-                      className="space-y-6"
-                    >
-                      <div>
-                        <h4 className="text-xs font-mono font-bold text-amber-600 uppercase tracking-widest mb-4">
-                          SÉCURITÉ THERMIQUE CERTIFIÉE
-                        </h4>
-                        
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                          <div className="bg-zinc-50 border border-zinc-200/60 p-3.5 rounded-lg text-left">
-                            <div className="text-[9px] font-mono text-zinc-400 uppercase tracking-wider font-bold">ÉPAISSEUR ISOLATION</div>
-                            <div className="text-sm font-display font-black text-neutral-900 mt-1">80 mm à 100 mm</div>
-                          </div>
-                          
-                          <div className="bg-zinc-50 border border-zinc-200/60 p-3.5 rounded-lg text-left">
-                            <div className="text-[9px] font-mono text-zinc-400 uppercase tracking-wider font-bold">COEFFICIENT DE TRANSMISSION K</div>
-                            <div className="text-sm font-display font-black text-neutral-900 mt-1">0,36 W/m²K (Certifié)</div>
-                          </div>
-                          
-                          <div className="bg-zinc-50 border border-zinc-200/60 p-3.5 rounded-lg text-left">
-                            <div className="text-[9px] font-mono text-zinc-400 uppercase tracking-wider font-bold">TEMPÉRATURE DE SERVICE</div>
-                            <div className="text-sm font-display font-black text-neutral-900 mt-1">-20°C à -25°C</div>
-                          </div>
-                          
-                          <div className="bg-zinc-50 border border-zinc-200/60 p-3.5 rounded-lg text-left">
-                            <div className="text-[9px] font-mono text-zinc-400 uppercase tracking-wider font-bold">HOMOLOGATION ATP</div>
-                            <div className="text-sm font-display font-black text-neutral-900 mt-1">FRC (Classe C)</div>
-                          </div>
+                      </motion.div>
+
+                      {/* Image Card 2: VUE TECHNIQUE */}
+                      <motion.div 
+                        whileHover={{ scale: 1.02 }}
+                        onClick={() => setCarrosserieView('technique')}
+                        className={`group relative aspect-[4/3] rounded-xl overflow-hidden cursor-pointer border shadow transition-all duration-300 bg-neutral-900 ${
+                          carrosserieView === 'technique' ? 'border-brand-yellow ring-2 ring-brand-yellow/30' : 'border-zinc-200 hover:border-zinc-350'
+                        }`}
+                      >
+                        <img 
+                          src={imageEmptyInterior} 
+                          alt="Intérieur carrosserie technique vide" 
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                          referrerPolicy="no-referrer"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+                        <div className="absolute bottom-3 left-3 bg-neutral-950/80 backdrop-blur-sm px-2.5 py-1 rounded text-[9px] font-mono font-bold tracking-widest text-white border border-white/10 group-hover:bg-brand-yellow group-hover:text-black transition-colors">
+                          VUE TECHNIQUE
                         </div>
-                      </div>
-                      
-                      <div className="bg-neutral-50 rounded-lg p-3 border border-dashed border-zinc-200 text-left">
-                        <p className="text-[11px] font-sans text-zinc-500 leading-normal">
-                          Nos ingénieurs et techniciens réalisent ces assemblages certifiés au sein de notre atelier moderne à Constantine, validant chaque étape selon de sévères critères d'isolation thermique.
-                        </p>
-                      </div>
-                    </motion.div>
-                  )}
+                      </motion.div>
+                    </div>
+
+                  </div>
                 </div>
               ) : (
                 <div>

@@ -91,7 +91,7 @@ export default function QuoteSimulator() {
     carrier_small: 'Camionnette & Utilitaire (<3.5t)',
     truck_medium: 'Porteur Moyen (3.5t à 12t)',
     semi_heavy_duty: 'Poids-lourd Rigide (12t à 19t)',
-    custom_project: 'Semi-Remorque & Spéciaux (>19t)'
+    custom_project: 'Camion de Dépannage'
   };
 
   const bodyLabels: Record<string, string> = {
@@ -152,7 +152,7 @@ export default function QuoteSimulator() {
                         { id: 'carrier_small', label: 'Camionnette & Utilitaire (<3.5t)', desc: 'Ex: Hyundai Porter, Kia K2500, DFAC' },
                         { id: 'truck_medium', label: 'Porteur Moyen (3.5t à 12t)', desc: 'Ex: ISUZU NPR, JMC, Renault D-Series' },
                         { id: 'semi_heavy_duty', label: 'Poids-lourd Rigide (12t à 19t)', desc: 'Ex: Mercedes Actros Porteur, Volvo FE' },
-                        { id: 'custom_project', label: 'Semi-Remorque & Spéciaux (>19t)', desc: 'Ex: Remorques frigorifiques de grande taille' }
+                        { id: 'custom_project', label: 'Camion de Dépannage', desc: 'Ex: Dépanneuses, plateaux de remorquage & treuils' }
                       ].map((item) => (
                         <button
                           type="button"

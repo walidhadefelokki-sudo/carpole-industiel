@@ -39,22 +39,20 @@ export default function Hero({ onCtaClick }: HeroProps) {
           src={imageConstantinePorteur}
           alt="Camion Frigorifique Carpôle à Constantine"
           animate={{
-            scale: [1.02, 1.15, 1.05, 1.02],
-            x: [0, 15, -10, 0],
-            y: [0, -10, 5, 0],
+            scale: [1.25, 1.0],
           }}
           transition={{
-            duration: 25,
+            duration: 18,
             repeat: Infinity,
-            repeatType: 'mirror',
+            repeatType: 'reverse',
             ease: 'easeInOut',
           }}
-          className="w-full h-full object-cover object-center opacity-65 sm:opacity-50 md:opacity-30 filter saturate-[95%] brightness-[85%] scale-105"
+          className="w-full h-full object-cover object-center opacity-85 sm:opacity-75 md:opacity-55 filter saturate-[105%] brightness-[98%]"
           referrerPolicy="no-referrer"
         />
         {/* Dark radial and gradient overlay - responsive opacity to keep text absolutely readable */}
-        <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/85 sm:via-neutral-950/80 md:via-neutral-950/70 to-neutral-950/20"></div>
-        <div className="absolute inset-0 bg-radial-gradient from-transparent to-neutral-950/90 md:to-neutral-950/80"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/90 via-neutral-950/65 sm:via-neutral-950/50 md:via-neutral-950/35 to-neutral-950/10"></div>
+        <div className="absolute inset-0 bg-radial-gradient from-transparent to-neutral-950/60 md:to-neutral-950/45"></div>
         
         {/* Subtle decorative grid/dots or moving lights of industrial theme for extra creative touch on mobile */}
         <div className="absolute inset-0 bg-[radial-gradient(#ffffff08_1px,transparent_1px)] [background-size:24px_24px] opacity-60"></div>

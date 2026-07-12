@@ -38,13 +38,13 @@ export default function GallerySection() {
         </div>
 
         {/* Filter categories buttons row */}
-        <div className="flex flex-wrap justify-center items-center gap-2 mb-12">
+        <div className="grid grid-cols-2 md:flex md:flex-wrap justify-center items-center gap-2 mb-12">
           {filters.map((f) => (
             <button
               key={f.id}
               id={`filter-btn-${f.id}`}
               onClick={() => setActiveFilter(f.id as any)}
-              className={`px-4 sm:px-6 py-2 rounded-full font-display font-bold text-xs uppercase tracking-wider transition-all duration-300 border ${
+              className={`w-full md:w-auto text-center px-2 sm:px-6 py-3 sm:py-2 rounded-xl sm:rounded-full font-display font-bold text-[10px] sm:text-xs uppercase tracking-wider transition-all duration-300 border ${
                 activeFilter === f.id
                   ? 'bg-neutral-900 border-neutral-900 text-brand-yellow shadow-md'
                   : 'bg-zinc-100 border-zinc-200 text-zinc-600 hover:bg-zinc-200'
@@ -55,19 +55,19 @@ export default function GallerySection() {
           ))}
         </div>
 
-        {/* Categories Grid displays */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Categories Grid displays with larger items and tighter gaps */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-3 max-w-5xl mx-auto">
           <AnimatePresence mode="popLayout">
             {filteredPhotos.map((photo) => (
               <motion.div
                 layout
-                initial={{ opacity: 0, scale: 0.9 }}
+                initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
+                exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.3 }}
                 key={photo.id}
                 id={`gallery-card-${photo.id}`}
-                className="group relative bg-neutral-900 rounded-xl overflow-hidden aspect-video shadow-lg cursor-pointer transform transition-all duration-300 hover:shadow-2xl"
+                className="group relative bg-neutral-900 rounded-xl overflow-hidden aspect-[4/3] shadow-md cursor-pointer transform transition-all duration-300 hover:shadow-xl"
                 onClick={() => setSelectedPhoto(photo)}
               >
                 
