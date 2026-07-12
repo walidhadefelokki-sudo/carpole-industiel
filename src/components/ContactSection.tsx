@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { Phone, Mail, MapPin, Clock, Send, MessageSquare, ShieldAlert, ChevronDown, Check } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock, Send, ChevronDown, Check } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function ContactSection() {
+  const { t, isRtl } = useLanguage();
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [formName, setFormName] = useState('');
   const [phone, setPhone] = useState('');
@@ -15,27 +17,27 @@ export default function ContactSection() {
 
   const faqs = [
     {
-      q: "Qu’est-ce que la certification thermique ATP et d’Algérie ?",
-      a: "La certification de conformité isotherme est un document réglementaire obligatoire délivré après montage par notre service agréé. Elle atteste que notre paroi et le groupe frigorifique maintiennent la température (-20°C ou +4°C) requise pour la santé publique face aux températures caniculaires algériennes."
+      q: t('contact.faq.0.q'),
+      a: t('contact.faq.0.a')
     },
     {
-      q: "Quelles marques de frigos installez-vous sur les camions ?",
-      a: "Nous installons et raccordons des groupes frigorifiques de classe mondiale tels que Carrier, Thermo King, Zanotti et Dongin Thermo. Notre atelier possède toutes les buses, faisceaux d’origine et calculateurs numériques de reprogrammation pour ces marques."
+      q: t('contact.faq.1.q'),
+      a: t('contact.faq.1.a')
     },
     {
-      q: "Proposez-vous le service d’entretien de la carrosserie seulement ?",
-      a: "Oui absolument. En dehors de l’assemblage initial, notre atelier effectue la re-conception, la réparation des ponts thermiques de cloisons endommagées, la soudure inox du plancher, le changement de rideaux à lanières et la correction des étanchéités de portes arrières."
+      q: t('contact.faq.2.q'),
+      a: t('contact.faq.2.a')
     },
     {
-      q: "Quels sont vos délais d’intervention à Constantine ?",
-      a: "Pour une simple pose de groupe frigorifique, le délai est de 2 à 4 jours ouvrés. Pour une structure de carrosserie isotherme complète fabriquée sur-mesure (panneaux + faux-châssis + frigo), comptez entre 6 et 14 jours selon le volume du châssis carrossé."
+      q: t('contact.faq.3.q'),
+      a: t('contact.faq.3.a')
     }
   ];
 
   const handleContactSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formName || !phone) {
-      alert("Veuillez saisir au moins votre nom et votre numéro de téléphone.");
+      alert(t('quote.error_fill'));
       return;
     }
     setFormSubmitted(true);
@@ -57,13 +59,13 @@ export default function ContactSection() {
         {/* Contact Headers */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-xs font-display font-extrabold text-brand-yellow bg-neutral-900 px-3 py-1 rounded-full uppercase tracking-widest inline-block mb-3">
-            Contact & Support Technique
+            {isRtl ? 'الاتصال والدعم الفني والمهني' : 'Contact & Support Technique'}
           </span>
-          <h2 className="text-3xl sm:text-4xl font-display font-black text-brand-charcoal tracking-tight">
-            Prêt à Équiper Votre Véhicule ?
+          <h2 className="text-3xl sm:text-4xl font-display font-black text-brand-charcoal tracking-tight leading-tight">
+            {t('contact.title')}
           </h2>
           <p className="text-zinc-600 font-sans mt-3 text-lg leading-relaxed">
-            Contactez notre bureau d’études techniques à Constantine ou venez directement nous rencontrer pour un audit physique de vos camions.
+            {t('contact.subtitle')}
           </p>
         </div>
 
@@ -71,59 +73,77 @@ export default function ContactSection() {
           
           {/* LEFT 5 COLUMNS: Contact details, business hours & FAQ */}
           <div className="lg:col-span-5 space-y-8">
+
+            {/* Google Maps Embed Frame */}
+            <div className="w-full h-64 bg-zinc-100 rounded-2xl overflow-hidden border border-zinc-200 shadow-sm relative group">
+              <iframe
+                title="Localisation Carpôle Industriel - Constantine"
+                src="https://maps.google.com/maps?q=8JVR%2B9C6%2C%20Constantine&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                className="w-full h-full border-0 filter grayscale contrast-125 opacity-90 group-hover:opacity-100 transition-opacity duration-300"
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              ></iframe>
+              <div className="absolute bottom-3 left-3 bg-neutral-900/90 text-white text-[10px] font-mono px-2.5 py-1 rounded border border-white/10 flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-brand-yellow animate-ping animate-duration-1000"></span>
+                <span>8JVR+9C6, Constantine</span>
+              </div>
+            </div>
             
             {/* Coordination details element */}
             <div className="bg-neutral-50 rounded-2xl p-6 sm:p-8 border border-zinc-200 shadow-sm space-y-6">
-              <h3 className="font-display font-black text-lg text-brand-charcoal border-b border-zinc-200 pb-3">
-                Coordonnées de l'Atelier
+              <h3 className={`font-display font-black text-lg text-brand-charcoal border-b border-zinc-200 pb-3 ${isRtl ? 'text-right' : 'text-left'}`}>
+                {t('contact.info.title')}
               </h3>
               
               <div className="space-y-4">
                 
                 {/* Physical Location */}
-                <div className="flex gap-4 items-start">
+                <div className={`flex gap-4 items-start ${isRtl ? 'flex-row-reverse text-right' : 'flex-row text-left'}`}>
                   <div className="p-2.5 bg-brand-yellow/10 text-brand-charcoal rounded-lg shrink-0">
                     <MapPin className="h-5 w-5 text-brand-yellow font-bold" />
                   </div>
                   <div>
-                    <h4 className="font-display font-bold text-sm text-neutral-800">Adresse Physique</h4>
-                    <p className="font-sans text-xs text-zinc-600 mt-1">Zone Industrielle Palma, RN 5, Constantine, 25000, Algérie</p>
+                    <h4 className="font-display font-bold text-sm text-neutral-800">{t('contact.info.addr')}</h4>
+                    <p className="font-sans text-xs text-zinc-600 mt-1">{t('contact.info.addr_desc')}</p>
                   </div>
                 </div>
 
                 {/* Telephone */}
-                <div className="flex gap-4 items-start">
+                <div className={`flex gap-4 items-start ${isRtl ? 'flex-row-reverse text-right' : 'flex-row text-left'}`}>
                   <div className="p-2.5 bg-brand-yellow/10 text-brand-charcoal rounded-lg shrink-0">
                     <Phone className="h-5 w-5 text-brand-yellow" />
                   </div>
                   <div>
-                    <h4 className="font-display font-bold text-sm text-neutral-800">Service Commercial & Atelier</h4>
-                    <p className="font-sans text-xs text-zinc-600 mt-1 font-semibold">+213 (0) 31 66 12 34 <span className="text-zinc-400 font-normal">(Fixe Constantine)</span></p>
-                    <p className="font-sans text-xs text-zinc-600 font-semibold">+213 (0) 550 88 14 22 <span className="text-zinc-400 font-normal">(Mobile)</span></p>
+                    <h4 className="font-display font-bold text-sm text-neutral-800">{t('contact.info.tel')}</h4>
+                    <p className="font-sans text-xs text-zinc-600 mt-1 font-semibold" dir="ltr">
+                      0770 97 32 53
+                    </p>
+                    <p className="font-sans text-xs text-zinc-600 font-semibold" dir="ltr">
+                      0770 97 32 03
+                    </p>
                   </div>
                 </div>
 
                 {/* Email Address */}
-                <div className="flex gap-4 items-start">
+                <div className={`flex gap-4 items-start ${isRtl ? 'flex-row-reverse text-right' : 'flex-row text-left'}`}>
                   <div className="p-2.5 bg-brand-yellow/10 text-brand-charcoal rounded-lg shrink-0">
                     <Mail className="h-5 w-5 text-brand-yellow" />
                   </div>
                   <div>
-                    <h4 className="font-display font-bold text-sm text-neutral-800">Support par Courriel</h4>
-                    <p className="font-sans text-xs text-zinc-600 mt-1 font-mono">contact@carpole-industriel.dz</p>
-                    <p className="font-sans text-xs text-zinc-500 font-mono">medi.belabed@gmail.com</p>
+                    <h4 className="font-display font-bold text-sm text-neutral-800">{t('contact.info.email')}</h4>
+                    <p className="font-sans text-xs text-zinc-600 mt-1 font-mono">a.derrouiche@motorest-dz.com</p>
                   </div>
                 </div>
 
                 {/* Work timetable */}
-                <div className="flex gap-4 items-start">
+                <div className={`flex gap-4 items-start ${isRtl ? 'flex-row-reverse text-right' : 'flex-row text-left'}`}>
                   <div className="p-2.5 bg-brand-yellow/10 text-brand-charcoal rounded-lg shrink-0">
                     <Clock className="h-5 w-5 text-brand-yellow" />
                   </div>
                   <div>
-                    <h4 className="font-display font-bold text-sm text-neutral-800">Heures d’Ouverture</h4>
-                    <p className="font-sans text-xs text-zinc-600 mt-1">Dimanche - Jeudi : 08h00 - 17h00</p>
-                    <p className="font-sans text-xs text-zinc-600">Samedi (Maintenance Urgente) : 08h00 - 12h00</p>
+                    <h4 className="font-display font-bold text-sm text-neutral-800">{t('contact.info.hours')}</h4>
+                    <p className="font-sans text-xs text-zinc-600 mt-1">{t('contact.info.hours_desc')}</p>
                   </div>
                 </div>
 
@@ -132,8 +152,8 @@ export default function ContactSection() {
 
             {/* Interactive FAQ Accordion */}
             <div className="space-y-3">
-              <h3 className="font-display font-black text-lg text-brand-charcoal mb-4">
-                Questions Fréquentes
+              <h3 className={`font-display font-black text-lg text-brand-charcoal mb-4 ${isRtl ? 'text-right' : 'text-left'}`}>
+                {t('contact.faq.title')}
               </h3>
               
               {faqs.map((faq, index) => {
@@ -144,7 +164,7 @@ export default function ContactSection() {
                       type="button"
                       id={`faq-toggle-${index}`}
                       onClick={() => setOpenFaqIndex(isOpen ? null : index)}
-                      className="w-full flex justify-between items-center p-4 text-left font-display font-bold text-sm text-neutral-900 bg-zinc-50 hover:bg-zinc-100 transition-colors"
+                      className={`w-full flex justify-between items-center p-4 font-display font-bold text-sm text-neutral-900 bg-zinc-50 hover:bg-zinc-100 transition-colors ${isRtl ? 'flex-row-reverse text-right' : 'flex-row text-left'}`}
                     >
                       <span>{faq.q}</span>
                       <ChevronDown className={`h-4 w-4 text-zinc-500 transition-transform duration-300 ${isOpen ? 'transform rotate-180' : ''}`} />
@@ -159,7 +179,7 @@ export default function ContactSection() {
                           transition={{ duration: 0.2 }}
                           className="overflow-hidden"
                         >
-                          <p className="p-4 font-sans text-xs text-zinc-600 leading-relaxed border-t border-zinc-100 bg-white">
+                          <p className={`p-4 font-sans text-xs text-zinc-600 leading-relaxed border-t border-zinc-100 bg-white ${isRtl ? 'text-right' : 'text-left'}`}>
                             {faq.a}
                           </p>
                         </motion.div>
@@ -180,87 +200,93 @@ export default function ContactSection() {
 
               <AnimatePresence mode="wait">
                 {!formSubmitted ? (
-                  <form onSubmit={handleContactSubmit} className="space-y-6">
+                  <form onSubmit={handleContactSubmit} className={`space-y-6 ${isRtl ? 'text-right' : 'text-left'}`}>
                     <div>
-                      <h3 className="font-display font-black text-xl text-white mb-1">Écrivez à Nos Ingénieurs</h3>
-                      <p className="font-sans text-xs text-zinc-400">Remplissez ce formulaire d'étude de faisabilité d'atelier.</p>
+                      <h3 className="font-display font-black text-xl text-white mb-1">
+                        {isRtl ? 'راسل مهندسي ورشتنا' : 'Écrivez à Nos Ingénieurs'}
+                      </h3>
+                      <p className="font-sans text-xs text-zinc-400">
+                        {isRtl ? 'يرجى ملء الاستمارة أدناه لإجراء دراسة الجدوى وتخطيط أسطول شاحناتك.' : 'Remplissez ce formulaire d\'étude de faisabilité d\'atelier.'}
+                      </p>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-xs font-mono font-bold text-zinc-300 uppercase tracking-widest mb-1.5">Nom Complet *</label>
+                        <label className={`block text-xs font-mono font-bold text-zinc-300 uppercase tracking-widest mb-1.5 ${isRtl ? 'text-right' : 'text-left'}`}>{t('contact.form.name')} *</label>
                         <input
                           required
                           type="text"
                           id="form-contact-name"
-                          placeholder="Ex: Salim Belkacem"
+                          placeholder={t('contact.form.placeholder.name')}
                           value={formName}
                           onChange={(e) => setFormName(e.target.value)}
-                          className="w-full bg-neutral-950 border border-white/10 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-yellow"
+                          className={`w-full bg-neutral-950 border border-white/10 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-yellow ${isRtl ? 'text-right' : 'text-left'}`}
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-mono font-bold text-zinc-300 uppercase tracking-widest mb-1.5">Téléphone *</label>
+                        <label className={`block text-xs font-mono font-bold text-zinc-300 uppercase tracking-widest mb-1.5 ${isRtl ? 'text-right' : 'text-left'}`}>{isRtl ? 'الهاتف الجوال *' : 'Téléphone *'}</label>
                         <input
                           required
                           type="tel"
                           id="form-contact-phone"
-                          placeholder="Ex: 0550 12 34 56"
+                          placeholder={isRtl ? 'مثال: XX XX XX 0550' : 'Ex: 0550 12 34 56'}
                           value={phone}
                           onChange={(e) => setPhone(e.target.value)}
-                          className="w-full bg-neutral-950 border border-white/10 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-yellow"
+                          className={`w-full bg-neutral-950 border border-white/10 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-yellow ${isRtl ? 'text-right' : 'text-left'}`}
                         />
                       </div>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-xs font-mono font-bold text-zinc-300 uppercase tracking-widest mb-1.5">E-mail</label>
+                        <label className={`block text-xs font-mono font-bold text-zinc-300 uppercase tracking-widest mb-1.5 ${isRtl ? 'text-right' : 'text-left'}`}>{t('contact.form.email')}</label>
                         <input
                           type="email"
                           id="form-contact-email"
-                          placeholder="Email professionnel"
+                          placeholder={t('contact.form.placeholder.email')}
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
-                          className="w-full bg-neutral-950 border border-white/10 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-yellow"
+                          className={`w-full bg-neutral-950 border border-white/10 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-yellow ${isRtl ? 'text-right' : 'text-left'}`}
                         />
                       </div>
                       
                       <div>
-                        <label className="block text-xs font-mono font-bold text-zinc-300 uppercase tracking-widest mb-1.5">Sujet d’intérêt</label>
+                        <label className={`block text-xs font-mono font-bold text-zinc-300 uppercase tracking-widest mb-1.5 ${isRtl ? 'text-right' : 'text-left'}`}>{t('contact.form.subject')}</label>
                         <select
                           id="form-contact-subject"
                           value={subject}
                           onChange={(e) => setSubject(e.target.value)}
-                          className="w-full bg-neutral-950 border border-white/10 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-yellow appearance-none"
+                          className={`w-full bg-neutral-950 border border-white/10 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-yellow appearance-none ${isRtl ? 'text-right' : 'text-left'}`}
                         >
-                          <option value="carrosserie">Construction de Carrosserie</option>
-                          <option value="frigo">Montage de Groupe Frigo</option>
-                          <option value="maintenance">Maintenance ou Réparation d’urgence</option>
-                          <option value="autre">Autre demande industrielle</option>
+                          <option value="carrosserie">{isRtl ? 'بناء وتجهيز الهيكل' : 'Construction de Carrosserie'}</option>
+                          <option value="frigo">{isRtl ? 'تركيب وحدة تبريد' : 'Montage de Groupe Frigo'}</option>
+                          <option value="maintenance">{isRtl ? 'صيانة أو إصلاح عاجل' : 'Maintenance ou Réparation d’urgence'}</option>
+                          <option value="autre">{isRtl ? 'طلب صناعي آخر' : 'Autre demande industrielle'}</option>
                         </select>
                       </div>
                     </div>
 
                     <div>
-                      <label className="block text-xs font-mono font-bold text-zinc-300 uppercase tracking-widest mb-1.5">Détaillez votre projet ou dimensions de châssis</label>
+                      <label className={`block text-xs font-mono font-bold text-zinc-300 uppercase tracking-widest mb-1.5 ${isRtl ? 'text-right' : 'text-left'}`}>
+                        {isRtl ? 'تفاصيل مشروعك أو أبعاد ومواصفات الشاسيه' : 'Détaillez votre projet ou dimensions de châssis'}
+                      </label>
                       <textarea
                         id="form-contact-msg"
                         rows={4}
-                        placeholder="Précisez la marque de votre véhicule, l'année du modèle, le volume utile souhaité, ou s'il s'agit d'une cargaison spécifique (produits laitiers, crème glacée, viandes suspendues)..."
+                        placeholder={t('contact.form.placeholder.message')}
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}
-                        className="w-full bg-neutral-950 border border-white/10 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-yellow"
+                        className={`w-full bg-neutral-950 border border-white/10 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-yellow ${isRtl ? 'text-right' : 'text-left'}`}
                       />
                     </div>
 
                     <button
                       type="submit"
                       id="btn-send-message"
-                      className="w-full py-3.5 bg-brand-yellow hover:bg-amber-400 text-brand-charcoal text-center font-display font-black text-xs uppercase tracking-widest rounded-lg transition-all duration-300 flex items-center justify-center gap-2"
+                      className="w-full py-4 bg-brand-yellow hover:bg-neutral-950 text-brand-charcoal hover:text-brand-yellow text-center font-display font-black text-xs uppercase tracking-widest rounded-lg transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
                     >
-                      <span>Envoyer ma demande technique</span>
-                      <Send className="h-4 w-4" />
+                      <span>{t('contact.form.send')}</span>
+                      <Send className={`h-4 w-4 shrink-0 ${isRtl ? 'transform rotate-180' : ''}`} />
                     </button>
 
                   </form>
@@ -275,14 +301,20 @@ export default function ContactSection() {
                     </div>
 
                     <div className="space-y-2">
-                      <h4 className="font-display font-black text-2xl text-white">Message Reçu avec Succès !</h4>
+                      <h4 className="font-display font-black text-2xl text-white">
+                        {isRtl ? 'تم استلام رسالتكم بنجاح!' : 'Message Reçu avec Succès !'}
+                      </h4>
                       <p className="font-sans text-sm text-zinc-400 max-w-md mx-auto">
-                        Merci <span className="text-white font-bold">{formName}</span>. Votre demande de conseil a été transmise directement à notre directeur de travaux à Constantine.
+                        {isRtl ? (
+                          <>شكراً <span className="text-white font-bold">{formName}</span>. تم إرسال رسالتكم وطلب الدعم الفني مباشرة لمدير ورشتنا في قسنطينة.</>
+                        ) : (
+                          <>Merci <span className="text-white font-bold">{formName}</span>. Votre demande de conseil a été transmise directement à notre directeur de travaux à Constantine.</>
+                        )}
                       </p>
                     </div>
 
                     <p className="font-sans text-xs text-zinc-500 italic max-w-sm mx-auto">
-                      Un technicien spécialisé va analyser votre volume de véhicule et vous répondre par e-mail ou par téléphone sous 24 heures maximum.
+                      {isRtl ? 'سيقوم مهندس مختص بدراسة تفاصيل مركبتك والرد عليك عبر الهاتف أو البريد الإلكتروني في غضون 24 ساعة كحد أقصى.' : 'Un technicien spécialisé va analyser votre volume de véhicule et vous répondre par e-mail ou par téléphone sous 24 heures maximum.'}
                     </p>
 
                     <button
@@ -291,7 +323,7 @@ export default function ContactSection() {
                       onClick={handleResetForm}
                       className="px-6 py-2.5 bg-white/5 hover:bg-white/10 text-white rounded-lg font-display text-xs font-bold uppercase transition-colors"
                     >
-                      Écrire un autre message
+                      {isRtl ? 'إرسال رسالة أخرى' : 'Écrire un autre message'}
                     </button>
                   </motion.div>
                 )}

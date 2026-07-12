@@ -10,6 +10,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
+import { useLanguage } from './context/LanguageContext';
 import Hero from './components/Hero';
 import ServicesSection from './components/ServicesSection';
 import QuoteSimulator from './components/QuoteSimulator';
@@ -21,6 +22,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Compass, ShieldCheck, Truck } from 'lucide-react';
 
 export default function App() {
+  const { lang, isRtl, t } = useLanguage();
   const [activeTab, setActiveTab] = useState('accueil');
   const [isPageLoading, setIsPageLoading] = useState(true);
 
@@ -73,7 +75,7 @@ export default function App() {
   };
 
   return (
-    <div className="relative overflow-x-hidden min-h-screen font-sans selection:bg-brand-yellow selection:text-brand-charcoal">
+    <div dir={isRtl ? 'rtl' : 'ltr'} className={`relative overflow-x-hidden min-h-screen font-sans selection:bg-brand-yellow selection:text-brand-charcoal ${isRtl ? 'text-right' : 'text-left'}`}>
       
       {/* 1. Subtle, high-end page entry loading animation screen */}
       <AnimatePresence>
@@ -127,7 +129,7 @@ export default function App() {
                     }}
                     className="relative flex items-center justify-center w-10 h-10 rounded-lg border border-brand-yellow/50 bg-neutral-950 text-brand-yellow shadow-lg shadow-brand-yellow/5"
                   >
-                    <span className="font-display font-black text-sm">C</span>
+                    <span className="font-display font-black text-sm">{isRtl ? 'ك' : 'C'}</span>
                     <div className="absolute top-0.5 right-0.5 w-2 h-2 bg-brand-yellow rounded-sm"></div>
                   </motion.div>
 
@@ -149,8 +151,8 @@ export default function App() {
               </div>
 
               <div className="space-y-1">
-                <h3 className="font-display font-black text-xl tracking-widest text-white">CARPÔLE INDUSTRIEL</h3>
-                <p className="font-sans text-[10px] text-brand-yellow font-bold uppercase tracking-[0.3em]">Constantine, Algérie</p>
+                <h3 className="font-display font-black text-xl tracking-widest text-white">{t('preloader.title')}</h3>
+                <p className="font-sans text-[10px] text-brand-yellow font-bold uppercase tracking-[0.3em]">{t('preloader.location')}</p>
               </div>
 
               {/* Progress wireline indicator */}

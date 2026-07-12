@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { servicesData, imageBodywork, imageFrigo, imageConstantinePorteur } from '../data';
-import { Truck, Snowflake, Wrench, CheckCircle2, Shield, ArrowRight } from 'lucide-react';
+import { Truck, Snowflake, Wrench, CheckCircle2, Shield, ArrowRight, ArrowLeft } from 'lucide-react';
 import { motion } from 'motion/react';
 import imageMeatInterior from '../assets/images/isothermal_meat_interior_1781889077703.jpg';
 import imageEmptyInterior from '../assets/images/isothermal_empty_interior_1781889101777.jpg';
+import { useLanguage } from '../context/LanguageContext';
 
 interface ServicesSectionProps {
   onQuoteClick: () => void;
@@ -12,6 +13,7 @@ interface ServicesSectionProps {
 export default function ServicesSection({ onQuoteClick }: ServicesSectionProps) {
   const [selectedServiceId, setSelectedServiceId] = useState('carrosserie');
   const [carrosserieView, setCarrosserieView] = useState<'principale' | 'technique'>('principale');
+  const { t, isRtl } = useLanguage();
 
   const getIcon = (name: string) => {
     switch (name) {
@@ -35,13 +37,13 @@ export default function ServicesSection({ onQuoteClick }: ServicesSectionProps) 
         {/* Section Heading & Copy */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-sm font-display font-extrabold text-brand-yellow bg-neutral-900 px-3 py-1 rounded-full uppercase tracking-widest inline-block mb-3">
-            Savoir-Faire Certifié
+            {t('services.badge')}
           </span>
           <h2 className="text-3xl sm:text-4xl font-display font-black text-brand-charcoal tracking-tight mt-1">
-            Nos Métiers de l’Isolation & du Froid
+            {t('services.title')}
           </h2>
           <p className="text-zinc-600 font-sans mt-3 text-lg leading-relaxed">
-            De la tôle robuste aux groupes réfrigérants intelligents, nous offrons une synergie d’ingénierie mécanique et thermique pour équiper vos véhicules utilitaires.
+            {t('services.subtitle')}
           </p>
         </div>
 
@@ -57,7 +59,7 @@ export default function ServicesSection({ onQuoteClick }: ServicesSectionProps) 
                 <button
                   id={`btn-service-${service.id}`}
                   onClick={() => setSelectedServiceId(service.id)}
-                  className={`w-full relative text-left p-6 rounded-xl border transition-all duration-300 transform hover:-translate-y-1 ${
+                  className={`w-full relative ${isRtl ? 'text-right' : 'text-left'} p-6 rounded-xl border transition-all duration-300 transform hover:-translate-y-1 ${
                     isSelected
                       ? 'bg-neutral-900 border-neutral-900 text-white shadow-xl shadow-neutral-900/10'
                       : 'bg-white border-zinc-200 text-brand-charcoal hover:shadow-lg'
@@ -67,18 +69,22 @@ export default function ServicesSection({ onQuoteClick }: ServicesSectionProps) 
                     {getIcon(service.iconName)}
                   </div>
                   
-                  <h3 className="font-display font-bold text-lg mb-2">{service.title}</h3>
+                  <h3 className="font-display font-bold text-lg mb-2">{t(`services.${service.id}.title`)}</h3>
                   <p className={`font-sans text-xs line-clamp-2 ${isSelected ? 'text-zinc-300' : 'text-zinc-500'}`}>
-                    {service.description}
+                    {t(`services.${service.id}.description`)}
                   </p>
                   
                   <div className="mt-4 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider">
-                    <span className={isSelected ? 'text-brand-yellow' : 'text-neutral-900'}>En savoir plus</span>
-                    <ArrowRight className={`h-3 w-3 ${isSelected ? 'text-brand-yellow' : 'text-neutral-900'}`} />
+                    <span className={isSelected ? 'text-brand-yellow' : 'text-neutral-900'}>{t('services.learn_more')}</span>
+                    {isRtl ? (
+                      <ArrowLeft className={`h-3 w-3 ${isSelected ? 'text-brand-yellow' : 'text-neutral-900'}`} />
+                    ) : (
+                      <ArrowRight className={`h-3 w-3 ${isSelected ? 'text-brand-yellow' : 'text-neutral-900'}`} />
+                    )}
                   </div>
                   
                   {isSelected && (
-                    <div className="absolute right-4 top-4 w-2 h-2 rounded-full bg-brand-yellow"></div>
+                    <div className={`absolute ${isRtl ? 'left-4' : 'right-4'} top-4 w-2 h-2 rounded-full bg-brand-yellow`}></div>
                   )}
                 </button>
 
@@ -100,14 +106,14 @@ export default function ServicesSection({ onQuoteClick }: ServicesSectionProps) 
                             ? imageFrigo
                             : imageConstantinePorteur
                         }
-                        alt={service.title}
+                        alt={t(`services.${service.id}.title`)}
                         className="w-full h-full object-cover opacity-60"
                         referrerPolicy="no-referrer"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/80 via-neutral-950/20 to-transparent flex flex-col justify-end p-4">
-                        <span className="text-[10px] font-mono text-brand-yellow uppercase tracking-widest font-bold">Zoom sur le service</span>
+                        <span className="text-[10px] font-mono text-brand-yellow uppercase tracking-widest font-bold">{t('services.key_assets')}</span>
                         <h4 className="text-lg font-display font-black text-white mt-1 leading-tight">
-                          {service.title}
+                          {t(`services.${service.id}.title`)}
                         </h4>
                       </div>
                     </div>
@@ -124,7 +130,7 @@ export default function ServicesSection({ onQuoteClick }: ServicesSectionProps) 
                                 : 'text-zinc-600 hover:text-zinc-900'
                             }`}
                           >
-                            VUE PRINCIPALE
+                            {t('services.view_main')}
                           </button>
                           <button
                             onClick={(e) => { e.stopPropagation(); setCarrosserieView('technique'); }}
@@ -134,57 +140,41 @@ export default function ServicesSection({ onQuoteClick }: ServicesSectionProps) 
                                 : 'text-zinc-600 hover:text-zinc-900'
                             }`}
                           >
-                            VUE TECHNIQUE
+                            {t('services.view_tech')}
                           </button>
                         </div>
-                                        {carrosserieView === 'principale' ? (
+                        {carrosserieView === 'principale' ? (
                           <div className="space-y-3">
                             <div className="relative aspect-[16/10] w-full rounded-xl overflow-hidden border border-zinc-250 shadow-sm bg-neutral-900">
                               <img 
                                 src={imageMeatInterior} 
-                                alt="Intérieur carrosserie avec crochets viande" 
+                                alt="Intérieur" 
                                 className="w-full h-full object-cover"
                                 referrerPolicy="no-referrer"
                               />
                               <div className="absolute bottom-2 left-2 bg-neutral-950/80 px-2 py-0.5 rounded text-[8px] font-mono text-white">
-                                VUE PRINCIPALE
+                                {t('services.view_main')}
                               </div>
                             </div>
                             <p className="text-zinc-800 font-sans text-xs font-semibold leading-relaxed">
-                              Isolation renforcée sous vide pour le transport basse température (-20°C) de produits congelés.
+                              {t('services.carrosserie.principale.title')}
                             </p>
                             <p className="text-zinc-500 font-sans text-[11px] leading-relaxed">
-                              Nos ingénieurs et techniciens réalisent ces assemblages certifiés au sein de notre atelier moderne à Constantine, validant chaque étape selon de sévères critères d'isolation thermique.
+                              {t('services.carrosserie.principale.desc')}
                             </p>
                             <div className="pt-2 border-t border-zinc-100">
                               <h5 className="text-[10px] font-mono text-neutral-900 uppercase tracking-widest font-black mb-1.5">
-                                ATOUTS D'INGÉNIERIE INTÉGRÉS
+                                {t('services.carrosserie.engineering_title')}
                               </h5>
                               <div className="space-y-1.5">
-                                <div className="flex items-start gap-1.5">
-                                  <span className="text-brand-yellow text-xs font-black shrink-0">&gt;</span>
-                                  <span className="font-sans text-[11px] text-zinc-700 font-semibold leading-normal">
-                                    Plancher renforcé antidérapant en aluminium larmé résistant aux transpalettes
-                                  </span>
-                                </div>
-                                <div className="flex items-start gap-1.5">
-                                  <span className="text-brand-yellow text-xs font-black shrink-0">&gt;</span>
-                                  <span className="font-sans text-[11px] text-zinc-700 font-semibold leading-normal">
-                                    Rails d'arrimage encastrés en acier inoxydable et plinthe en alu
-                                  </span>
-                                </div>
-                                <div className="flex items-start gap-1.5">
-                                  <span className="text-brand-yellow text-xs font-black shrink-0">&gt;</span>
-                                  <span className="font-sans text-[11px] text-zinc-700 font-semibold leading-normal">
-                                    Double joints de portes en élastomère EPDM anti-givre
-                                  </span>
-                                </div>
-                                <div className="flex items-start gap-1.5">
-                                  <span className="text-brand-yellow text-xs font-black shrink-0">&gt;</span>
-                                  <span className="font-sans text-[11px] text-zinc-700 font-semibold leading-normal">
-                                    Huisserie arrière et visserie 100% Inox 314
-                                  </span>
-                                </div>
+                                {[0, 1, 2, 3, 4].map((idx) => (
+                                  <div key={idx} className="flex items-start gap-1.5">
+                                    <span className="text-brand-yellow text-xs font-black shrink-0">&gt;</span>
+                                    <span className="font-sans text-[11px] text-zinc-700 font-semibold leading-normal">
+                                      {t(`services.carrosserie.adv.${idx}`)}
+                                    </span>
+                                  </div>
+                                ))}
                               </div>
                             </div>
                           </div>
@@ -193,33 +183,33 @@ export default function ServicesSection({ onQuoteClick }: ServicesSectionProps) 
                             <div className="relative aspect-[16/10] w-full rounded-xl overflow-hidden border border-zinc-250 shadow-sm bg-neutral-900">
                               <img 
                                 src={imageEmptyInterior} 
-                                alt="Intérieur carrosserie technique vide" 
+                                alt="Intérieur technique" 
                                 className="w-full h-full object-cover"
                                 referrerPolicy="no-referrer"
                               />
                               <div className="absolute bottom-2 left-2 bg-neutral-950/80 px-2 py-0.5 rounded text-[8px] font-mono text-white">
-                                VUE TECHNIQUE
+                                {t('services.view_tech')}
                               </div>
                             </div>
                             <h5 className="text-[10px] font-mono text-amber-600 uppercase tracking-widest font-black mb-2">
-                              SÉCURITÉ THERMIQUE CERTIFIÉE
+                              {t('services.carrosserie.security_title')}
                             </h5>
                             <div className="grid grid-cols-2 gap-2">
-                              <div className="bg-zinc-50 border border-zinc-200/60 p-2.5 rounded-lg">
-                                <div className="text-[8px] font-mono text-zinc-400 uppercase tracking-wider font-bold">ÉPAISSEUR ISOLATION</div>
-                                <div className="text-[11px] font-sans font-extrabold text-neutral-900 mt-0.5">80 mm à 100 mm</div>
+                              <div className="bg-zinc-50 border border-zinc-200/60 p-2.5 rounded-lg text-left">
+                                <div className="text-[8px] font-mono text-zinc-400 uppercase tracking-wider font-bold">{t('services.char.thickness')}</div>
+                                <div className="text-[11px] font-sans font-extrabold text-neutral-900 mt-0.5">{t('services.char.thickness_val')}</div>
                               </div>
-                              <div className="bg-zinc-50 border border-zinc-200/60 p-2.5 rounded-lg">
-                                <div className="text-[8px] font-mono text-zinc-400 uppercase tracking-wider font-bold">COEFF. TRANSMISSION K</div>
-                                <div className="text-[11px] font-sans font-extrabold text-neutral-900 mt-0.5">0,36 W/m²K (Certifié)</div>
+                              <div className="bg-zinc-50 border border-zinc-200/60 p-2.5 rounded-lg text-left">
+                                <div className="text-[8px] font-mono text-zinc-400 uppercase tracking-wider font-bold">{t('services.char.k_coeff')}</div>
+                                <div className="text-[11px] font-sans font-extrabold text-neutral-900 mt-0.5">{t('services.char.k_coeff_val')}</div>
                               </div>
-                              <div className="bg-zinc-50 border border-zinc-200/60 p-2.5 rounded-lg">
-                                <div className="text-[8px] font-mono text-zinc-400 uppercase tracking-wider font-bold">TEMPÉRATURE DE SERVICE</div>
-                                <div className="text-[11px] font-sans font-extrabold text-neutral-900 mt-0.5">-20°C à -25°C</div>
+                              <div className="bg-zinc-50 border border-zinc-200/60 p-2.5 rounded-lg text-left">
+                                <div className="text-[8px] font-mono text-zinc-400 uppercase tracking-wider font-bold">{t('services.char.temp')}</div>
+                                <div className="text-[11px] font-sans font-extrabold text-neutral-900 mt-0.5">{t('services.char.temp_val')}</div>
                               </div>
-                              <div className="bg-zinc-50 border border-zinc-200/60 p-2.5 rounded-lg">
-                                <div className="text-[8px] font-mono text-zinc-400 uppercase tracking-wider font-bold">HOMOLOGATION ATP</div>
-                                <div className="text-[11px] font-sans font-extrabold text-neutral-900 mt-0.5">FRC (Classe C)</div>
+                              <div className="bg-zinc-50 border border-zinc-200/60 p-2.5 rounded-lg text-left">
+                                <div className="text-[8px] font-mono text-zinc-400 uppercase tracking-wider font-bold">{t('services.char.atp')}</div>
+                                <div className="text-[11px] font-sans font-extrabold text-neutral-900 mt-0.5">{t('services.char.atp_val')}</div>
                               </div>
                             </div>
                           </div>
@@ -229,18 +219,18 @@ export default function ServicesSection({ onQuoteClick }: ServicesSectionProps) 
                       <div className="space-y-3">
                         <div>
                           <h5 className="text-[10px] font-mono text-amber-600 uppercase tracking-wider inline-block mb-2 font-bold">
-                            Spécifications & Atouts
+                            {t('services.specifications_title')}
                           </h5>
                           <p className="text-zinc-700 font-sans text-xs leading-relaxed">
-                            {service.longDescription}
+                            {t(`services.${service.id}.longDescription`)}
                           </p>
                         </div>
 
                         <div className="space-y-2 pt-2 border-t border-zinc-150">
-                          {service.advantages.map((adv, index) => (
-                            <div key={index} className="flex items-start gap-2">
+                          {[0, 1, 2, 3, 4].map((idx) => (
+                            <div key={idx} className="flex items-start gap-2">
                               <CheckCircle2 className="h-4 w-4 text-brand-yellow shrink-0 mt-0.5" />
-                              <span className="font-sans text-xs text-zinc-800 font-medium">{adv}</span>
+                              <span className="font-sans text-xs text-zinc-800 font-medium">{t(`services.${service.id}.adv.${idx}`)}</span>
                             </div>
                           ))}
                         </div>
@@ -250,9 +240,9 @@ export default function ServicesSection({ onQuoteClick }: ServicesSectionProps) 
                     {/* Duration and Call to Action */}
                     <div className="pt-4 border-t border-zinc-100 flex flex-col gap-3">
                       <div className="flex items-center justify-between">
-                        <span className="text-xs text-zinc-500 font-sans">Durée de réalisation :</span>
+                        <span className="text-xs text-zinc-500 font-sans">{t('services.duration_label')}</span>
                         <span className="px-2 py-0.5 bg-zinc-100 rounded font-display font-bold text-xs text-brand-charcoal">
-                          {service.id === 'carrosserie' ? '6-14 jours' : service.id === 'refrigeration' ? '3-5 jours' : '1-2 jours'}
+                          {service.id === 'carrosserie' ? t('services.duration.carrosserie') : service.id === 'refrigeration' ? t('services.duration.refrigeration') : t('services.duration.maintenance')}
                         </span>
                       </div>
 
@@ -260,7 +250,7 @@ export default function ServicesSection({ onQuoteClick }: ServicesSectionProps) 
                         onClick={onQuoteClick}
                         className="w-full py-3 bg-neutral-900 hover:bg-neutral-800 text-brand-yellow font-display font-bold text-xs uppercase tracking-wider rounded transition-all duration-200 text-center"
                       >
-                        Estimer un prix pour ce travail
+                        {t('services.estimate_btn')}
                       </button>
                     </div>
                   </motion.div>
@@ -275,7 +265,7 @@ export default function ServicesSection({ onQuoteClick }: ServicesSectionProps) 
           <div className="grid grid-cols-1 lg:grid-cols-12">
             
             {/* Visual Left Frame */}
-            <div className="lg:col-span-5 bg-neutral-950 p-8 sm:p-12 text-white flex flex-col justify-between relative overflow-hidden">
+            <div className={`lg:col-span-5 bg-neutral-950 p-8 sm:p-12 text-white flex flex-col justify-between relative overflow-hidden ${isRtl ? 'border-l border-white/5' : 'border-r border-white/5'}`}>
               <div className="absolute inset-0 opacity-30">
                 {selectedServiceId === 'carrosserie' && (
                   <img src={imageBodywork} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
@@ -289,12 +279,12 @@ export default function ServicesSection({ onQuoteClick }: ServicesSectionProps) 
               </div>
               
               <div className="relative z-10">
-                <span className="text-xs font-mono text-brand-yellow uppercase tracking-widest font-bold">Zoom sur le service</span>
+                <span className="text-xs font-mono text-brand-yellow uppercase tracking-widest font-bold">{t('services.key_assets')}</span>
                 <h4 className="text-2xl sm:text-3xl font-display font-black mt-2 leading-tight">
-                  {currentService.title}
+                  {t(`services.${currentService.id}.title`)}
                 </h4>
                 <p className="text-zinc-400 font-sans text-sm mt-4 leading-relaxed">
-                  {currentService.description}
+                  {t(`services.${currentService.id}.description`)}
                 </p>
               </div>
 
@@ -303,9 +293,9 @@ export default function ServicesSection({ onQuoteClick }: ServicesSectionProps) 
                   <div className="p-2 bg-brand-yellow/10 rounded-full">
                     <Shield className="h-5 w-5 text-brand-yellow" />
                   </div>
-                  <div>
-                    <p className="text-xs text-white font-bold font-display">Garantie & Homologation</p>
-                    <p className="text-[11px] text-zinc-400 font-sans mt-0.5">Certificat de conformité agréé par l’État algérien.</p>
+                  <div className={isRtl ? 'text-right' : 'text-left'}>
+                    <p className="text-xs text-white font-bold font-display">{t('services.warranty_title')}</p>
+                    <p className="text-[11px] text-zinc-400 font-sans mt-0.5">{t('services.warranty_desc')}</p>
                   </div>
                 </div>
               </div>
@@ -317,15 +307,15 @@ export default function ServicesSection({ onQuoteClick }: ServicesSectionProps) 
                 <div>
                   {/* Category & Title */}
                   <div className="flex items-center gap-2 text-zinc-400 font-mono text-[10px] uppercase tracking-wider mb-2 font-black">
-                    <Wrench className="h-3.5 w-3.5 inline text-zinc-500" /> FICHE D'INGÉNIERIE CARPÔLE
+                    <Wrench className="h-3.5 w-3.5 inline text-zinc-500" /> {t('services.engineering_sheet')}
                   </div>
 
                   <h3 className="text-2xl sm:text-3xl font-display font-black text-brand-charcoal mb-1 uppercase tracking-tight">
-                    CARROSSERIE ISOTHERME RENFORCÉE (CLASSE C)
+                    {t('services.sheet_title')}
                   </h3>
 
                   <div className="text-[10px] font-mono font-black text-zinc-400 uppercase tracking-widest mb-4">
-                    PANNEAUX SANDWICH HAUTE PERFORMANCE 100MM
+                    {t('services.sheet_subtitle')}
                   </div>
 
                   <hr className="border-t border-zinc-200/80 mb-6" />
@@ -333,14 +323,14 @@ export default function ServicesSection({ onQuoteClick }: ServicesSectionProps) 
                   {/* Inside layout splits text vs side-by-side images */}
                   <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 items-start">
                     
-                    {/* Left content block: 6cols */}
+                    {/* Left content block: 7cols */}
                     <div className="xl:col-span-7 space-y-4 text-left">
-                      <p className="text-zinc-950 font-sans text-sm sm:text-base font-bold leading-relaxed">
-                        Isolation renforcée sous vide pour le transport basse température (-20°C) de produits congelés.
+                      <p className={`text-zinc-950 font-sans text-sm sm:text-base font-bold leading-relaxed ${isRtl ? 'text-right' : 'text-left'}`}>
+                        {t('services.carrosserie.principale.title')}
                       </p>
                       
                       {/* Internal Subtabs */}
-                      <div className="flex bg-zinc-100 rounded-lg p-0.5 border border-zinc-200/50 w-full mb-3">
+                      <div className="flex bg-zinc-100 rounded-lg p-0.5 border border-zinc-200/50 w-full mb-3" dir="ltr">
                         <button
                           onClick={() => setCarrosserieView('principale')}
                           className={`flex-1 py-1 text-[10px] font-display font-black uppercase rounded-md tracking-wider transition-all duration-150 text-center ${
@@ -349,7 +339,7 @@ export default function ServicesSection({ onQuoteClick }: ServicesSectionProps) 
                               : 'text-zinc-600 hover:text-zinc-950'
                           }`}
                         >
-                          Atouts clés
+                          {t('services.key_assets')}
                         </button>
                         <button
                           onClick={() => setCarrosserieView('technique')}
@@ -359,7 +349,7 @@ export default function ServicesSection({ onQuoteClick }: ServicesSectionProps) 
                               : 'text-zinc-600 hover:text-zinc-950'
                           }`}
                         >
-                          Caractéristiques
+                          {t('services.characteristics')}
                         </button>
                       </div>
 
@@ -369,30 +359,14 @@ export default function ServicesSection({ onQuoteClick }: ServicesSectionProps) 
                           animate={{ opacity: 1, y: 0 }}
                           className="space-y-2 pt-1"
                         >
-                          <div className="flex items-start gap-2">
-                            <span className="text-brand-yellow text-xs font-black shrink-0 mt-0.5">&gt;</span>
-                            <span className="font-sans text-xs text-zinc-700 font-semibold leading-relaxed">
-                              Plancher renforcé antidérapant en aluminium larmé résistant aux transpalettes.
-                            </span>
-                          </div>
-                          <div className="flex items-start gap-2">
-                            <span className="text-brand-yellow text-xs font-black shrink-0 mt-0.5">&gt;</span>
-                            <span className="font-sans text-xs text-zinc-700 font-semibold leading-relaxed">
-                              Rails d'arrimage encastrés en acier inoxydable et plinthe en alu.
-                            </span>
-                          </div>
-                          <div className="flex items-start gap-2">
-                            <span className="text-brand-yellow text-xs font-black shrink-0 mt-0.5">&gt;</span>
-                            <span className="font-sans text-xs text-zinc-700 font-semibold leading-relaxed">
-                              Double joints de portes en élastomère EPDM anti-givre.
-                            </span>
-                          </div>
-                          <div className="flex items-start gap-2">
-                            <span className="text-brand-yellow text-xs font-black shrink-0 mt-0.5">&gt;</span>
-                            <span className="font-sans text-xs text-zinc-700 font-semibold leading-relaxed">
-                              Huisserie arrière et visserie 100% Inox 314.
-                            </span>
-                          </div>
+                          {[0, 1, 2, 3].map((idx) => (
+                            <div key={idx} className={`flex items-start gap-2 ${isRtl ? 'flex-row-reverse text-right' : 'flex-row text-left'}`}>
+                              <span className="text-brand-yellow text-xs font-black shrink-0 mt-0.5">&gt;</span>
+                              <span className="font-sans text-xs text-zinc-700 font-semibold leading-relaxed">
+                                {t(`services.carrosserie.adv.${idx}`)}
+                              </span>
+                            </div>
+                          ))}
                         </motion.div>
                       ) : (
                         <motion.div
@@ -400,31 +374,31 @@ export default function ServicesSection({ onQuoteClick }: ServicesSectionProps) 
                           animate={{ opacity: 1, y: 0 }}
                           className="grid grid-cols-2 gap-2 pt-1"
                         >
-                          <div className="bg-zinc-50 border border-zinc-150 p-2.5 rounded text-left">
-                            <div className="text-[8px] font-mono text-zinc-400 font-bold uppercase">Isolation</div>
-                            <div className="text-xs font-display font-black text-neutral-900 mt-0.5">80 à 100 mm</div>
+                          <div className={`bg-zinc-50 border border-zinc-150 p-2.5 rounded ${isRtl ? 'text-right' : 'text-left'}`}>
+                            <div className="text-[8px] font-mono text-zinc-400 font-bold uppercase">{t('services.char.thickness')}</div>
+                            <div className="text-xs font-display font-black text-neutral-900 mt-0.5">{t('services.char.thickness_val')}</div>
                           </div>
-                          <div className="bg-zinc-50 border border-zinc-150 p-2.5 rounded text-left">
-                            <div className="text-[8px] font-mono text-zinc-400 font-bold uppercase">Trans. K</div>
-                            <div className="text-xs font-display font-black text-neutral-900 mt-0.5">0,36 W/m²K</div>
+                          <div className={`bg-zinc-50 border border-zinc-150 p-2.5 rounded ${isRtl ? 'text-right' : 'text-left'}`}>
+                            <div className="text-[8px] font-mono text-zinc-400 font-bold uppercase">{t('services.char.k_coeff')}</div>
+                            <div className="text-xs font-display font-black text-neutral-900 mt-0.5">{t('services.char.k_coeff_val')}</div>
                           </div>
-                          <div className="bg-zinc-50 border border-zinc-150 p-2.5 rounded text-left">
-                            <div className="text-[8px] font-mono text-zinc-400 font-bold uppercase">Température</div>
-                            <div className="text-xs font-display font-black text-neutral-900 mt-0.5">-20°C à -25°C</div>
+                          <div className={`bg-zinc-50 border border-zinc-150 p-2.5 rounded ${isRtl ? 'text-right' : 'text-left'}`}>
+                            <div className="text-[8px] font-mono text-zinc-400 font-bold uppercase">{t('services.char.temp')}</div>
+                            <div className="text-xs font-display font-black text-neutral-900 mt-0.5">{t('services.char.temp_val')}</div>
                           </div>
-                          <div className="bg-zinc-50 border border-zinc-150 p-2.5 rounded text-left">
-                            <div className="text-[8px] font-mono text-zinc-400 font-bold uppercase">ATP</div>
-                            <div className="text-xs font-display font-black text-neutral-900 mt-0.5">FRC (Classe C)</div>
+                          <div className={`bg-zinc-50 border border-zinc-150 p-2.5 rounded ${isRtl ? 'text-right' : 'text-left'}`}>
+                            <div className="text-[8px] font-mono text-zinc-400 font-bold uppercase">{t('services.char.atp')}</div>
+                            <div className="text-xs font-display font-black text-neutral-900 mt-0.5">{t('services.char.atp_val')}</div>
                           </div>
                         </motion.div>
                       )}
 
-                      <p className="text-zinc-500 font-sans text-xs leading-relaxed pt-2">
-                        Nos ingénieurs et techniciens réalisent ces assemblages certifiés au sein de notre atelier moderne à Constantine, validant chaque étape selon de sévères critères d'isolation thermique.
+                      <p className={`text-zinc-500 font-sans text-xs leading-relaxed pt-2 ${isRtl ? 'text-right' : 'text-left'}`}>
+                        {t('services.carrosserie.principale.desc')}
                       </p>
                     </div>
 
-                    {/* Right images block: 6cols */}
+                    {/* Right images block: 5cols */}
                     <div className="xl:col-span-5 grid grid-cols-1 gap-4">
                       {/* Image Card 1: VUE PRINCIPALE */}
                       <motion.div 
@@ -436,13 +410,13 @@ export default function ServicesSection({ onQuoteClick }: ServicesSectionProps) 
                       >
                         <img 
                           src={imageMeatInterior} 
-                          alt="Intérieur carrosserie avec crochets viande" 
+                          alt="Intérieur" 
                           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                           referrerPolicy="no-referrer"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
                         <div className="absolute bottom-3 left-3 bg-neutral-950/80 backdrop-blur-sm px-2.5 py-1 rounded text-[9px] font-mono font-bold tracking-widest text-white border border-white/10 group-hover:bg-brand-yellow group-hover:text-black transition-colors">
-                          VUE PRINCIPALE
+                          {t('services.view_main')}
                         </div>
                       </motion.div>
 
@@ -456,13 +430,13 @@ export default function ServicesSection({ onQuoteClick }: ServicesSectionProps) 
                       >
                         <img 
                           src={imageEmptyInterior} 
-                          alt="Intérieur carrosserie technique vide" 
+                          alt="Intérieur" 
                           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                           referrerPolicy="no-referrer"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
                         <div className="absolute bottom-3 left-3 bg-neutral-950/80 backdrop-blur-sm px-2.5 py-1 rounded text-[9px] font-mono font-bold tracking-widest text-white border border-white/10 group-hover:bg-brand-yellow group-hover:text-black transition-colors">
-                          VUE TECHNIQUE
+                          {t('services.view_tech')}
                         </div>
                       </motion.div>
                     </div>
@@ -471,18 +445,18 @@ export default function ServicesSection({ onQuoteClick }: ServicesSectionProps) 
                 </div>
               ) : (
                 <div>
-                  <h5 className="text-sm font-mono text-brand-yellow uppercase tracking-wider font-extrabold mb-4">
-                    Spécifications Techniques & Atouts
+                  <h5 className={`text-sm font-mono text-brand-yellow uppercase tracking-wider font-extrabold mb-4 ${isRtl ? 'text-right' : 'text-left'}`}>
+                    {t('services.specifications_title')}
                   </h5>
-                  <p className="text-zinc-700 font-sans text-base leading-relaxed mb-6 text-left">
-                    {currentService.longDescription}
+                  <p className={`text-zinc-700 font-sans text-base leading-relaxed mb-6 ${isRtl ? 'text-right' : 'text-left'}`}>
+                    {t(`services.${currentService.id}.longDescription`)}
                   </p>
 
                   <div className="space-y-3">
-                    {currentService.advantages.map((adv, index) => (
-                      <div key={index} className="flex items-start gap-3">
+                    {[0, 1, 2, 3, 4].map((idx) => (
+                      <div key={idx} className={`flex items-start gap-3 ${isRtl ? 'flex-row-reverse text-right' : 'flex-row text-left'}`}>
                         <CheckCircle2 className="h-5 w-5 text-brand-yellow shrink-0 mt-0.5" />
-                        <span className="font-sans text-sm text-zinc-800 font-medium text-left">{adv}</span>
+                        <span className="font-sans text-sm text-zinc-800 font-medium">{t(`services.${currentService.id}.adv.${idx}`)}</span>
                       </div>
                     ))}
                   </div>
@@ -491,9 +465,9 @@ export default function ServicesSection({ onQuoteClick }: ServicesSectionProps) 
 
               <div className="pt-8 mt-8 border-t border-zinc-100 flex flex-wrap items-center justify-between gap-4">
                 <div className="flex items-center gap-2">
-                  <span className="text-xs text-zinc-500 font-sans">Durée moyenne de réalisation :</span>
+                  <span className="text-xs text-zinc-500 font-sans">{t('services.duration_label_avg')}</span>
                   <span className="px-2.5 py-1 bg-zinc-100 rounded font-display font-bold text-xs text-brand-charcoal">
-                    {selectedServiceId === 'carrosserie' ? '6-14 jours' : selectedServiceId === 'refrigeration' ? '3-5 jours' : '1-2 jours'}
+                    {selectedServiceId === 'carrosserie' ? t('services.duration.carrosserie') : selectedServiceId === 'refrigeration' ? t('services.duration.refrigeration') : t('services.duration.maintenance')}
                   </span>
                 </div>
 
@@ -502,7 +476,7 @@ export default function ServicesSection({ onQuoteClick }: ServicesSectionProps) 
                   onClick={onQuoteClick}
                   className="px-5 py-2.5 bg-neutral-900 hover:bg-neutral-800 text-brand-yellow font-display font-bold text-xs uppercase tracking-wider rounded transition-all duration-200"
                 >
-                  Estimer un prix pour ce travail
+                  {t('services.estimate_btn')}
                 </button>
               </div>
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Truck, Phone, Compass, MessageSquare, Info } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { useLanguage } from '../context/LanguageContext';
 
 interface NavbarProps {
   activeTab: string;
@@ -10,6 +11,7 @@ interface NavbarProps {
 export default function Navbar({ activeTab, setActiveTab }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const { lang, setLang, t, isRtl } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,12 +26,12 @@ export default function Navbar({ activeTab, setActiveTab }: NavbarProps) {
   }, []);
 
   const navItems = [
-    { id: 'accueil', label: 'Accueil', icon: Compass },
-    { id: 'services', label: 'Nos services', icon: Truck },
-    { id: 'simulateur', label: 'Demander un devis', icon: MessageSquare },
-    { id: 'galerie', label: 'Galerie Réalisations', icon: Compass },
-    { id: 'propos', label: 'À propos', icon: Info },
-    { id: 'contact', label: 'Contact', icon: Phone },
+    { id: 'accueil', label: t('navbar.accueil'), icon: Compass },
+    { id: 'services', label: t('navbar.services'), icon: Truck },
+    { id: 'simulateur', label: t('navbar.simulateur'), icon: MessageSquare },
+    { id: 'galerie', label: t('navbar.galerie'), icon: Compass },
+    { id: 'propos', label: t('navbar.propos'), icon: Info },
+    { id: 'contact', label: t('navbar.contact'), icon: Phone },
   ];
 
   const handleNavClick = (id: string) => {
@@ -65,22 +67,22 @@ export default function Navbar({ activeTab, setActiveTab }: NavbarProps) {
           {/* Logo Brand Segment */}
           <div 
             onClick={() => handleNavClick('accueil')} 
-            className="flex items-center gap-2 cursor-pointer group"
+            className={`flex items-center gap-2 cursor-pointer group ${isRtl ? 'flex-row-reverse' : 'flex-row'}`}
           >
             {/* Visual Logo Emblem */}
             <div className="relative flex items-center justify-center w-10 h-10 rounded border border-brand-yellow/30 bg-neutral-900 group-hover:border-brand-yellow transition-all duration-300">
-              <span className="font-display font-extrabold text-brand-yellow text-xl">C</span>
+              <span className="font-display font-extrabold text-brand-yellow text-xl">{isRtl ? 'ك' : 'C'}</span>
               <div className="absolute top-0 right-0 w-2.5 h-2.5 bg-brand-yellow rounded-tr rounded-bl-lg"></div>
             </div>
             
             {/* Logo Text */}
-            <div className="flex flex-col">
-              <div className="flex items-baseline gap-1">
-                <span className="font-display font-black text-white text-lg tracking-wider">CARPÔLE</span>
+            <div className={`flex flex-col ${isRtl ? 'items-end text-right' : 'items-start text-left'}`}>
+              <div className={`flex items-baseline gap-1 ${isRtl ? 'flex-row-reverse' : 'flex-row'}`}>
+                <span className="font-display font-black text-white text-lg tracking-wider">{isRtl ? 'كاربول' : 'CARPÔLE'}</span>
                 {/* Accent angle shown on O resembling the logo letter Ô */}
                 <span className="w-1.5 h-1.5 bg-brand-yellow rounded-full animate-pulse"></span>
               </div>
-              <span className="font-sans text-[10px] text-zinc-400 tracking-[0.25em] -mt-1 font-semibold uppercase">INDUSTRIEL</span>
+              <span className="font-sans text-[10px] text-zinc-400 tracking-[0.25em] -mt-1 font-semibold uppercase">{isRtl ? 'الصناعية' : 'INDUSTRIEL'}</span>
             </div>
           </div>
 
@@ -117,17 +119,49 @@ export default function Navbar({ activeTab, setActiveTab }: NavbarProps) {
 
           {/* Desktop CTA Action Button */}
           <div className="hidden sm:flex items-center gap-3">
+            {/* Language Switcher */}
+            <div className="flex items-center gap-1 border border-white/10 rounded p-1 bg-neutral-900/60" dir="ltr">
+              <button
+                onClick={() => setLang('fr')}
+                className={`px-2 py-1 text-[11px] font-black rounded transition-all duration-200 ${lang === 'fr' ? 'bg-brand-yellow text-brand-charcoal font-bold' : 'text-zinc-400 hover:text-white'}`}
+              >
+                FR
+              </button>
+              <button
+                onClick={() => setLang('ar')}
+                className={`px-2 py-1 text-[11px] font-black rounded transition-all duration-200 ${lang === 'ar' ? 'bg-brand-yellow text-brand-charcoal font-bold' : 'text-zinc-400 hover:text-white'}`}
+              >
+                عربي
+              </button>
+            </div>
+
             <button
               id="cta-nav-simulator"
               onClick={() => handleNavClick('simulateur')}
               className="px-4 py-2 bg-brand-yellow hover:bg-brand-yellow/90 text-brand-charcoal font-display font-bold text-xs uppercase tracking-wider rounded transition-all duration-200 transform hover:-translate-y-0.5 hover:shadow-lg hover:shadow-brand-yellow/20"
             >
-              Demander un devis
+              {t('navbar.cta')}
             </button>
           </div>
 
           {/* Mobile Hamburguer Toggle Button */}
-          <div className="flex lg:hidden items-center">
+          <div className="flex lg:hidden items-center gap-2">
+            {/* Mobile Language Switcher */}
+            <div className="flex items-center gap-1 border border-white/10 rounded p-0.5 bg-neutral-900/60" dir="ltr">
+              <button
+                onClick={() => setLang('fr')}
+                className={`px-1.5 py-0.5 text-[10px] font-black rounded transition-all duration-200 ${lang === 'fr' ? 'bg-brand-yellow text-brand-charcoal' : 'text-zinc-400 hover:text-white'}`}
+              >
+                FR
+              </button>
+              <button
+                onClick={() => setLang('ar')}
+                className={`px-1.5 py-0.5 text-[10px] font-black rounded transition-all duration-200 ${lang === 'ar' ? 'bg-brand-yellow text-brand-charcoal' : 'text-zinc-400 hover:text-white'}`}
+              >
+                عربي
+              </button>
+            </div>
+
             <button
               id="mobile-menu-toggle"
               onClick={() => setIsOpen(!isOpen)}
@@ -160,7 +194,7 @@ export default function Navbar({ activeTab, setActiveTab }: NavbarProps) {
                     key={item.id}
                     id={`mobile-nav-link-${item.id}`}
                     onClick={() => handleNavClick(item.id)}
-                    className={`flex items-center gap-3 w-full px-4 py-3 rounded-md text-left text-base font-semibold transition-colors ${
+                    className={`flex items-center gap-3 w-full px-4 py-3 rounded-md ${isRtl ? 'text-right' : 'text-left'} text-base font-semibold transition-colors ${
                       isActive 
                         ? 'bg-neutral-900 text-brand-yellow border-l-4 border-brand-yellow' 
                         : 'text-zinc-300 hover:bg-white/5 hover:text-white'
@@ -177,7 +211,7 @@ export default function Navbar({ activeTab, setActiveTab }: NavbarProps) {
                   onClick={() => handleNavClick('simulateur')}
                   className="w-full py-3 bg-brand-yellow hover:bg-amber-500 text-brand-charcoal text-center font-display font-bold text-sm rounded shadow-md"
                 >
-                  Demander un devis
+                  {t('navbar.cta')}
                 </button>
               </div>
             </div>

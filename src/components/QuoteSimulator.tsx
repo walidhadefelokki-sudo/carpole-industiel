@@ -1,25 +1,29 @@
 import React, { useState, useMemo } from 'react';
-import { QuoteInput, QuoteEstimate, TruckType, BodyType, RefrigeratorCapacity } from '../types';
+import { QuoteInput, QuoteEstimate } from '../types';
 import { calculateQuote } from '../data';
 import { 
-  Check, 
-  ArrowRight, 
-  Phone, 
-  MapPin, 
-  Sparkles, 
-  RefreshCw, 
-  FileText, 
-  Send, 
-  Shield, 
-  Clock, 
-  Layers, 
-  Truck,
-  Snowflake,
-  ClipboardList
+   Check, 
+   ArrowRight, 
+   ArrowLeft,
+   Phone, 
+   MapPin, 
+   Sparkles, 
+   RefreshCw, 
+   FileText, 
+   Send, 
+   Shield, 
+   Clock, 
+   Layers, 
+   Truck,
+   Snowflake,
+   ClipboardList
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function QuoteSimulator() {
+  const { t, isRtl } = useLanguage();
+
   const [formData, setFormData] = useState<QuoteInput>({
     truckType: 'truck_medium',
     bodyType: 'insulated_refrigerated',
@@ -36,6 +40,7 @@ export default function QuoteSimulator() {
 
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState('');
+  const [uniqueRef, setUniqueRef] = useState('');
 
   // We can still fetch the high-end technical duration/warranty estimate (without displaying any pricing)
   const estimate: QuoteEstimate = useMemo(() => {
@@ -63,10 +68,11 @@ export default function QuoteSimulator() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.clientName || !formData.clientPhone) {
-      setSubmitError('Veuillez remplir votre nom et votre numéro de téléphone.');
+      setSubmitError(t('quote.error_fill'));
       return;
     }
     setSubmitError('');
+    setUniqueRef(`#CI-DEV-${Math.floor(1000 + Math.random() * 9000)}`);
     setIsSubmitted(true);
   };
 
@@ -88,24 +94,24 @@ export default function QuoteSimulator() {
   };
 
   const truckLabels: Record<string, string> = {
-    carrier_small: 'Camionnette & Utilitaire (<3.5t)',
-    truck_medium: 'Porteur Moyen (3.5t à 12t)',
-    semi_heavy_duty: 'Poids-lourd Rigide (12t à 19t)',
-    custom_project: 'Camion de Dépannage'
+    carrier_small: t('quote.truck.carrier_small'),
+    truck_medium: t('quote.truck.truck_medium'),
+    semi_heavy_duty: t('quote.truck.semi_heavy_duty'),
+    custom_project: t('quote.truck.custom_project')
   };
 
   const bodyLabels: Record<string, string> = {
-    insulated_refrigerated: 'Isotherme Renforcée (Frigo)',
-    standard_box_dry: 'Fourgon Tôlé Sec Standard',
-    heavy_duty_tipper: 'Benne Hydraulique Renforcée',
-    subframe_only: 'Faux-châssis Seul'
+    insulated_refrigerated: t('quote.body.insulated_refrigerated'),
+    standard_box_dry: t('quote.body.standard_box_dry'),
+    heavy_duty_tipper: t('quote.body.heavy_duty_tipper'),
+    subframe_only: t('quote.body.subframe_only')
   };
 
   const frigoLabels: Record<string, string> = {
-    none: 'Aucune Réfrigération',
-    positive_fresh: 'Froid Positif Frais (+2°C à +8°C)',
-    negative_deep_freeze: 'Froid Négatif Surgelé (-20°C)',
-    dual_multi_temp: 'Bi-Température Compartimenté'
+    none: t('quote.frigo.none'),
+    positive_fresh: t('quote.frigo.positive_fresh'),
+    negative_deep_freeze: t('quote.frigo.negative_deep_freeze'),
+    dual_multi_temp: t('quote.frigo.dual_multi_temp')
   };
 
   return (
@@ -120,13 +126,13 @@ export default function QuoteSimulator() {
         {/* Header Section */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-xs font-display font-extrabold text-brand-yellow bg-white/5 border border-white/10 px-4 py-1.5 rounded-full uppercase tracking-widest inline-block mb-3">
-            Demande de devis gratuit
+            {t('quote.free_estimate_badge')}
           </span>
           <h2 className="text-3xl sm:text-5xl font-display font-black tracking-tight mt-1">
-            Demander un Devis en Ligne
+            {t('quote.title')}
           </h2>
           <p className="text-zinc-400 font-sans mt-4 text-base sm:text-lg leading-relaxed">
-            Configurez vos besoins en carrosserie et froid industriel en 4 étapes simples. Notre équipe à <strong className="text-white font-medium">Constantine</strong> vous transmettra une offre personnalisée sous une heure.
+            {t('quote.subtitle')}
           </p>
         </div>
 
@@ -144,22 +150,22 @@ export default function QuoteSimulator() {
                     <div className="flex items-center gap-2.5 pb-2 border-b border-white/5">
                       <div className="flex items-center justify-center w-7 h-7 rounded-md bg-brand-yellow/10 text-brand-yellow border border-brand-yellow/20 text-xs font-black font-display">1</div>
                       <label className="block text-sm font-display font-black text-zinc-200 uppercase tracking-wider">
-                        1. TYPE DE CHÂSSIS / VÉHICULE
+                        {t('quote.step1_title')}
                       </label>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       {[
-                        { id: 'carrier_small', label: 'Camionnette & Utilitaire (<3.5t)', desc: 'Ex: Hyundai Porter, Kia K2500, DFAC' },
-                        { id: 'truck_medium', label: 'Porteur Moyen (3.5t à 12t)', desc: 'Ex: ISUZU NPR, JMC, Renault D-Series' },
-                        { id: 'semi_heavy_duty', label: 'Poids-lourd Rigide (12t à 19t)', desc: 'Ex: Mercedes Actros Porteur, Volvo FE' },
-                        { id: 'custom_project', label: 'Camion de Dépannage', desc: 'Ex: Dépanneuses, plateaux de remorquage & treuils' }
+                        { id: 'carrier_small', label: t('quote.truck.carrier_small'), desc: t('quote.truck.carrier_small.desc') },
+                        { id: 'truck_medium', label: t('quote.truck.truck_medium'), desc: t('quote.truck.truck_medium.desc') },
+                        { id: 'semi_heavy_duty', label: t('quote.truck.semi_heavy_duty'), desc: t('quote.truck.semi_heavy_duty.desc') },
+                        { id: 'custom_project', label: t('quote.truck.custom_project'), desc: t('quote.truck.custom_project.desc') }
                       ].map((item) => (
                         <button
                           type="button"
                           key={item.id}
                           id={`radio-truck-${item.id}`}
                           onClick={() => handleSelectRadio('truckType', item.id)}
-                          className={`p-4 rounded-xl text-left border transition-all duration-200 group relative ${
+                          className={`p-4 rounded-xl text-left border transition-all duration-200 group relative ${isRtl ? 'text-right' : 'text-left'} ${
                             formData.truckType === item.id
                               ? 'bg-brand-yellow/10 border-brand-yellow text-white shadow-md shadow-brand-yellow/5'
                               : 'bg-neutral-900/50 border-white/5 text-zinc-400 hover:border-white/10 hover:bg-neutral-900'
@@ -177,22 +183,22 @@ export default function QuoteSimulator() {
                     <div className="flex items-center gap-2.5 pb-2 border-b border-white/5">
                       <div className="flex items-center justify-center w-7 h-7 rounded-md bg-brand-yellow/10 text-brand-yellow border border-brand-yellow/20 text-xs font-black font-display">2</div>
                       <label className="block text-sm font-display font-black text-zinc-200 uppercase tracking-wider">
-                        2. TYPE DE STRUCTURE / CARROSSERIE
+                        {t('quote.step2_title')}
                       </label>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       {[
-                        { id: 'insulated_refrigerated', label: 'Isotherme Renforcée (Frigo)', desc: 'Panneaux sandwich isolants étanches' },
-                        { id: 'standard_box_dry', label: 'Fourgon Tôlé Sec Standard', desc: 'Sans isolation thermique' },
-                        { id: 'heavy_duty_tipper', label: 'Benne Hydraulique Renforcée', desc: 'Soudure d’acier robuste pour vrac' },
-                        { id: 'subframe_only', label: 'Faux-châssis Seul pré-galvanisé', desc: 'Pour recevoir une carrosserie tierce' }
+                        { id: 'insulated_refrigerated', label: t('quote.body.insulated_refrigerated'), desc: t('quote.body.insulated_refrigerated.desc') },
+                        { id: 'standard_box_dry', label: t('quote.body.standard_box_dry'), desc: t('quote.body.standard_box_dry.desc') },
+                        { id: 'heavy_duty_tipper', label: t('quote.body.heavy_duty_tipper'), desc: t('quote.body.heavy_duty_tipper.desc') },
+                        { id: 'subframe_only', label: t('quote.body.subframe_only'), desc: t('quote.body.subframe_only.desc') }
                       ].map((item) => (
                         <button
                           type="button"
                           key={item.id}
                           id={`radio-body-${item.id}`}
                           onClick={() => handleSelectRadio('bodyType', item.id)}
-                          className={`p-4 rounded-xl text-left border transition-all duration-200 group relative ${
+                          className={`p-4 rounded-xl text-left border transition-all duration-200 group relative ${isRtl ? 'text-right' : 'text-left'} ${
                             formData.bodyType === item.id
                               ? 'bg-brand-yellow/10 border-brand-yellow text-white shadow-md shadow-brand-yellow/5'
                               : 'bg-neutral-900/50 border-white/5 text-zinc-400 hover:border-white/10 hover:bg-neutral-900'
@@ -210,15 +216,15 @@ export default function QuoteSimulator() {
                     <div className="flex items-center gap-2.5 pb-2 border-b border-white/5">
                       <div className="flex items-center justify-center w-7 h-7 rounded-md bg-brand-yellow/10 text-brand-yellow border border-brand-yellow/20 text-xs font-black font-display">3</div>
                       <label className="block text-sm font-display font-black text-zinc-200 uppercase tracking-wider">
-                        3. CAPACITÉ DE RÉFRIGÉRATION / FROID
+                        {t('quote.step3_title')}
                       </label>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       {[
-                        { id: 'none', label: 'Aucune Réfrigération Seule Isotherme', desc: 'Pour conservations de courtes distances' },
-                        { id: 'positive_fresh', label: 'Froid Positif Frais (+2°C à +8°C)', desc: 'Fruits, légumes, pharmacie, fleurs' },
-                        { id: 'negative_deep_freeze', label: 'Froid Négatif Surgelé (-20°C)', desc: 'Viandes, poissons, glaces, surgelés' },
-                        { id: 'dual_multi_temp', label: 'Bi-Température Compartimenté', desc: 'Multizones frais + congelé simultané' }
+                        { id: 'none', label: t('quote.frigo.none'), desc: t('quote.frigo.none.desc') },
+                        { id: 'positive_fresh', label: t('quote.frigo.positive_fresh'), desc: t('quote.frigo.positive_fresh.desc') },
+                        { id: 'negative_deep_freeze', label: t('quote.frigo.negative_deep_freeze'), desc: t('quote.frigo.negative_deep_freeze.desc') },
+                        { id: 'dual_multi_temp', label: t('quote.frigo.dual_multi_temp'), desc: t('quote.frigo.dual_multi_temp.desc') }
                       ].map((item) => {
                         const disabled = formData.bodyType !== 'insulated_refrigerated' && item.id !== 'none';
                         return (
@@ -228,7 +234,7 @@ export default function QuoteSimulator() {
                             key={item.id}
                             id={`radio-frigo-${item.id}`}
                             onClick={() => handleSelectRadio('frigoCapacity', item.id)}
-                            className={`p-4 rounded-xl text-left border transition-all duration-200 group relative ${
+                            className={`p-4 rounded-xl text-left border transition-all duration-200 group relative ${isRtl ? 'text-right' : 'text-left'} ${
                               disabled 
                                 ? 'opacity-25 cursor-not-allowed bg-neutral-950/20 border-white/5'
                                 : formData.frigoCapacity === item.id
@@ -244,7 +250,7 @@ export default function QuoteSimulator() {
                     </div>
                     {formData.bodyType !== 'insulated_refrigerated' && (
                       <p className="text-amber-500 font-sans text-xs italic mt-2">
-                        * L’installation d’un groupe frigorifique nécessite une structure & carrosserie de type "Isotherme Renforcée (Frigo)".
+                        {t('quote.body_warning')}
                       </p>
                     )}
                   </div>
@@ -254,7 +260,7 @@ export default function QuoteSimulator() {
                     <div className="flex items-center gap-2.5 pb-2 border-b border-white/5">
                       <div className="flex items-center justify-center w-7 h-7 rounded-md bg-brand-yellow/10 text-brand-yellow border border-brand-yellow/20 text-xs font-black font-display">4</div>
                       <label className="block text-sm font-display font-black text-zinc-200 uppercase tracking-wider">
-                        4. NOMBRE DE CAMIONS À ÉQUIPER
+                        {t('quote.step4_title')}
                       </label>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -280,9 +286,9 @@ export default function QuoteSimulator() {
                             onChange={handleChange}
                             className="w-5 h-5 accent-brand-yellow rounded focus:ring-0 focus:outline-none"
                           />
-                          <div>
-                            <span className="block text-xs font-display font-bold text-white uppercase tracking-wider">Faux-châssis galva</span>
-                            <span className="block text-[10px] text-zinc-400 font-sans leading-none">Traitement anticorrosion</span>
+                          <div className={isRtl ? 'text-right' : 'text-left'}>
+                            <span className="block text-xs font-display font-bold text-white uppercase tracking-wider">{t('quote.subframe_option')}</span>
+                            <span className="block text-[10px] text-zinc-400 font-sans leading-none">{t('quote.subframe_desc')}</span>
                           </div>
                         </label>
                       </div>
@@ -292,7 +298,7 @@ export default function QuoteSimulator() {
                   {/* Step 5: Optional instructions */}
                   <div className="space-y-3">
                     <label className="block text-xs font-display font-extrabold text-zinc-400 uppercase tracking-widest">
-                      INDICATIONS PARTICULIÈRES (OPTIONNEL)
+                      {t('quote.client.notes')}
                     </label>
                     <textarea
                       name="notes"
@@ -300,7 +306,7 @@ export default function QuoteSimulator() {
                       rows={3}
                       value={formData.notes}
                       onChange={handleChange}
-                      placeholder="Ex: Demande de hayon élévateur, séparation par cloison amovible mobile, double porte latérale, rayonnage d'étagères repliables..."
+                      placeholder={t('quote.notes_placeholder')}
                       className="w-full bg-neutral-900 border border-white/10 rounded-xl px-4 py-3.5 text-white font-sans text-sm focus:outline-none focus:border-brand-yellow placeholder:text-zinc-600 transition-colors"
                     />
                   </div>
@@ -317,58 +323,58 @@ export default function QuoteSimulator() {
                     <div className="space-y-6 pt-2">
                       <div className="border-b border-zinc-100 pb-4">
                         <span className="text-[10px] font-display font-black text-brand-yellow bg-neutral-900 text-white px-2.5 py-1 rounded inline-block uppercase tracking-wider mb-2">
-                          FICHE TECHNIQUE DE DEVIS
+                          {t('quote.result.title_badge')}
                         </span>
                         <h4 className="font-display font-black text-xl text-neutral-900">
-                          Récapitulatif de Configuration
+                          {t('quote.result.recap_title')}
                         </h4>
                         <p className="text-xs text-zinc-500 font-sans mt-0.5">
-                          Constantine, Algérie &bull; {new Date().toLocaleDateString('fr-FR')}
+                          {t('hero.location')} &bull; {new Date().toLocaleDateString(isRtl ? 'ar-DZ' : 'fr-FR')}
                         </p>
                       </div>
 
                       {/* Config details list */}
                       <div className="space-y-4">
                         <div className="space-y-1">
-                          <span className="text-[10px] font-semibold text-zinc-400 uppercase tracking-wider block">1. Véhicule & Châssis</span>
-                          <div className="flex gap-2 items-start">
+                          <span className="text-[10px] font-semibold text-zinc-400 uppercase tracking-wider block">{t('quote.result.carrier')}</span>
+                          <div className={`flex gap-2 items-start ${isRtl ? 'flex-row-reverse text-right' : 'flex-row text-left'}`}>
                             <Truck className="h-4 w-4 text-neutral-900 mt-1 shrink-0" />
                             <span className="text-sm font-bold text-neutral-800">{truckLabels[formData.truckType]}</span>
                           </div>
                         </div>
 
                         <div className="space-y-1 pt-1.5 border-t border-zinc-100">
-                          <span className="text-[10px] font-semibold text-zinc-400 uppercase tracking-wider block">2. Type de Structure</span>
-                          <div className="flex gap-2 items-start">
+                          <span className="text-[10px] font-semibold text-zinc-400 uppercase tracking-wider block">{t('quote.result.structure')}</span>
+                          <div className={`flex gap-2 items-start ${isRtl ? 'flex-row-reverse text-right' : 'flex-row text-left'}`}>
                             <Layers className="h-4 w-4 text-neutral-900 mt-1 shrink-0" />
                             <span className="text-sm font-bold text-neutral-800">{bodyLabels[formData.bodyType]}</span>
                           </div>
                         </div>
 
                         <div className="space-y-1 pt-1.5 border-t border-zinc-100">
-                          <span className="text-[10px] font-semibold text-zinc-400 uppercase tracking-wider block">3. Volume Froid / Réfrigération</span>
-                          <div className="flex gap-2 items-start">
+                          <span className="text-[10px] font-semibold text-zinc-400 uppercase tracking-wider block">{t('quote.result.cooling')}</span>
+                          <div className={`flex gap-2 items-start ${isRtl ? 'flex-row-reverse text-right' : 'flex-row text-left'}`}>
                             <Snowflake className="h-4 w-4 text-neutral-900 mt-1 shrink-0" />
                             <span className="text-sm font-bold text-neutral-800">{frigoLabels[formData.frigoCapacity]}</span>
                           </div>
                         </div>
 
                         <div className="space-y-1 pt-1.5 border-t border-zinc-100">
-                          <span className="text-[10px] font-semibold text-zinc-400 uppercase tracking-wider block">4. Quantité de Véhicules</span>
-                          <div className="flex gap-2 items-center">
+                          <span className="text-[10px] font-semibold text-zinc-400 uppercase tracking-wider block">{t('quote.result.quantity')}</span>
+                          <div className={`flex gap-2 items-center ${isRtl ? 'flex-row-reverse text-right' : 'flex-row text-left'}`}>
                             <Check className="h-4 w-4 text-emerald-600 font-bold shrink-0" />
                             <span className="text-sm font-bold text-neutral-800">
-                              {formData.truckCount} camion{formData.truckCount > 1 ? 's' : ''} à équiper
+                              {formData.truckCount} {isRtl ? 'شاحنة' : 'camion'}{formData.truckCount > 1 && !isRtl ? 's' : ''}
                             </span>
                           </div>
                         </div>
 
                         {formData.hasSubframeIncluded && (
                           <div className="space-y-1 pt-1.5 border-t border-zinc-100">
-                            <span className="text-[10px] font-semibold text-zinc-400 uppercase tracking-wider block">Options Additionnelles</span>
-                            <div className="flex gap-2 items-center text-xs text-neutral-700">
+                            <span className="text-[10px] font-semibold text-zinc-400 uppercase tracking-wider block">{t('quote.result.additional')}</span>
+                            <div className={`flex gap-2 items-center text-xs text-neutral-700 ${isRtl ? 'flex-row-reverse text-right' : 'flex-row text-left'}`}>
                               <Check className="h-3.5 w-3.5 text-emerald-600 font-bold shrink-0" />
-                              <span>Faux-châssis galvanisé traité anti-corrosion</span>
+                              <span>{t('quote.result.subframe_galva')}</span>
                             </div>
                           </div>
                         )}
@@ -376,86 +382,94 @@ export default function QuoteSimulator() {
 
                       {/* Technical specifications (Delay & Warranty) without any price */}
                       <div className="bg-zinc-50 rounded-xl p-4 border border-zinc-100 space-y-3 mt-6">
-                        <div className="flex justify-between items-center text-xs border-b border-zinc-200/60 pb-2">
-                          <div className="flex items-center gap-1.5 text-zinc-500">
+                        <div className={`flex justify-between items-center text-xs border-b border-zinc-200/60 pb-2 ${isRtl ? 'flex-row-reverse' : 'flex-row'}`}>
+                          <div className={`flex items-center gap-1.5 text-zinc-500 ${isRtl ? 'flex-row-reverse' : 'flex-row'}`}>
                             <Clock className="w-3.5 h-3.5 shrink-0" />
-                            <span>Délai d’Atelier Estimatif :</span>
+                            <span>{t('quote.result.delay_label')}</span>
                           </div>
-                          <span className="font-extrabold text-neutral-900">{estimate.durationInDays} Jours ouvrés</span>
+                          <span className="font-extrabold text-neutral-900">{estimate.durationInDays} {t('quote.days_work')}</span>
                         </div>
-                        <div className="flex justify-between items-center text-xs border-b border-zinc-200/60 pb-2">
-                          <div className="flex items-center gap-1.5 text-zinc-500">
+                        <div className={`flex justify-between items-center text-xs border-b border-zinc-200/60 pb-2 ${isRtl ? 'flex-row-reverse' : 'flex-row'}`}>
+                          <div className={`flex items-center gap-1.5 text-zinc-500 ${isRtl ? 'flex-row-reverse' : 'flex-row'}`}>
                             <Shield className="w-3.5 h-3.5 shrink-0" />
-                            <span>Garantie Carole :</span>
+                            <span>{t('quote.result.warranty_label')}</span>
                           </div>
-                          <span className="font-extrabold text-neutral-900">{estimate.warrantyMonths} Mois</span>
+                          <span className="font-extrabold text-neutral-900">{estimate.warrantyMonths} {t('services.mois')}</span>
                         </div>
-                        <div className="flex justify-between items-center text-xs">
-                          <div className="flex items-center gap-1.5 text-zinc-500">
+                        <div className={`flex justify-between items-center text-xs ${isRtl ? 'flex-row-reverse' : 'flex-row'}`}>
+                          <div className={`flex items-center gap-1.5 text-zinc-500 ${isRtl ? 'flex-row-reverse' : 'flex-row'}`}>
                             <MapPin className="w-3.5 h-3.5 shrink-0" />
-                            <span>Lieu de livraison :</span>
+                            <span>{t('quote.result.delivery_place')}</span>
                           </div>
-                          <span className="font-extrabold text-neutral-900">Atelier Constantine</span>
+                          <span className="font-extrabold text-neutral-900">{t('quote.result.delivery_val')}</span>
                         </div>
                       </div>
 
                       {/* Client details section in light mode */}
                       <div className="bg-zinc-50 p-5 rounded-xl border border-zinc-200/80 space-y-4 mt-6">
-                        <div className="flex items-center gap-2 pb-2 border-b border-zinc-200/60">
+                        <div className={`flex items-center gap-2 pb-2 border-b border-zinc-200/60 ${isRtl ? 'flex-row-reverse' : 'flex-row'}`}>
                           <ClipboardList className="h-4 w-4 text-neutral-900" />
                           <span className="block text-xs font-display font-black text-neutral-950 uppercase tracking-widest">
-                            Vos coordonnées professionnelles
+                            {t('quote.client.title')}
                           </span>
                         </div>
                         <div className="space-y-3">
                           <div>
-                            <label className="block text-[9px] uppercase font-bold font-sans tracking-wider text-zinc-500 mb-1">Nom Complet *</label>
+                            <label className={`block text-[9px] uppercase font-bold font-sans tracking-wider text-zinc-500 mb-1 ${isRtl ? 'text-right' : 'text-left'}`}>
+                              {t('contact.form.name')} *
+                            </label>
                             <input
                               required
                               type="text"
                               name="clientName"
                               id="client-name"
-                              placeholder="Ex: Karim Benhadj"
+                              placeholder={t('quote.client.name_placeholder')}
                               value={formData.clientName}
                               onChange={handleChange}
-                              className="w-full bg-white border border-zinc-300 rounded-lg px-3 py-2 text-neutral-800 text-xs focus:outline-none focus:border-brand-yellow focus:ring-1 focus:ring-brand-yellow/30 transition-colors"
+                              className={`w-full bg-white border border-zinc-300 rounded-lg px-3 py-2 text-neutral-800 text-xs focus:outline-none focus:border-brand-yellow focus:ring-1 focus:ring-brand-yellow/30 transition-colors ${isRtl ? 'text-right' : 'text-left'}`}
                             />
                           </div>
                           <div>
-                            <label className="block text-[9px] uppercase font-bold font-sans tracking-wider text-zinc-500 mb-1">Téléphone mobile *</label>
+                            <label className={`block text-[9px] uppercase font-bold font-sans tracking-wider text-zinc-500 mb-1 ${isRtl ? 'text-right' : 'text-left'}`}>
+                              {t('quote.client.phone')} *
+                            </label>
                             <input
                               required
                               type="tel"
                               name="clientPhone"
                               id="client-phone"
-                              placeholder="Ex: 0550 XX XX XX"
+                              placeholder={t('quote.client.phone_placeholder')}
                               value={formData.clientPhone}
                               onChange={handleChange}
-                              className="w-full bg-white border border-zinc-300 rounded-lg px-3 py-2 text-neutral-800 text-xs focus:outline-none focus:border-brand-yellow focus:ring-1 focus:ring-brand-yellow/30 transition-colors"
+                              className={`w-full bg-white border border-zinc-300 rounded-lg px-3 py-2 text-neutral-800 text-xs focus:outline-none focus:border-brand-yellow focus:ring-1 focus:ring-brand-yellow/30 transition-colors ${isRtl ? 'text-right' : 'text-left'}`}
                             />
                           </div>
                           <div>
-                            <label className="block text-[9px] uppercase font-bold font-sans tracking-wider text-zinc-500 mb-1">Adresse Email</label>
+                            <label className={`block text-[9px] uppercase font-bold font-sans tracking-wider text-zinc-500 mb-1 ${isRtl ? 'text-right' : 'text-left'}`}>
+                              {t('contact.form.email')}
+                            </label>
                             <input
                               type="email"
                               name="clientEmail"
                               id="client-email"
-                              placeholder="Ex: contact@entreprise.dz"
+                              placeholder={t('contact.form.placeholder.email')}
                               value={formData.clientEmail}
                               onChange={handleChange}
-                              className="w-full bg-white border border-zinc-300 rounded-lg px-3 py-2 text-neutral-800 text-xs focus:outline-none focus:border-brand-yellow focus:ring-1 focus:ring-brand-yellow/30 transition-colors"
+                              className={`w-full bg-white border border-zinc-300 rounded-lg px-3 py-2 text-neutral-800 text-xs focus:outline-none focus:border-brand-yellow focus:ring-1 focus:ring-brand-yellow/30 transition-colors ${isRtl ? 'text-right' : 'text-left'}`}
                             />
                           </div>
                           <div>
-                            <label className="block text-[9px] uppercase font-bold font-sans tracking-wider text-zinc-500 mb-1">Nom Entreprise (Optionnel)</label>
+                            <label className={`block text-[9px] uppercase font-bold font-sans tracking-wider text-zinc-500 mb-1 ${isRtl ? 'text-right' : 'text-left'}`}>
+                              {t('contact.form.company')} ({isRtl ? 'اختياري' : 'Optionnel'})
+                            </label>
                             <input
                               type="text"
                               name="clientCompany"
                               id="client-company"
-                              placeholder="Ex: SARL Trans Logistics Froid"
+                              placeholder={t('quote.client.company_placeholder')}
                               value={formData.clientCompany}
                               onChange={handleChange}
-                              className="w-full bg-white border border-zinc-300 rounded-lg px-3 py-2 text-neutral-800 text-xs focus:outline-none focus:border-brand-yellow focus:ring-1 focus:ring-brand-yellow/30 transition-colors"
+                              className={`w-full bg-white border border-zinc-300 rounded-lg px-3 py-2 text-neutral-800 text-xs focus:outline-none focus:border-brand-yellow focus:ring-1 focus:ring-brand-yellow/30 transition-colors ${isRtl ? 'text-right' : 'text-left'}`}
                             />
                           </div>
                         </div>
@@ -468,7 +482,7 @@ export default function QuoteSimulator() {
                     <div className="mt-8 space-y-4">
                       {/* Notice */}
                       <p className="text-[11px] text-zinc-500 font-sans leading-relaxed text-center italic bg-zinc-50 p-3.5 rounded-lg border border-zinc-100">
-                        💬 Pour vous garantir la meilleure qualité au meilleur prix d’Algérie, chaque devis est calculé sur-mesure par nos ingénieurs d’assemblage selon vos besoins réels.
+                        💬 {t('quote.result.notice')}
                       </p>
 
                       {/* Demander un devis central button */}
@@ -476,8 +490,8 @@ export default function QuoteSimulator() {
                         type="submit"
                         className="w-full py-4 bg-brand-yellow hover:bg-neutral-900 text-brand-charcoal hover:text-brand-yellow font-display font-black text-sm uppercase tracking-widest rounded-xl transition-all duration-300 transform hover:-translate-y-0.5 hover:shadow-xl hover:shadow-brand-yellow/20 flex items-center justify-center gap-2 cursor-pointer"
                       >
-                        <Send className="h-4 w-4 shrink-0" />
-                        <span>Demander un devis</span>
+                        <Send className={`h-4 w-4 shrink-0 ${isRtl ? 'transform rotate-180' : ''}`} />
+                        <span>{t('navbar.simulateur')}</span>
                       </button>
                     </div>
 
@@ -499,37 +513,40 @@ export default function QuoteSimulator() {
                 </div>
                 
                 <div className="space-y-3">
-                  <h3 className="text-3xl font-display font-black text-white">Demande de Devis Envoyée !</h3>
+                  <h3 className="text-3xl font-display font-black text-white">{t('quote.success.title')}</h3>
                   <p className="text-zinc-400 font-sans text-sm max-w-md mx-auto">
-                    Merci <span className="text-white font-bold">{formData.clientName}</span>. Votre demande de configuration a été enregistrée avec succès sous la référence unique <strong className="text-brand-yellow font-mono">#CI-DEV-{Math.floor(1000 + Math.random() * 9000)}</strong>.
+                    {t('quote.success.thank_you')
+                      .replace('{name}', formData.clientName)
+                      .replace('{ref}', uniqueRef)
+                    }
                   </p>
                 </div>
 
                 <div className="bg-neutral-950 p-6 rounded-xl border border-white/5 text-left space-y-4 max-w-md mx-auto font-sans text-xs">
-                  <span className="block text-[10px] font-display font-black uppercase text-brand-yellow tracking-widest pb-2 border-b border-white/5">
-                    RÉCAPITULATIF REÇU
+                  <span className={`block text-[10px] font-display font-black uppercase text-brand-yellow tracking-widest pb-2 border-b border-white/5 ${isRtl ? 'text-right' : 'text-left'}`}>
+                    {t('quote.success.recap')}
                   </span>
                   
                   <div className="grid grid-cols-2 gap-y-3 text-zinc-300">
-                    <span className="text-zinc-500">Flotte configurée :</span>
-                    <span className="text-white font-semibold text-right">
+                    <span className={isRtl ? 'text-right' : 'text-left'}>{t('quote.success.flotte')}</span>
+                    <span className={`text-white font-semibold ${isRtl ? 'text-left' : 'text-right'}`}>
                       {formData.truckCount}x {truckLabels[formData.truckType]}
                     </span>
 
-                    <span className="text-zinc-500">Structure / Carrosserie :</span>
-                    <span className="text-white font-semibold text-right">
+                    <span className={isRtl ? 'text-right' : 'text-left'}>{t('quote.success.structure')}</span>
+                    <span className={`text-white font-semibold ${isRtl ? 'text-left' : 'text-right'}`}>
                       {bodyLabels[formData.bodyType]}
                     </span>
 
-                    <span className="text-zinc-500">Système Froid :</span>
-                    <span className="text-white font-semibold text-right">
+                    <span className={isRtl ? 'text-right' : 'text-left'}>{t('quote.success.cooling_sys')}</span>
+                    <span className={`text-white font-semibold ${isRtl ? 'text-left' : 'text-right'}`}>
                       {frigoLabels[formData.frigoCapacity]}
                     </span>
 
                     {formData.hasSubframeIncluded && (
                       <>
-                        <span className="text-zinc-500">Sous-chassis :</span>
-                        <span className="text-white font-semibold text-right">Faux-châssis galva inclus</span>
+                        <span className={isRtl ? 'text-right' : 'text-left'}>{t('quote.success.subframe')}</span>
+                        <span className={`text-white font-semibold ${isRtl ? 'text-left' : 'text-right'}`}>{t('quote.success.subframe_val')}</span>
                       </>
                     )}
                   </div>
@@ -537,7 +554,7 @@ export default function QuoteSimulator() {
 
                 <div className="bg-amber-500/10 p-4 rounded-lg border border-amber-500/20 max-w-md mx-auto text-center">
                   <p className="text-xs text-zinc-300 leading-relaxed font-sans">
-                    💡 Un ingénieur de notre bureau d’études de <strong className="text-white">Constantine</strong> prépare l’étude de prix de votre projet et vous contactera au <strong className="text-brand-yellow">{formData.clientPhone}</strong> sous 60 minutes pour affiner les schémas techniques de construction de vos camions.
+                    {t('quote.success.notice').replace('{phone}', formData.clientPhone)}
                   </p>
                 </div>
 
@@ -548,7 +565,7 @@ export default function QuoteSimulator() {
                   className="flex items-center gap-2 px-6 py-3 bg-white/5 hover:bg-white/10 text-white rounded-lg mx-auto transition-all text-xs font-semibold uppercase tracking-wider font-display border border-white/10"
                 >
                   <RefreshCw className="h-3.5 w-3.5" />
-                  <span>Faire une autre demande de devis</span>
+                  <span>{t('quote.success.btn_another')}</span>
                 </button>
               </motion.div>
             )}
