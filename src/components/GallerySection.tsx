@@ -4,6 +4,12 @@ import { GalleryItem } from '../types';
 import { Eye, MapPin, X, Check } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useLanguage } from '../context/LanguageContext';
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
+
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 export default function GallerySection() {
   const { t, isRtl } = useLanguage();
@@ -82,16 +88,35 @@ export default function GallerySection() {
                   key={photo.id}
                   id={`gallery-card-${photo.id}`}
                   className="group relative bg-neutral-900 rounded-xl overflow-hidden aspect-[4/3] shadow-md cursor-pointer transform transition-all duration-300 hover:shadow-xl"
-                  onClick={() => setSelectedPhoto(photo)}
+                  onClick={(swiper, event) => {
+                    event?.stopPropagation();
+                  }}
                 >
                   
                   {/* Image item representation */}
-                  <img
-                    src={photo.imageUrl}
-                    alt={photoTitle}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 filter saturate-100 group-hover:saturate-125"
-                    referrerPolicy="no-referrer"
-                  />
+                  <Swiper
+                    modules={[Pagination, Autoplay]}
+                    pagination={{ clickable: true }}
+                    autoplay={{
+                      delay: 3500,
+                      disableOnInteraction: false,
+                    }}
+                    observer
+                    observeParents
+                    loop
+                    className="w-full h-full"
+                  >
+                    {photo.images.map((image, index) => (
+                      <SwiperSlide key={index}>
+                        <img
+                          src={image}
+                          alt={`${photoTitle}-${index}`}
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                          referrerPolicy="no-referrer"
+                        />
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
 
                   {/* Subtle dark overlay details on hover */}
                   <div className={`absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/40 to-transparent opacity-80 group-hover:opacity-95 transition-opacity duration-300 flex flex-col justify-end p-6 ${isRtl ? 'items-end' : 'items-start'}`}>
@@ -157,12 +182,25 @@ export default function GallerySection() {
                   
                   {/* Left big image preview */}
                   <div className="md:col-span-7 bg-neutral-950/50 aspect-video md:aspect-auto flex items-center justify-center border-r border-white/5">
-                    <img
-                      src={selectedPhoto.imageUrl}
-                      alt={t(`gallery.item.${selectedPhoto.id}.title`) || selectedPhoto.title}
-                      className="w-full h-auto max-h-[80vh] object-contain"
-                      referrerPolicy="no-referrer"
-                    />
+                    <Swiper
+                      modules={[Navigation, Pagination]}
+                      navigation
+                      pagination={{ clickable: true }}
+                      observer
+                      observeParents
+                      loop
+                      className="w-full h-full"
+                    >
+                      {selectedPhoto.images.map((image, index) => (
+                        <SwiperSlide key={index}>
+                          <img
+                            src={image}
+                            alt={`${selectedPhoto.title}-${index}`}
+                            className="w-full h-auto max-h-[80vh] object-contain"
+                          />
+                        </SwiperSlide>
+                      ))}
+                    </Swiper>
                   </div>
 
                   {/* Right description block */}

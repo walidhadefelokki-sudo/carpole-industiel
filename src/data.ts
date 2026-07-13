@@ -2,10 +2,16 @@ import { ServiceItem, GalleryItem, FeedbackItem, QuoteInput, QuoteEstimate } fro
 import imageBodywork from './assets/images/truck_bodywork_assembly_1781872797628.jpg';
 import imageFrigo from './assets/images/image2.jpeg';
 import imageConstantinePorteur from './assets/images/image1.jpeg';
+import image1 from './assets/images/image1.jpeg';
 import image3 from './assets/images/image3.jpeg';
 import image4 from './assets/images/image4.jpeg';
 import image5 from './assets/images/image5.jpeg';
-
+import image6 from './assets/images/image6.jpeg';
+import image7 from './assets/images/image7.jpeg';
+import image8 from './assets/images/image8.jpeg';
+import image9 from './assets/images/image9.jpeg';
+import image10 from './assets/images/image10.jpeg';
+import image11 from './assets/images/image11.jpeg';
 
 export { imageBodywork, imageFrigo, imageConstantinePorteur };
 
@@ -59,7 +65,7 @@ export const galleryData: GalleryItem[] = [
     id: 'real-1',
     title: 'Montage de carrosserie isotherme',
     category: 'carrosserie',
-    imageUrl: imageBodywork,
+    images: [ imageBodywork],
     description: 'Techniciens en plein assemblage de panneaux composites isolés haute densité sur un porteur rigide dans notre nouvel atelier.',
     location: 'Atelier Central, Constantine'
   },
@@ -67,7 +73,7 @@ export const galleryData: GalleryItem[] = [
     id: 'real-2',
     title: 'Installation d’un groupe frigorifique Carrier',
     category: 'frigo',
-    imageUrl: image4,
+    images: [ image4],
     description: 'Pose finale et raccordement électrique d’un système de froid négatif (-18°C) sur la cloison frontale d’un camion de distribution de produits surgelés.',
     location: 'Zone Industrielle, Constantine'
   },
@@ -75,7 +81,11 @@ export const galleryData: GalleryItem[] = [
     id: 'real-3',
     title: 'Camion frigorifique prêt à la livraison',
     category: 'realisation',
-    imageUrl: imageConstantinePorteur,
+    images: [
+      image1,
+      image6,
+      image7
+    ],
     description: 'Projet d’intégration complet (carrosserie isolée étanche + groupe de réfrigération thermo-contrôlé) livré pour une entreprise de logistique laitière nationale.',
     location: 'Hauts Plateaux, Constantine'
   },
@@ -83,7 +93,10 @@ export const galleryData: GalleryItem[] = [
     id: 'real-4',
     title: 'Aménagement intérieur isotherme de précision',
     category: 'carrosserie',
-    imageUrl: image3,
+    images: [
+      image8,
+      image9
+    ],
     description: 'Plancher en aluminium strié étanche, rails d’arrimage et rideaux thermiques à lanières pour minimiser les pertes de frigories au déchargement.',
     location: 'Atelier de Finition, Constantine'
   },
@@ -91,7 +104,20 @@ export const galleryData: GalleryItem[] = [
     id: 'real-5',
     title: 'Flotte de camions de distribution laitière',
     category: 'realisation',
-    imageUrl: image5,
+    images: [
+      image10,
+      image11
+    ],
+    description: 'Livraison simultanée de trois gros porteurs frigorifiques équipés de cloisons amovibles multi-températures pour la distribution urbaine.',
+    location: 'Constantine, Algérie'
+  },
+  {
+    id: 'real-6',
+    title: 'Flotte de camions de distribution laitière',
+    category: 'realisation',
+    images: [
+      image3,
+    ],
     description: 'Livraison simultanée de trois gros porteurs frigorifiques équipés de cloisons amovibles multi-températures pour la distribution urbaine.',
     location: 'Constantine, Algérie'
   }
