@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef} from 'react';
 import { QuoteInput, QuoteEstimate } from '../types';
 import { calculateQuote } from '../data';
 import { 
@@ -41,6 +41,7 @@ export default function QuoteSimulator() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState('');
   const [uniqueRef, setUniqueRef] = useState('');
+  const iframeLoaded = useRef(false);
 
   // We can still fetch the high-end technical duration/warranty estimate (without displaying any pricing)
   const estimate: QuoteEstimate = useMemo(() => {
@@ -64,16 +65,17 @@ export default function QuoteSimulator() {
   const handleSelectRadio = (name: string, value: string) => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
-
+  const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx3wyD22f9-qxLHNMVIMcV-hzT3gQb-A-5GY_VPr8GbLuCO9W33yzIpIJDfLSAAY84c7A/exec"
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
     if (!formData.clientName || !formData.clientPhone) {
-      setSubmitError(t('quote.error_fill'));
+      e.preventDefault();
+      setSubmitError(t("quote.error_fill"));
       return;
     }
-    setSubmitError('');
+
+    setSubmitError("");
+
     setUniqueRef(`#CI-DEV-${Math.floor(1000 + Math.random() * 9000)}`);
-    setIsSubmitted(true);
   };
 
   const handleReset = () => {
@@ -91,6 +93,7 @@ export default function QuoteSimulator() {
       clientCompany: '',
       clientCity: 'Constantine'
     });
+    iframeLoaded.current = false;
   };
 
   const truckLabels: Record<string, string> = {
@@ -140,8 +143,30 @@ export default function QuoteSimulator() {
         <div className="bg-neutral-950/40 rounded-2xl border border-white/10 p-5 sm:p-10 lg:p-12 shadow-2xl backdrop-blur-sm">
           <AnimatePresence mode="wait">
             {!isSubmitted ? (
-              <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-                
+              <>
+              <iframe
+                name="hidden_iframe"
+                style={{ display: "none" }}
+                title="hidden_iframe"
+                onLoad={() => {
+                  if (!iframeLoaded.current) {
+                    iframeLoaded.current = true;
+                    return;
+                  }
+
+                  setIsSubmitted(true);
+                }}
+              />
+              <form
+                action={GOOGLE_SCRIPT_URL}
+                method="POST"
+                target="hidden_iframe"
+              >
+                {/* Hidden fields to carry the custom button-selected values into the POST */}
+                <input type="hidden" name="truckType" value={formData.truckType} />
+                <input type="hidden" name="bodyType" value={formData.bodyType} />
+                <input type="hidden" name="frigoCapacity" value={formData.frigoCapacity} />
+
                 {/* LEFT COLUMN: Input form elements */}
                 <div className="lg:col-span-7 space-y-8">
                   
@@ -457,6 +482,11 @@ export default function QuoteSimulator() {
                               onChange={handleChange}
                               className={`w-full bg-white border border-zinc-300 rounded-lg px-3 py-2 text-neutral-800 text-xs focus:outline-none focus:border-brand-yellow focus:ring-1 focus:ring-brand-yellow/30 transition-colors ${isRtl ? 'text-right' : 'text-left'}`}
                             />
+                            <input
+                                type="hidden"
+                                name="clientCity"
+                                value={formData.clientCity}
+                            />
                           </div>
                           <div>
                             <label className={`block text-[9px] uppercase font-bold font-sans tracking-wider text-zinc-500 mb-1 ${isRtl ? 'text-right' : 'text-left'}`}>
@@ -486,6 +516,11 @@ export default function QuoteSimulator() {
                       </p>
 
                       {/* Demander un devis central button */}
+                      <input
+                          type="hidden"
+                          name="sheet"
+                          value="Quote Requests"
+                      />
                       <button
                         type="submit"
                         className="w-full py-4 bg-brand-yellow hover:bg-neutral-900 text-brand-charcoal hover:text-brand-yellow font-display font-black text-sm uppercase tracking-widest rounded-xl transition-all duration-300 transform hover:-translate-y-0.5 hover:shadow-xl hover:shadow-brand-yellow/20 flex items-center justify-center gap-2 cursor-pointer"
@@ -499,6 +534,7 @@ export default function QuoteSimulator() {
                 </div>
 
               </form>
+              </>
             ) : (
               /* Submission success screen (Without any pricing output) */
               <motion.div
