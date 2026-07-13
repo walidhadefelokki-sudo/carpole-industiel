@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X, Truck, Phone, Compass, MessageSquare, Info } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useLanguage } from '../context/LanguageContext';
+import logo from '../assets/images/logo.png';
 
 interface NavbarProps {
   activeTab: string;
@@ -69,21 +70,12 @@ export default function Navbar({ activeTab, setActiveTab }: NavbarProps) {
             onClick={() => handleNavClick('accueil')} 
             className={`flex items-center gap-2 cursor-pointer group ${isRtl ? 'flex-row-reverse' : 'flex-row'}`}
           >
-            {/* Visual Logo Emblem */}
-            <div className="relative flex items-center justify-center w-10 h-10 rounded border border-brand-yellow/30 bg-neutral-900 group-hover:border-brand-yellow transition-all duration-300">
-              <span className="font-display font-extrabold text-brand-yellow text-xl">{isRtl ? 'ك' : 'C'}</span>
-              <div className="absolute top-0 right-0 w-2.5 h-2.5 bg-brand-yellow rounded-tr rounded-bl-lg"></div>
-            </div>
-            
-            {/* Logo Text */}
-            <div className={`flex flex-col ${isRtl ? 'items-end text-right' : 'items-start text-left'}`}>
-              <div className={`flex items-baseline gap-1 ${isRtl ? 'flex-row-reverse' : 'flex-row'}`}>
-                <span className="font-display font-black text-white text-lg tracking-wider">{isRtl ? 'كاربول' : 'CARPÔLE'}</span>
-                {/* Accent angle shown on O resembling the logo letter Ô */}
-                <span className="w-1.5 h-1.5 bg-brand-yellow rounded-full animate-pulse"></span>
-              </div>
-              <span className="font-sans text-[10px] text-zinc-400 tracking-[0.25em] -mt-1 font-semibold uppercase">{isRtl ? 'الصناعية' : 'INDUSTRIEL'}</span>
-            </div>
+            <img
+              src={logo}
+              alt="Logo"
+              className="h-10 sm:h-14 w-auto object-contain"
+              referrerPolicy="no-referrer"
+            />
           </div>
 
           {/* Desktop Navigation Links */}

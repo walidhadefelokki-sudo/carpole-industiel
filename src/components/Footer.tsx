@@ -1,6 +1,7 @@
 import React from 'react';
 import { Mail, Phone, MapPin, ShieldAlert, Award, Facebook } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import logo from '../assets/images/logo.png';
 
 export default function Footer() {
   const { t, isRtl } = useLanguage();
@@ -32,14 +33,13 @@ export default function Footer() {
           {/* 1. Brand panel info */}
           <div className="md:col-span-5 space-y-4">
             <div className={`flex items-center gap-2 cursor-pointer ${isRtl ? 'flex-row-reverse' : 'flex-row'}`} onClick={() => handleScrollTo('accueil')}>
-              <div className="relative flex items-center justify-center w-8 h-8 rounded bg-neutral-900 border border-brand-yellow/50">
-                <span className="font-display font-extrabold text-brand-yellow text-md">{isRtl ? 'ك' : 'C'}</span>
-                <div className="absolute top-0 right-0 w-2 h-2 bg-brand-yellow rounded-tr"></div>
-              </div>
-              <div className="flex flex-col">
-                <span className="font-display font-black text-white text-md tracking-wider leading-none">{isRtl ? 'كاربول' : 'CARPÔLE'}</span>
-                <span className="font-sans text-[8px] text-zinc-400 tracking-[0.25em] font-semibold uppercase">{isRtl ? 'الصناعية' : 'INDUSTRIEL'}</span>
-              </div>
+              <img
+              src={logo}
+              alt="Logo"
+              className="h-10 sm:h-14 w-auto object-contain"
+              referrerPolicy="no-referrer"
+            />
+              
             </div>
 
             <p className="font-sans text-zinc-400 text-xs leading-relaxed max-w-sm">
