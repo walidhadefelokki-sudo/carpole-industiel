@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShieldCheck, Target, Award, Users, MapPin } from 'lucide-react';
+import { ShieldCheck, Target, Award, Users, MapPin, Tractor, Wrench, Settings } from 'lucide-react';
 import { imageBodywork } from '../data';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -135,36 +135,88 @@ export default function AboutSection() {
         </div>
 
         {/* Independent section highlighting Motorest Subsidiary Status */}
-        <div id="groupe-motorest" className={`mt-8 bg-zinc-50 border border-zinc-200 rounded-2xl p-6 sm:p-8 relative overflow-hidden shadow-sm text-center ${isRtl ? 'md:text-right' : 'md:text-left'}`}>
-          <div className="absolute top-0 right-0 w-48 h-48 bg-zinc-100 rounded-full filter blur-xl pointer-events-none"></div>
-          <div className={`flex flex-col md:flex-row items-center justify-between gap-6 relative z-10 ${isRtl ? 'md:flex-row-reverse' : 'md:flex-row'}`}>
-            <div className="space-y-3">
-              <div className={`flex flex-wrap items-center gap-2.5 ${isRtl ? 'justify-start md:justify-end flex-row-reverse' : 'justify-start'}`}>
-                <div className="p-1.5 bg-neutral-900 text-brand-yellow rounded-lg shrink-0">
-                  <span className="font-display font-black text-xs px-1">M</span>
+        <div id="groupe-motorest" className={`mt-10 bg-gradient-to-br from-emerald-950 via-neutral-900 to-emerald-950/90 border border-emerald-500/30 rounded-3xl p-6 sm:p-8 relative overflow-hidden shadow-xl text-center ${isRtl ? 'md:text-right font-sans' : 'md:text-left'}`}>
+          <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full filter blur-3xl pointer-events-none"></div>
+          <div className="absolute bottom-0 left-0 w-48 h-48 bg-brand-yellow/5 rounded-full filter blur-2xl pointer-events-none"></div>
+          
+          <div className={`flex flex-col lg:flex-row items-center justify-between gap-8 relative z-10`}>
+            <div className="space-y-4 flex-1">
+              <div className={`flex flex-wrap items-center gap-3 ${isRtl ? 'justify-start md:justify-end flex-row-reverse' : 'justify-start'}`}>
+                <div className="p-2 bg-brand-yellow text-brand-charcoal rounded-xl shadow-md shrink-0">
+                  <Tractor className="h-5 w-5" />
                 </div>
-                <h4 className="font-display font-extrabold text-base text-neutral-900">
-                  {isRtl ? 'عضو رسمي في مجموعة موتوريست' : 'Filiale Officielle du Groupe Motorest'}
-                </h4>
-                <span className="text-[9px] font-mono font-black uppercase text-brand-charcoal bg-brand-yellow px-2.5 py-0.5 rounded tracking-wider shrink-0 shadow-sm">
-                  {isRtl ? 'مجموعة موتوريست' : 'GROUPE MOTOREST'}
-                </span>
+                <div className={isRtl ? 'text-right' : 'text-left'}>
+                  <span className="text-[10px] font-mono font-black uppercase text-brand-yellow bg-emerald-900/60 border border-emerald-500/30 px-3 py-1 rounded-full tracking-wider shadow-sm inline-block">
+                    {isRtl ? 'مجموعة موتوريست العالمية' : 'GROUPE MOTOREST'}
+                  </span>
+                  <h4 className="font-display font-extrabold text-lg sm:text-xl text-white mt-1">
+                    {isRtl ? 'الفرع الرسمي المعتمد للتجهيز الفلاحي والصناعي' : 'Filiale Officielle du Groupe Motorest'}
+                  </h4>
+                </div>
               </div>
-              <p className="font-sans text-zinc-600 text-xs sm:text-sm max-w-3xl leading-relaxed">
+
+              <p className={`font-sans text-emerald-100/80 text-xs sm:text-sm max-w-4xl leading-relaxed ${isRtl ? 'text-right' : 'text-left'}`}>
                 {isRtl 
-                  ? 'بصفتنا فرعاً معتمداً لمجموعة موتوريست (Motorest)، نوفر لكم خدمات صيانة وتجهيز متكاملة مطابقة لمعايير الجودة العالمية وبضمان حقيقي.' 
-                  : 'En tant que filiale officielle du groupe Motorest, nous faisons bénéficier nos clients de la synergie, de l’expertise technique et de la solidité logistique de notre maison mère.'}
+                  ? 'بصفتنا فرعاً معتمداً لمجموعة موتوريست (Motorest)، نوفر لشركائنا وعملائنا تكاملاً شاملاً يجمع بين تصنيع وتجهيز هياكل الشاحنات وتوفير أحدث حلول العتاد الفلاحي، قطع الغيار الأصلية والإطارات المتينة لجميع آليات الخدمة الشاقة.' 
+                  : 'En tant que filiale officielle du groupe Motorest, nous combinons notre savoir-faire en carrosserie industrielle avec l’expertise historique de notre maison mère dans le domaine du matériel agricole, des pièces d’usure d’origine, et des pneumatiques de haute performance pour tous types de machines et véhicules.'}
               </p>
+
+              {/* Grid of the 3 pillars */}
+              <div className={`grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 ${isRtl ? 'text-right' : 'text-left'}`}>
+                <div className="p-3 bg-white/5 border border-white/10 rounded-xl flex items-center gap-3">
+                  <div className="p-1.5 bg-emerald-500/20 text-emerald-400 rounded-lg shrink-0">
+                    <Tractor className="h-4 w-4" />
+                  </div>
+                  <div>
+                    <h5 className="font-display font-bold text-xs text-white">
+                      {isRtl ? 'عتاد فلاحي متطور' : 'Matériel Agricole'}
+                    </h5>
+                    <p className="text-[10px] text-zinc-400">
+                      {isRtl ? 'جرارات وآلات حديثة' : 'Tracteurs & équipements'}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="p-3 bg-white/5 border border-white/10 rounded-xl flex items-center gap-3">
+                  <div className="p-1.5 bg-emerald-500/20 text-emerald-400 rounded-lg shrink-0">
+                    <Wrench className="h-4 w-4" />
+                  </div>
+                  <div>
+                    <h5 className="font-display font-bold text-xs text-white">
+                      {isRtl ? 'قطع غيار أصلية' : 'Pièces de Rechange'}
+                    </h5>
+                    <p className="text-[10px] text-zinc-400">
+                      {isRtl ? 'ضمان الأداء والاستدامة' : 'Composants certifiés'}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="p-3 bg-white/5 border border-white/10 rounded-xl flex items-center gap-3">
+                  <div className="p-1.5 bg-emerald-500/20 text-emerald-400 rounded-lg shrink-0">
+                    <Settings className="h-4 w-4" />
+                  </div>
+                  <div>
+                    <h5 className="font-display font-bold text-xs text-white">
+                      {isRtl ? 'إطارات مخصصة' : 'Pneumatiques'}
+                    </h5>
+                    <p className="text-[10px] text-zinc-400">
+                      {isRtl ? 'لكل الطرق والآلات' : 'Pneus agricoles & industriels'}
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
+
             <button
               id="motorest-action-btn"
               onClick={() => {
                 const el = document.getElementById('contact');
                 if (el) el.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="px-5 py-2.5 bg-neutral-900 hover:bg-neutral-800 text-white font-display font-bold text-xs uppercase tracking-wider rounded transition-all shrink-0 cursor-pointer border border-neutral-800 shadow hover:shadow-md"
+              className="px-6 py-3 bg-brand-yellow hover:bg-amber-400 text-brand-charcoal font-display font-extrabold text-xs uppercase tracking-wider rounded-xl transition-all duration-300 shrink-0 cursor-pointer shadow-lg hover:shadow-brand-yellow/20 transform hover:-translate-y-0.5 flex items-center gap-2 self-center"
             >
-              {isRtl ? 'تواصل معنا' : 'En savoir plus'}
+              <span>{isRtl ? 'طلب معلومات / كتالوج' : 'Nous Contacter / Catalogue'}</span>
+              <Wrench className="h-3.5 w-3.5" />
             </button>
           </div>
         </div>

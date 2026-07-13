@@ -7,8 +7,8 @@ export interface ServiceItem {
   advantages: string[];
 }
 
-export type TruckType = 'carrier_small' | 'truck_medium' | 'semi_heavy_duty' | 'custom_project';
-export type BodyType = 'insulated_refrigerated' | 'standard_box_dry' | 'heavy_duty_tipper' | 'subframe_only';
+export type TruckType = 'carrier_small' | 'truck_medium' | 'semi_heavy_duty' | 'special_order';
+export type BodyType = 'insulated_refrigerated' | 'standard_box_dry' | 'meat_hanging' | 'subframe_only';
 export type RefrigeratorCapacity = 'none' | 'positive_fresh' | 'negative_deep_freeze' | 'dual_multi_temp';
 
 export interface QuoteInput {

@@ -143,7 +143,7 @@ export function calculateQuote(input: QuoteInput): QuoteEstimate {
       baseBodyCost = 1450000;
       durationInDays = 14;
       break;
-    case 'custom_project':
+    case 'special_order':
       baseBodyCost = 1900000;
       durationInDays = 18;
       break;
@@ -158,9 +158,9 @@ export function calculateQuote(input: QuoteInput): QuoteEstimate {
     case 'standard_box_dry':
       bodyworkCost = baseBodyCost * 1.0; // standard steel/aluminum side skin
       break;
-    case 'heavy_duty_tipper':
-      bodyworkCost = baseBodyCost * 1.35; // Hydraulic piston and thicker structural steel
-      durationInDays += 3;
+    case 'meat_hanging':
+      bodyworkCost = baseBodyCost * 1.65; // Reinforced roof and built-in meat hanging rail systems
+      durationInDays += 4;
       break;
     case 'subframe_only':
       bodyworkCost = baseBodyCost * 0.45; // Bare galvanized subframe only
@@ -175,16 +175,16 @@ export function calculateQuote(input: QuoteInput): QuoteEstimate {
       refrigeratorCost = 0;
       break;
     case 'positive_fresh':
-      refrigeratorCost = input.truckType === 'carrier_small' ? 380000 : 650000;
+      refrigeratorCost = input.truckType === 'carrier_small' ? 380000 : (input.truckType === 'special_order' ? 1150000 : 650000);
       durationInDays += 2;
       break;
     case 'negative_deep_freeze':
-      refrigeratorCost = input.truckType === 'carrier_small' ? 580000 : 980000;
+      refrigeratorCost = input.truckType === 'carrier_small' ? 580000 : (input.truckType === 'special_order' ? 1750000 : 980000);
       durationInDays += 3;
       warrantyMonths = 36; // Premium warranty on deep freeze setups
       break;
     case 'dual_multi_temp':
-      refrigeratorCost = input.truckType === 'carrier_small' ? 820000 : 1380000;
+      refrigeratorCost = input.truckType === 'carrier_small' ? 820000 : (input.truckType === 'special_order' ? 2450000 : 1380000);
       durationInDays += 4;
       warrantyMonths = 36;
       break;
@@ -193,7 +193,7 @@ export function calculateQuote(input: QuoteInput): QuoteEstimate {
   // 4. Subframe galvanization & materials option
   let subframeCost = 0;
   if (input.hasSubframeIncluded) {
-    subframeCost = input.truckType === 'carrier_small' ? 80000 : 180000;
+    subframeCost = input.truckType === 'carrier_small' ? 80000 : (input.truckType === 'special_order' ? 250000 : 180000);
   }
 
   // 5. Engineering, electrical wiring, custom design and Algerian integration homologation

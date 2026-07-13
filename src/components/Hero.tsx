@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Shield, Sparkles, AlertTriangle, ArrowRight, ArrowDown, ArrowLeft } from 'lucide-react';
+import { Shield, Sparkles, AlertTriangle, ArrowRight, ArrowDown, ArrowLeft, Tractor, Wrench, Settings } from 'lucide-react';
 import { imageConstantinePorteur } from '../data';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -42,10 +42,12 @@ export default function Hero({ onCtaClick }: HeroProps) {
           src={imageConstantinePorteur}
           alt="Camion Frigorifique Carpôle à Constantine"
           animate={{
-            scale: [1.25, 1.0],
+            scale: [1.45, 1.05],
+            y: [-25, 25],
+            x: [-15, 15],
           }}
           transition={{
-            duration: 18,
+            duration: 24,
             repeat: Infinity,
             repeatType: 'reverse',
             ease: 'easeInOut',
@@ -132,7 +134,7 @@ export default function Hero({ onCtaClick }: HeroProps) {
                 <button
                   id="hero-cta-motorest"
                   onClick={() => onCtaClick('groupe-motorest')}
-                  className={`flex flex-col sm:flex-row items-start sm:items-center gap-4 p-4 bg-neutral-950/80 hover:bg-neutral-950 border border-brand-yellow/30 hover:border-brand-yellow/75 text-white rounded-2xl transition-all duration-300 transform hover:-translate-y-1 max-w-lg cursor-pointer group shadow-xl relative overflow-hidden text-left ${isRtl ? 'sm:flex-row-reverse text-right' : 'sm:flex-row text-left'}`}
+                  className={`flex flex-col sm:flex-row items-stretch sm:items-center gap-4 p-4.5 bg-emerald-950/40 hover:bg-emerald-950/80 border border-emerald-500/30 hover:border-emerald-400 text-white rounded-2xl transition-all duration-300 transform hover:-translate-y-1 max-w-lg cursor-pointer group shadow-xl relative overflow-hidden text-left ${isRtl ? 'sm:flex-row-reverse text-right' : 'sm:flex-row text-left'}`}
                 >
                   {/* Subtle corner badge color accent */}
                   <div className="absolute top-0 right-0 w-24 h-24 bg-brand-yellow/5 rounded-full filter blur-xl group-hover:bg-brand-yellow/10 transition-colors pointer-events-none"></div>
@@ -140,24 +142,41 @@ export default function Hero({ onCtaClick }: HeroProps) {
                   {/* Distinct side accent indicator line */}
                   <div className={`absolute top-0 bottom-0 w-1 bg-brand-yellow ${isRtl ? 'right-0' : 'left-0'}`}></div>
 
-                  <div className="p-2.5 bg-brand-yellow/15 text-brand-yellow rounded-xl shrink-0 group-hover:scale-110 transition-all duration-300 self-start sm:self-center">
-                    <span className="font-display font-black text-xs px-1">M</span>
+                  {/* Agricultural / Parts / Tires Visual Cluster */}
+                  <div className={`flex items-center gap-3 p-2.5 bg-emerald-950/60 border border-emerald-500/20 rounded-xl shrink-0 self-start sm:self-center ${isRtl ? 'flex-row-reverse' : 'flex-row'}`}>
+                    <div className="flex flex-col gap-0.5 items-center justify-center w-10">
+                      <Tractor className="h-5 w-5 text-brand-yellow group-hover:scale-110 transition-transform duration-300" />
+                      <span className="text-[8px] font-mono uppercase tracking-wider text-emerald-300/90 font-bold">Agri</span>
+                    </div>
+                    <div className="w-[1px] h-8 bg-emerald-500/20"></div>
+                    <div className="flex flex-col gap-0.5 items-center justify-center w-10">
+                      <Wrench className="h-4.5 w-4.5 text-emerald-400 group-hover:rotate-12 transition-transform duration-300" />
+                      <span className="text-[8px] font-mono uppercase tracking-wider text-emerald-300/90 font-bold">Pièces</span>
+                    </div>
+                    <div className="w-[1px] h-8 bg-emerald-500/20"></div>
+                    <div className="flex flex-col gap-0.5 items-center justify-center w-10">
+                      <Settings className="h-4.5 w-4.5 text-brand-yellow group-hover:spin-slow" />
+                      <span className="text-[8px] font-mono uppercase tracking-wider text-emerald-300/90 font-bold">Pneus</span>
+                    </div>
                   </div>
 
-                  <div className="space-y-1 relative z-10">
+                  <div className="space-y-1 relative z-10 flex-1">
                     <div className={`flex flex-wrap items-center gap-2 ${isRtl ? 'flex-row-reverse' : 'flex-row'}`}>
                       <span className="w-2 h-2 rounded-full bg-brand-yellow animate-ping shrink-0"></span>
                       <span className="font-display font-black text-[10px] uppercase tracking-widest text-brand-yellow">
                         {isRtl ? 'مجموعة موتوريست العالمية' : 'GROUPE MOTOREST'}
                       </span>
-                      <span className="text-[8px] bg-brand-yellow/15 text-brand-yellow px-2 py-0.5 rounded font-mono font-black uppercase tracking-wider shrink-0">
+                      <span className="text-[8px] bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded font-mono font-black uppercase tracking-wider shrink-0 border border-emerald-500/30">
                         {isRtl ? 'الفرع الرسمي' : 'FILIALE OFFICIELLE'}
                       </span>
                     </div>
-                    <p className="font-sans text-xs text-zinc-300 group-hover:text-white transition-colors leading-relaxed font-normal">
+                    <h5 className="font-display font-bold text-xs text-white uppercase tracking-wider">
+                      {isRtl ? 'العتاد الفلاحي، قطع الغيار، وإطارات العجلات' : 'Matériel Agricole, Pièces & Pneumatiques'}
+                    </h5>
+                    <p className="font-sans text-[11px] text-emerald-100/70 group-hover:text-white transition-colors leading-relaxed font-normal">
                       {isRtl 
-                        ? 'كاربول هي فرع معتمد لمجموعة Motorest. اضغط هنا للمزيد.' 
-                        : 'Carpôle Industriel est une filiale de Motorest. Cliquez pour en savoir plus.'}
+                        ? 'كاربول هي فرع معتمد لمجموعة Motorest الرائدة في توريد الجرارات، قطع الغيار والإطارات.' 
+                        : 'Filiale officielle de Motorest : Leader du matériel agricole de pointe, pièces d’usure et pneus industriels.'}
                     </p>
                   </div>
                 </button>

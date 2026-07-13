@@ -97,13 +97,13 @@ export default function QuoteSimulator() {
     carrier_small: t('quote.truck.carrier_small'),
     truck_medium: t('quote.truck.truck_medium'),
     semi_heavy_duty: t('quote.truck.semi_heavy_duty'),
-    custom_project: t('quote.truck.custom_project')
+    special_order: t('quote.truck.special_order')
   };
 
   const bodyLabels: Record<string, string> = {
     insulated_refrigerated: t('quote.body.insulated_refrigerated'),
     standard_box_dry: t('quote.body.standard_box_dry'),
-    heavy_duty_tipper: t('quote.body.heavy_duty_tipper'),
+    meat_hanging: t('quote.body.meat_hanging'),
     subframe_only: t('quote.body.subframe_only')
   };
 
@@ -158,7 +158,7 @@ export default function QuoteSimulator() {
                         { id: 'carrier_small', label: t('quote.truck.carrier_small'), desc: t('quote.truck.carrier_small.desc') },
                         { id: 'truck_medium', label: t('quote.truck.truck_medium'), desc: t('quote.truck.truck_medium.desc') },
                         { id: 'semi_heavy_duty', label: t('quote.truck.semi_heavy_duty'), desc: t('quote.truck.semi_heavy_duty.desc') },
-                        { id: 'custom_project', label: t('quote.truck.custom_project'), desc: t('quote.truck.custom_project.desc') }
+                        { id: 'special_order', label: t('quote.truck.special_order'), desc: t('quote.truck.special_order.desc') }
                       ].map((item) => (
                         <button
                           type="button"
@@ -190,7 +190,7 @@ export default function QuoteSimulator() {
                       {[
                         { id: 'insulated_refrigerated', label: t('quote.body.insulated_refrigerated'), desc: t('quote.body.insulated_refrigerated.desc') },
                         { id: 'standard_box_dry', label: t('quote.body.standard_box_dry'), desc: t('quote.body.standard_box_dry.desc') },
-                        { id: 'heavy_duty_tipper', label: t('quote.body.heavy_duty_tipper'), desc: t('quote.body.heavy_duty_tipper.desc') },
+                        { id: 'meat_hanging', label: t('quote.body.meat_hanging'), desc: t('quote.body.meat_hanging.desc') },
                         { id: 'subframe_only', label: t('quote.body.subframe_only'), desc: t('quote.body.subframe_only.desc') }
                       ].map((item) => (
                         <button
