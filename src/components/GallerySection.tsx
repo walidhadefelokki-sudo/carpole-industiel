@@ -88,38 +88,38 @@ export default function GallerySection() {
                   key={photo.id}
                   id={`gallery-card-${photo.id}`}
                   className="group relative bg-neutral-900 rounded-xl overflow-hidden aspect-[4/3] shadow-md cursor-pointer transform transition-all duration-300 hover:shadow-xl"
-                  onClick={(swiper, event) => {
-                    event?.stopPropagation();
-                  }}
+                  onClick={() => setSelectedPhoto(photo)}
                 >
                   
-                  {/* Image item representation */}
-                  <Swiper
-                    modules={[Pagination, Autoplay]}
-                    pagination={{ clickable: true }}
-                    autoplay={{
-                      delay: 3500,
-                      disableOnInteraction: false,
-                    }}
-                    observer
-                    observeParents
-                    loop
-                    className="w-full h-full"
-                  >
-                    {photo.images.map((image, index) => (
-                      <SwiperSlide key={index}>
-                        <img
-                          src={image}
-                          alt={`${photoTitle}-${index}`}
-                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                          referrerPolicy="no-referrer"
-                        />
-                      </SwiperSlide>
-                    ))}
-                  </Swiper>
+                    {/* Image item representation */}
+                    <Swiper
+                      modules={[Pagination, Autoplay]}
+                      pagination={{ clickable: true }}
+                      autoplay={{
+                        delay: 3500,
+                        disableOnInteraction: false,
+                      }}
+                      loop
+                      className="w-full h-full z-0"
+                    >
+                      {photo.images.map((image, index) => (
+                        <SwiperSlide key={index}>
+                          <img
+                            src={image}
+                            alt={`${photoTitle}-${index}`}
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                            referrerPolicy="no-referrer"
+                          />
+                        </SwiperSlide>
+                      ))}
+                    </Swiper>
 
                   {/* Subtle dark overlay details on hover */}
-                  <div className={`absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/40 to-transparent opacity-80 group-hover:opacity-95 transition-opacity duration-300 flex flex-col justify-end p-6 ${isRtl ? 'items-end' : 'items-start'}`}>
+                  <div
+                    className={`absolute inset-0 z-10 bg-gradient-to-t from-neutral-950 via-neutral-950/40 to-transparent opacity-80 group-hover:opacity-95 transition-opacity duration-300 flex flex-col justify-end p-6 ${
+                      isRtl ? "items-end" : "items-start"
+                    }`}
+                  >
                     
                     {/* Category marker bar */}
                     <span className="text-[9px] font-mono font-bold uppercase text-brand-yellow tracking-widest bg-brand-yellow/10 border border-brand-yellow/30 px-2.5 py-0.5 rounded self-start mb-2">
@@ -183,13 +183,14 @@ export default function GallerySection() {
                   {/* Left big image preview */}
                   <div className="md:col-span-7 bg-neutral-950/50 aspect-video md:aspect-auto flex items-center justify-center border-r border-white/5">
                     <Swiper
-                      modules={[Navigation, Pagination]}
-                      navigation
+                      modules={[Pagination, Autoplay]}
                       pagination={{ clickable: true }}
-                      observer
-                      observeParents
+                      autoplay={{
+                        delay: 3500,
+                        disableOnInteraction: false,
+                      }}
                       loop
-                      className="w-full h-full"
+                      className="w-full h-full z-0"
                     >
                       {selectedPhoto.images.map((image, index) => (
                         <SwiperSlide key={index}>
