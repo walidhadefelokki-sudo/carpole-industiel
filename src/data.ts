@@ -1,7 +1,11 @@
 import { ServiceItem, GalleryItem, FeedbackItem, QuoteInput, QuoteEstimate } from './types';
 import imageBodywork from './assets/images/truck_bodywork_assembly_1781872797628.jpg';
-import imageFrigo from './assets/images/truck_frigo_installation_1781872814520.jpg';
-import imageConstantinePorteur from './assets/images/refrigerated_truck_constantine_1781872831310.jpg';
+import imageFrigo from './assets/images/image2.jpeg';
+import imageConstantinePorteur from './assets/images/image1.jpeg';
+import image3 from './assets/images/image3.jpeg';
+import image4 from './assets/images/image4.jpeg';
+import image5 from './assets/images/image5.jpeg';
+
 
 export { imageBodywork, imageFrigo, imageConstantinePorteur };
 
@@ -63,7 +67,7 @@ export const galleryData: GalleryItem[] = [
     id: 'real-2',
     title: 'Installation d’un groupe frigorifique Carrier',
     category: 'frigo',
-    imageUrl: imageFrigo,
+    imageUrl: image4,
     description: 'Pose finale et raccordement électrique d’un système de froid négatif (-18°C) sur la cloison frontale d’un camion de distribution de produits surgelés.',
     location: 'Zone Industrielle, Constantine'
   },
@@ -79,7 +83,7 @@ export const galleryData: GalleryItem[] = [
     id: 'real-4',
     title: 'Aménagement intérieur isotherme de précision',
     category: 'carrosserie',
-    imageUrl: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=80',
+    imageUrl: image3,
     description: 'Plancher en aluminium strié étanche, rails d’arrimage et rideaux thermiques à lanières pour minimiser les pertes de frigories au déchargement.',
     location: 'Atelier de Finition, Constantine'
   },
@@ -87,7 +91,7 @@ export const galleryData: GalleryItem[] = [
     id: 'real-5',
     title: 'Flotte de camions de distribution laitière',
     category: 'realisation',
-    imageUrl: 'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=1200&q=80',
+    imageUrl: image5,
     description: 'Livraison simultanée de trois gros porteurs frigorifiques équipés de cloisons amovibles multi-températures pour la distribution urbaine.',
     location: 'Constantine, Algérie'
   }
