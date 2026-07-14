@@ -161,6 +161,7 @@ export default function QuoteSimulator() {
                 action={GOOGLE_SCRIPT_URL}
                 method="POST"
                 target="hidden_iframe"
+                className="grid grid-cols-1 lg:grid-cols-12 gap-x-10 gap-y-10 items-start"
               >
                 {/* Hidden fields to carry the custom button-selected values into the POST */}
                 <input type="hidden" name="truckType" value={formData.truckType} />
