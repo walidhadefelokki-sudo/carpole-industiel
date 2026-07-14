@@ -53,7 +53,8 @@ export default function QuoteSimulator() {
     
     if (type === 'checkbox') {
       const checked = (e.target as HTMLInputElement).checked;
-      setFormData(prev => ({ ...prev, [name]: checked }));
+      const key = name === 'hasSubframeIncludedToggle' ? 'hasSubframeIncluded' : name;
+      setFormData(prev => ({ ...prev, [key]: checked }));
     } else if (name === 'truckCount') {
       const parsed = parseInt(value);
       setFormData(prev => ({ ...prev, [name]: isNaN(parsed) ? 1 : Math.max(1, parsed) }));
@@ -163,10 +164,13 @@ export default function QuoteSimulator() {
                 target="hidden_iframe"
                 className="grid grid-cols-1 lg:grid-cols-12 gap-x-10 gap-y-10 items-start"
               >
-                {/* Hidden fields to carry the custom button-selected values into the POST */}
-                <input type="hidden" name="truckType" value={formData.truckType} />
-                <input type="hidden" name="bodyType" value={formData.bodyType} />
-                <input type="hidden" name="frigoCapacity" value={formData.frigoCapacity} />
+                {/* Hidden fields to carry the custom button-selected values into the POST.
+                    Using the translated labels (not the raw IDs) so the sheet shows the
+                    same friendly text the client sees in the recap card. */}
+                <input type="hidden" name="truckType" value={truckLabels[formData.truckType]} />
+                <input type="hidden" name="bodyType" value={bodyLabels[formData.bodyType]} />
+                <input type="hidden" name="frigoCapacity" value={frigoLabels[formData.frigoCapacity]} />
+                <input type="hidden" name="hasSubframeIncluded" value={formData.hasSubframeIncluded ? (isRtl ? 'نعم' : 'Oui') : (isRtl ? 'لا' : 'Non')} />
 
                 {/* LEFT COLUMN: Input form elements */}
                 <div className="lg:col-span-7 space-y-8">
@@ -306,7 +310,7 @@ export default function QuoteSimulator() {
                         <label className="flex items-center gap-3 bg-neutral-900 border border-white/10 hover:border-white/20 p-4 rounded-xl cursor-pointer transition-colors w-full select-none">
                           <input
                             type="checkbox"
-                            name="hasSubframeIncluded"
+                            name="hasSubframeIncludedToggle"
                             id="chk-subframe"
                             checked={formData.hasSubframeIncluded}
                             onChange={handleChange}
