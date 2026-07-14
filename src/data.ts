@@ -12,6 +12,11 @@ import image8 from './assets/images/image8.jpeg';
 import image9 from './assets/images/image9.jpeg';
 import image10 from './assets/images/image10.jpeg';
 import image11 from './assets/images/image11.jpeg';
+import image12 from './assets/images/bottom_left.jpg';
+import image13 from './assets/images/bottom_right.jpg';
+import image14 from './assets/images/top_left.jpg';
+import image15 from './assets/images/top_right.jpg';      
+ 
 
 export { imageBodywork, imageFrigo, imageConstantinePorteur };
 
@@ -105,8 +110,10 @@ export const galleryData: GalleryItem[] = [
     title: 'Flotte de camions de distribution laitière',
     category: 'realisation',
     images: [
-      image10,
-      image11
+      image12,
+      image13,
+      image14,
+      image15,
     ],
     description: 'Livraison simultanée de trois gros porteurs frigorifiques équipés de cloisons amovibles multi-températures pour la distribution urbaine.',
     location: 'Constantine, Algérie'
