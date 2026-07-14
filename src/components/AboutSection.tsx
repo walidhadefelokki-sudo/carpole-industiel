@@ -134,6 +134,39 @@ export default function AboutSection() {
           </div>
         </div>
 
+        {/* Carrier Partner Section */}
+        <div id="partenaire-carrier" className={`mt-10 bg-gradient-to-br from-blue-950 via-blue-900 to-blue-950/90 border border-blue-400/30 rounded-3xl p-6 sm:p-8 relative overflow-hidden shadow-xl text-center ${isRtl ? 'md:text-right font-sans' : 'md:text-left'}`}>
+          <div className="absolute top-0 right-0 w-64 h-64 bg-blue-400/10 rounded-full filter blur-3xl pointer-events-none"></div>
+          <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full filter blur-2xl pointer-events-none"></div>
+          
+          <div className={`flex flex-col lg:flex-row items-center justify-between gap-8 relative z-10`}>
+            <div className="space-y-4 flex-1">
+              <div className={`flex flex-wrap items-center gap-4 ${isRtl ? 'justify-start md:justify-end flex-row-reverse' : 'justify-start'}`}>
+                <div className="shrink-0 bg-white py-1 px-2 rounded-xl shadow-md flex items-center justify-center border border-white/20">
+                  <svg viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg" className="h-8 sm:h-10 w-auto">
+                    <ellipse cx="100" cy="30" rx="90" ry="25" fill="#00358e" />
+                    <text x="100" y="39" fill="white" fontSize="28" fontWeight="bold" fontFamily="serif" fontStyle="italic" textAnchor="middle">Carrier</text>
+                  </svg>
+                </div>
+                <div className={isRtl ? 'text-right' : 'text-left'}>
+                  <span className="text-[10px] font-mono font-black uppercase text-blue-200 bg-blue-900/80 border border-blue-400/30 px-3 py-1 rounded-full tracking-wider shadow-sm inline-block">
+                    {isRtl ? 'شريك رسمي' : 'PARTENAIRE OFFICIEL'}
+                  </span>
+                  <h4 className="font-display font-extrabold text-lg sm:text-xl text-white mt-1.5">
+                    {isRtl ? 'الماركة المعتمدة لوحدات التبريد' : 'Notre Marque Frigorifique de Confiance'}
+                  </h4>
+                </div>
+              </div>
+
+              <p className={`font-sans text-blue-100/90 text-xs sm:text-sm max-w-4xl leading-relaxed ${isRtl ? 'text-right' : 'text-left'}`}>
+                {isRtl 
+                  ? 'نحن فخورون بشراكتنا مع كارير (Carrier)، الرائدة عالمياً في حلول تبريد النقل. نقوم بتجهيز مركباتكم بأكثر وحدات التبريد موثوقية في السوق، لضمان سلسلة تبريد مثالية.' 
+                  : 'Nous sommes fiers d\'être partenaire de Carrier, leader mondial des solutions de réfrigération de transport. Nous équipons vos véhicules avec les groupes frigorifiques les plus fiables du marché pour garantir une chaîne du froid optimale.'}
+              </p>
+            </div>
+          </div>
+        </div>
+
         {/* Independent section highlighting Motorest Subsidiary Status */}
         <div id="groupe-motorest" className={`mt-10 bg-gradient-to-br from-emerald-950 via-neutral-900 to-emerald-950/90 border border-emerald-500/30 rounded-3xl p-6 sm:p-8 relative overflow-hidden shadow-xl text-center ${isRtl ? 'md:text-right font-sans' : 'md:text-left'}`}>
           <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full filter blur-3xl pointer-events-none"></div>

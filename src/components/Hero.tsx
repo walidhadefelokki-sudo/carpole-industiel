@@ -130,11 +130,12 @@ export default function Hero({ onCtaClick }: HeroProps) {
               </div>
 
               {/* Prominent clickable card highlighting subsidiary status under Motorest */}
-              <div className={`pt-2 ${isRtl ? 'flex justify-end' : 'flex justify-start'}`}>
+              <div className={`pt-2 flex flex-col xl:flex-row gap-4 ${isRtl ? 'justify-end items-end xl:items-start' : 'justify-start items-start'}`}>
+                {/* Prominent clickable card highlighting subsidiary status under Motorest */}
                 <button
                   id="hero-cta-motorest"
                   onClick={() => onCtaClick('groupe-motorest')}
-                  className={`flex flex-col sm:flex-row items-stretch sm:items-center gap-4 p-4.5 bg-emerald-950/40 hover:bg-emerald-950/80 border border-emerald-500/30 hover:border-emerald-400 text-white rounded-2xl transition-all duration-300 transform hover:-translate-y-1 max-w-lg cursor-pointer group shadow-xl relative overflow-hidden text-left ${isRtl ? 'sm:flex-row-reverse text-right' : 'sm:flex-row text-left'}`}
+                  className={`flex flex-col sm:flex-row items-stretch sm:items-center gap-4 p-4.5 bg-emerald-950/40 hover:bg-emerald-950/80 border border-emerald-500/30 hover:border-emerald-400 text-white rounded-2xl transition-all duration-300 transform hover:-translate-y-1 w-full max-w-lg cursor-pointer group shadow-xl relative overflow-hidden text-left ${isRtl ? 'sm:flex-row-reverse text-right' : 'sm:flex-row text-left'}`}
                 >
                   {/* Subtle corner badge color accent */}
                   <div className="absolute top-0 right-0 w-24 h-24 bg-brand-yellow/5 rounded-full filter blur-xl group-hover:bg-brand-yellow/10 transition-colors pointer-events-none"></div>
@@ -180,7 +181,43 @@ export default function Hero({ onCtaClick }: HeroProps) {
                     </p>
                   </div>
                 </button>
+
+                {/* Carrier Partner Badge */}
+                <button
+                  id="hero-cta-carrier"
+                  onClick={() => onCtaClick('partenaire-carrier')}
+                  className={`flex flex-col sm:flex-row items-stretch sm:items-center gap-4 p-4.5 bg-blue-950/40 hover:bg-blue-950/80 border border-blue-500/30 hover:border-blue-400 text-white rounded-2xl transition-all duration-300 transform hover:-translate-y-1 w-full max-w-lg cursor-pointer group shadow-xl relative overflow-hidden text-left ${isRtl ? 'sm:flex-row-reverse text-right' : 'sm:flex-row text-left'}`}
+                >
+                  <div className="absolute top-0 right-0 w-24 h-24 bg-blue-400/5 rounded-full filter blur-xl group-hover:bg-blue-400/10 transition-colors pointer-events-none"></div>
+                  
+                  <div className={`absolute top-0 bottom-0 w-1 bg-blue-500 ${isRtl ? 'right-0' : 'left-0'}`}></div>
+
+                  <div className={`flex items-center justify-center p-2.5 bg-white border border-blue-500/20 rounded-xl shrink-0 self-start sm:self-center ${isRtl ? 'flex-row-reverse' : 'flex-row'} w-[142px] h-[70px]`}>
+                    <svg viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg" className="h-8 w-auto group-hover:scale-105 transition-transform duration-300">
+                      <ellipse cx="100" cy="30" rx="90" ry="25" fill="#00358e" />
+                      <text x="100" y="39" fill="white" fontSize="28" fontWeight="bold" fontFamily="serif" fontStyle="italic" textAnchor="middle">Carrier</text>
+                    </svg>
+                  </div>
+
+                  <div className="space-y-1 relative z-10 flex-1">
+                    <div className={`flex flex-wrap items-center gap-2 ${isRtl ? 'flex-row-reverse' : 'flex-row'}`}>
+                      <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse shrink-0"></span>
+                      <span className="font-display font-black text-[10px] uppercase tracking-widest text-blue-400">
+                        {isRtl ? 'شريك رسمي' : 'PARTENAIRE OFFICIEL'}
+                      </span>
+                    </div>
+                    <h5 className="font-display font-bold text-xs text-white uppercase tracking-wider">
+                      {isRtl ? 'الماركة المعتمدة لوحدات التبريد' : 'Notre Marque Frigorifique de Confiance'}
+                    </h5>
+                    <p className="font-sans text-[11px] text-blue-100/70 group-hover:text-white transition-colors leading-relaxed font-normal">
+                      {isRtl 
+                        ? 'كاربول فخورة بشراكتها مع كارير لضمان سلسلة تبريد مثالية لمركباتكم.' 
+                        : 'Carpôle est fier d\'être partenaire de Carrier pour garantir une chaîne du froid optimale.'}
+                    </p>
+                  </div>
+                </button>
               </div>
+              
             </motion.div>
 
           </motion.div>
