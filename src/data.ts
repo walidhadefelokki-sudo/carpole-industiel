@@ -107,7 +107,7 @@ export const galleryData: GalleryItem[] = [
   },
   {
     id: 'real-5',
-    title: 'Flotte de camions de distribution laitière',
+    title: 'Flotte de camions de distribution ',
     category: 'realisation',
     images: [
       image12,
@@ -120,7 +120,7 @@ export const galleryData: GalleryItem[] = [
   },
   {
     id: 'real-6',
-    title: 'Flotte de camions de distribution laitière',
+    title: 'Flotte de camions de distribution',
     category: 'realisation',
     images: [
       image3,
