@@ -107,7 +107,7 @@ export const galleryData: GalleryItem[] = [
   },
   {
     id: 'real-5',
-    title: 'Flotte de camions de distribution ',
+    title: 'Flotte de camions de distribution',
     category: 'realisation',
     images: [
       image12,

@@ -240,9 +240,12 @@ const translations: Record<Language, Record<string, any>> = {
     'gallery.item.real-4.title': 'Aménagement intérieur isotherme de précision',
     'gallery.item.real-4.desc': 'Plancher en aluminium strié étanche, rails d’arrimage et rideaux thermiques à lanières pour minimiser les pertes de frigories au déchargement.',
     'gallery.item.real-4.loc': 'Atelier de Finition, Constantine',
-    'gallery.item.real-5.title': 'Flotte de camions de distribution laitière',
+    'gallery.item.real-5.title': 'Flotte de camions de distribution',
     'gallery.item.real-5.desc': 'Livraison simultanée de trois gros porteurs frigorifiques équipés de cloisons amovibles multi-températures pour la distribution urbaine.',
     'gallery.item.real-5.loc': 'Constantine, Algérie',
+    'gallery.item.real-6.title': 'Camion frigorifique prêt à la livraison',
+    'gallery.item.real-6.desc': 'Projet d’intégration complet (carrosserie isolée étanche + groupe de réfrigération thermo-contrôlé) livré pour une entreprise de logistique laitière nationale.',
+    'gallery.item.real-6.loc': 'Hauts Plateaux, Constantine',
 
     // AboutSection
     'about.badge': 'Qui sommes-nous ?',
