@@ -186,7 +186,7 @@ export default function Hero({ onCtaClick }: HeroProps) {
                 <button
                   id="hero-cta-carrier"
                   onClick={() => onCtaClick('partenaire-carrier')}
-                  className={`mt-5 xl:mt-10 flex flex-col sm:flex-row items-stretch sm:items-center gap-4 p-4.5 bg-blue-950/40 hover:bg-blue-950/80 border border-blue-500/30 hover:border-blue-400 text-white rounded-2xl transition-all duration-300 transform hover:-translate-y-1 w-full max-w-lg cursor-pointer group shadow-xl relative overflow-hidden text-left ${isRtl ? 'sm:flex-row-reverse text-right' : 'sm:flex-row text-left'}`}
+                  className={`flex flex-col sm:flex-row items-stretch sm:items-center gap-4 p-4.5 bg-blue-950/40 hover:bg-blue-950/80 border border-blue-500/30 hover:border-blue-400 text-white rounded-2xl transition-all duration-300 transform hover:-translate-y-1 w-full max-w-lg min-h-[165px] cursor-pointer group shadow-xl relative overflow-hidden text-left ${isRtl ? 'sm:flex-row-reverse text-right' : 'sm:flex-row text-left'}`}
                 >
                   <div className="absolute top-0 right-0 w-24 h-24 bg-blue-400/5 rounded-full filter blur-xl group-hover:bg-blue-400/10 transition-colors pointer-events-none"></div>
                   
