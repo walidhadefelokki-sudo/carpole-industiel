@@ -1,10 +1,10 @@
 import { ServiceItem, GalleryItem, FeedbackItem, QuoteInput, QuoteEstimate } from './types';
 import imageBodywork from './assets/images/truck_bodywork_assembly_1781872797628.jpg';
-import imageFrigo from './assets/images/image2.jpeg';
+import imageFrigo from './assets/images/truck_frigo_installation_1781872814520.jpeg';
 import imageConstantinePorteur from './assets/images/refrigerated_truck_constantine_1781872831310.jpg';
 import image1 from './assets/images/image1.jpeg';
 import image3 from './assets/images/image3.jpeg';
-import image4 from './assets/images/truck_frigo_installation_1781872814520.jpg';
+import image4 from './assets/images/truck_frigo_installation_1781872814520.jpeg';
 import image5 from './assets/images/image5.jpeg';
 import image6 from './assets/images/image6.jpeg';
 import image7 from './assets/images/image7.jpeg';
