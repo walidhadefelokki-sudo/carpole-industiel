@@ -120,7 +120,7 @@ export const galleryData: GalleryItem[] = [
   },
   {
     id: 'real-6',
-    title: 'Flotte de camions de distribution',
+    title: 'Camion frigorifique prêt à la livraison',
     category: 'realisation',
     images: [
       image3,
