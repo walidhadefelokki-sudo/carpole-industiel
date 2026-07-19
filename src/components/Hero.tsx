@@ -193,10 +193,12 @@ export default function Hero({ onCtaClick }: HeroProps) {
                   <div className={`absolute top-0 bottom-0 w-1 bg-blue-500 ${isRtl ? 'right-0' : 'left-0'}`}></div>
 
                   <div className={`flex items-center justify-center p-2.5 bg-white border border-blue-500/20 rounded-xl shrink-0 self-start sm:self-center ${isRtl ? 'flex-row-reverse' : 'flex-row'} w-[142px] h-[70px]`}>
-                    <svg viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg" className="h-8 w-auto group-hover:scale-105 transition-transform duration-300">
-                      <ellipse cx="100" cy="30" rx="90" ry="25" fill="#00358e" />
-                      <text x="100" y="39" fill="white" fontSize="28" fontWeight="bold" fontFamily="serif" fontStyle="italic" textAnchor="middle">Carrier</text>
-                    </svg>
+                    <div className="flex flex-col items-center justify-center group-hover:scale-105 transition-transform duration-300">
+                      <img src="https://upload.wikimedia.org/wikipedia/commons/8/8f/Logo_of_the_Carrier_Corporation.svg" alt="Carrier Logo" className="h-7 w-auto mb-1" />
+                      <span className="text-[#00358e] font-sans font-black italic tracking-[0.15em] text-[9px] uppercase leading-none">
+                        Transicold
+                      </span>
+                    </div>
                   </div>
 
                   <div className="space-y-1 relative z-10 flex-1">

@@ -143,10 +143,12 @@ export default function AboutSection() {
             <div className="space-y-4 flex-1">
               <div className={`flex flex-wrap items-center gap-4 ${isRtl ? 'justify-start md:justify-end flex-row-reverse' : 'justify-start'}`}>
                 <div className="shrink-0 bg-white py-1 px-2 rounded-xl shadow-md flex items-center justify-center border border-white/20">
-                  <svg viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg" className="h-8 sm:h-10 w-auto">
-                    <ellipse cx="100" cy="30" rx="90" ry="25" fill="#00358e" />
-                    <text x="100" y="39" fill="white" fontSize="28" fontWeight="bold" fontFamily="serif" fontStyle="italic" textAnchor="middle">Carrier</text>
-                  </svg>
+                  <div className="flex flex-col items-center justify-center group-hover:scale-105 transition-transform duration-300">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/8f/Logo_of_the_Carrier_Corporation.svg" alt="Carrier Logo" className="h-7 w-auto mb-1" />
+                    <span className="text-[#00358e] font-sans font-black italic tracking-[0.15em] text-[9px] uppercase leading-none">
+                      Transicold
+                    </span>
+                  </div>
                 </div>
                 <div className={isRtl ? 'text-right' : 'text-left'}>
                   <span className="text-[10px] font-mono font-black uppercase text-blue-200 bg-blue-900/80 border border-blue-400/30 px-3 py-1 rounded-full tracking-wider shadow-sm inline-block">
