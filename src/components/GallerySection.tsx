@@ -87,7 +87,7 @@ export default function GallerySection() {
                   transition={{ duration: 0.3 }}
                   key={photo.id}
                   id={`gallery-card-${photo.id}`}
-                  className="group relative bg-neutral-900 rounded-xl overflow-hidden aspect-[4/3] shadow-md cursor-pointer transform transition-all duration-300 hover:shadow-xl"
+                  className="group relative bg-neutral-900 rounded-xl overflow-hidden aspect-[4/4] shadow-md cursor-pointer transform transition-all duration-300 hover:shadow-xl"
                   onClick={() => setSelectedPhoto(photo)}
                 >
                   
