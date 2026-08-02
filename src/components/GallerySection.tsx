@@ -71,12 +71,32 @@ export default function GallerySection() {
           ))}
         </div>
 
-        {/* Categories Grid displays with larger items and tighter gaps */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-3 max-w-5xl mx-auto">
+        {/* Categories Grid displaying with alternating 40%-60%, 50%-50%, 60%-40% widths */}
+        <div className="grid grid-cols-1 md:grid-cols-10 gap-4 sm:gap-6 max-w-6xl mx-auto">
           <AnimatePresence mode="popLayout">
-            {filteredPhotos.map((photo) => {
+            {filteredPhotos.map((photo, index) => {
               const photoTitle = t(`gallery.item.${photo.id}.title`) || photo.title;
               const photoLocation = t(`gallery.item.${photo.id}.loc`) || photo.location;
+
+              const rowIndex = Math.floor(index / 2);
+              const isSecondInRow = index % 2 === 1;
+              const pattern = rowIndex % 3;
+
+              // Pattern 0: (40% - 60%) => md:col-span-4 & md:col-span-6
+              // Pattern 1: (50% - 50%) => md:col-span-5 & md:col-span-5
+              // Pattern 2: (60% - 40%) => md:col-span-6 & md:col-span-4
+              let colSpanClass = "";
+              if (pattern === 0) {
+                colSpanClass = isSecondInRow ? "md:col-span-6" : "md:col-span-4";
+              } else if (pattern === 1) {
+                colSpanClass = "md:col-span-5";
+              } else {
+                colSpanClass = isSecondInRow ? "md:col-span-4" : "md:col-span-6";
+              }
+
+              if (!isSecondInRow && index === filteredPhotos.length - 1) {
+                colSpanClass = "md:col-span-10";
+              }
 
               return (
                 <motion.div
@@ -87,7 +107,7 @@ export default function GallerySection() {
                   transition={{ duration: 0.3 }}
                   key={photo.id}
                   id={`gallery-card-${photo.id}`}
-                  className="group relative bg-neutral-900 rounded-xl overflow-hidden aspect-[4/4] shadow-md cursor-pointer transform transition-all duration-300 hover:shadow-xl"
+                  className={`group relative bg-neutral-900 rounded-2xl overflow-hidden h-72 sm:h-80 md:h-[360px] shadow-md cursor-pointer transform transition-all duration-300 hover:shadow-xl ${colSpanClass}`}
                   onClick={() => setSelectedPhoto(photo)}
                 >
                   

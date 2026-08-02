@@ -1,7 +1,7 @@
 import { ServiceItem, GalleryItem, FeedbackItem, QuoteInput, QuoteEstimate } from './types';
 import imageBodywork from './assets/images/truck_bodywork_assembly_1781872797628.jpg';
 import imageFrigo from './assets/images/truck_frigo_installation_1781872814520.jpeg';
-import imageConstantinePorteur from './assets/images/refrigerated_truck_constantine_1781872831310.png';
+import imageConstantinePorteur from './assets/images/DSC09912.jpg';
 import image1 from './assets/images/image1.jpeg';
 import image3 from './assets/images/image3.jpeg';
 import image4 from './assets/images/truck_frigo_installation_1781872814520.jpeg';
@@ -15,7 +15,20 @@ import image11 from './assets/images/image11.jpeg';
 import image12 from './assets/images/bottom_left.jpg';
 import image13 from './assets/images/bottom_right.jpg';
 import image14 from './assets/images/top_left.jpg';
-import image15 from './assets/images/top_right.jpg';      
+import image15 from './assets/images/top_right.jpg'; 
+import img1 from './assets/images/1.jpg';
+import img2 from './assets/images/DSC09821_1.jpg';
+import img3 from './assets/images/DSC09865_1.jpg';
+import img4 from './assets/images/DSC00146.jpg';
+import img5 from './assets/images/DSC00122.jpg';
+import img6 from './assets/images/DSC00123.jpg';
+import img7 from './assets/images/DSC09960.jpg';
+import img8 from './assets/images/DSC09934.jpg';
+import img9 from './assets/images/DSC00001.jpg';
+import img10 from './assets/images/DSC09964.jpg';
+import img11 from './assets/images/DSC00014.jpg';
+import img12 from './assets/images/DSC09801.jpg';   
+
  
 
 export { imageBodywork, imageFrigo, imageConstantinePorteur };
@@ -70,7 +83,7 @@ export const galleryData: GalleryItem[] = [
     id: 'real-1',
     title: 'Montage de carrosserie isotherme',
     category: 'carrosserie',
-    images: [ imageBodywork],
+    images: [ img1 , img2],
     description: 'Techniciens en plein assemblage de panneaux composites isolés haute densité sur un porteur rigide dans notre nouvel atelier.',
     location: 'Atelier Central, Constantine'
   },
@@ -78,7 +91,10 @@ export const galleryData: GalleryItem[] = [
     id: 'real-2',
     title: 'Installation d’un groupe frigorifique Carrier',
     category: 'frigo',
-    images: [ image4],
+    images: [
+      img3,
+      img4
+    ],
     description: 'Pose finale et raccordement électrique d’un système de froid négatif (-18°C) sur la cloison frontale d’un camion de distribution de produits surgelés.',
     location: 'Zone Industrielle, Constantine'
   },
@@ -87,9 +103,8 @@ export const galleryData: GalleryItem[] = [
     title: 'Camion frigorifique prêt à la livraison',
     category: 'realisation',
     images: [
-      image1,
-      image6,
-      image7
+      img5,
+      img6
     ],
     description: 'Projet d’intégration complet (carrosserie isolée étanche + groupe de réfrigération thermo-contrôlé) livré pour une entreprise de logistique laitière nationale.',
     location: 'Hauts Plateaux, Constantine'
@@ -99,8 +114,8 @@ export const galleryData: GalleryItem[] = [
     title: 'Aménagement intérieur isotherme de précision',
     category: 'carrosserie',
     images: [
-      image8,
-      image9
+      img7,
+      img8
     ],
     description: 'Plancher en aluminium strié étanche, rails d’arrimage et rideaux thermiques à lanières pour minimiser les pertes de frigories au déchargement.',
     location: 'Atelier de Finition, Constantine'
@@ -110,10 +125,8 @@ export const galleryData: GalleryItem[] = [
     title: 'Flotte de camions de distribution',
     category: 'realisation',
     images: [
-      image12,
-      image13,
-      image14,
-      image15,
+      img9,
+      img10
     ],
     description: 'Livraison simultanée de trois gros porteurs frigorifiques équipés de cloisons amovibles multi-températures pour la distribution urbaine.',
     location: 'Constantine, Algérie'
@@ -123,7 +136,8 @@ export const galleryData: GalleryItem[] = [
     title: 'Camion frigorifique prêt à la livraison',
     category: 'realisation',
     images: [
-      image3,
+      img11,
+      img12
     ],
     description: 'Livraison simultanée de trois gros porteurs frigorifiques équipés de cloisons amovibles multi-températures pour la distribution urbaine.',
     location: 'Constantine, Algérie'
