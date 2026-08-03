@@ -81,7 +81,7 @@ export const servicesData: ServiceItem[] = [
 export const galleryData: GalleryItem[] = [
   {
     id: 'real-1',
-    title: 'Montage de carrosserie isotherme',
+    title: "Le véritable savoir-faire est l’alliance parfaite entre l’expérience de l’artisan et la rigueur de l'industrie.",
     category: 'carrosserie',
     images: [ img1 , img2],
     description: 'Techniciens en plein assemblage de panneaux composites isolés haute densité sur un porteur rigide dans notre nouvel atelier.',
@@ -89,55 +89,55 @@ export const galleryData: GalleryItem[] = [
   },
   {
     id: 'real-2',
-    title: 'Installation d’un groupe frigorifique Carrier',
+    title: "L’excellence d'une installation ne réside pas seulement dans l'outil, mais dans la main experte qui le maîtrise.",
     category: 'frigo',
     images: [
-      img3,
-      img4
+      img8,
     ],
     description: 'Pose finale et raccordement électrique d’un système de froid négatif (-18°C) sur la cloison frontale d’un camion de distribution de produits surgelés.',
     location: 'Zone Industrielle, Constantine'
   },
   {
     id: 'real-3',
-    title: 'Camion frigorifique prêt à la livraison',
+    title: " Dans le transport sous température dirigée, le professionnalisme ne se déclare pas, il se prouve à chaque degré. ",
     category: 'realisation',
     images: [
-      img5,
-      img6
+      img3,
+      img12
     ],
     description: 'Projet d’intégration complet (carrosserie isolée étanche + groupe de réfrigération thermo-contrôlé) livré pour une entreprise de logistique laitière nationale.',
     location: 'Hauts Plateaux, Constantine'
   },
   {
     id: 'real-4',
-    title: 'Aménagement intérieur isotherme de précision',
+    title: ' Intégrer les technologies de pointe, c’est offrir à vos marchandises le futur de la chaîne du froid. ',
     category: 'carrosserie',
     images: [
-      img7,
-      img8
+      img5,
+      img6,
+      img4      
     ],
     description: 'Plancher en aluminium strié étanche, rails d’arrimage et rideaux thermiques à lanières pour minimiser les pertes de frigories au déchargement.',
     location: 'Atelier de Finition, Constantine'
   },
   {
     id: 'real-5',
-    title: 'Flotte de camions de distribution',
+    title: "L'innovation mécanique est notre moteur, la précision technologique est notre boussole. ",
     category: 'realisation',
     images: [
       img9,
-      img10
+      img7
     ],
     description: 'Livraison simultanée de trois gros porteurs frigorifiques équipés de cloisons amovibles multi-températures pour la distribution urbaine.',
     location: 'Constantine, Algérie'
   },
   {
     id: 'real-6',
-    title: 'Camion frigorifique prêt à la livraison',
+    title: "Quand l'ingénierie avancée rencontre le savoir-faire industriel, la fiabilité prend la route.",
     category: 'realisation',
     images: [
       img11,
-      img12
+      img10,
     ],
     description: 'Livraison simultanée de trois gros porteurs frigorifiques équipés de cloisons amovibles multi-températures pour la distribution urbaine.',
     location: 'Constantine, Algérie'
