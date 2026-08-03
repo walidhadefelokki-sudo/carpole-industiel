@@ -1,7 +1,7 @@
 import { ServiceItem, GalleryItem, FeedbackItem, QuoteInput, QuoteEstimate } from './types';
 import imageBodywork from './assets/images/DSC09899.jpg';
 import imageFrigo from './assets/images/truck_frigo_installation_1781872814520.jpeg';
-import imageConstantinePorteur from './assets/images/DSC09912.jpg';
+import imageConstantinePorteur from './assets/images/DSC09934.jpg';
 import image1 from './assets/images/image1.jpeg';
 import image3 from './assets/images/image3.jpeg';
 import image4 from './assets/images/truck_frigo_installation_1781872814520.jpeg';
@@ -84,8 +84,8 @@ export const galleryData: GalleryItem[] = [
     title: "Le véritable savoir-faire est l’alliance parfaite entre l’expérience de l’artisan et la rigueur de l'industrie.",
     category: 'carrosserie',
     images: [ img1 , img2],
-    description: 'Techniciens en plein assemblage de panneaux composites isolés haute densité sur un porteur rigide dans notre nouvel atelier.',
-    location: 'Atelier Central, Constantine'
+    description: '',
+    location: ''
   },
   {
     id: 'real-2',
@@ -94,8 +94,8 @@ export const galleryData: GalleryItem[] = [
     images: [
       img8,
     ],
-    description: 'Pose finale et raccordement électrique d’un système de froid négatif (-18°C) sur la cloison frontale d’un camion de distribution de produits surgelés.',
-    location: 'Zone Industrielle, Constantine'
+    description: '',
+    location: ''
   },
   {
     id: 'real-3',
@@ -105,8 +105,8 @@ export const galleryData: GalleryItem[] = [
       img3,
       img12
     ],
-    description: 'Projet d’intégration complet (carrosserie isolée étanche + groupe de réfrigération thermo-contrôlé) livré pour une entreprise de logistique laitière nationale.',
-    location: 'Hauts Plateaux, Constantine'
+    description: '',
+    location: ''
   },
   {
     id: 'real-4',
@@ -117,8 +117,8 @@ export const galleryData: GalleryItem[] = [
       img6,
       img4      
     ],
-    description: 'Plancher en aluminium strié étanche, rails d’arrimage et rideaux thermiques à lanières pour minimiser les pertes de frigories au déchargement.',
-    location: 'Atelier de Finition, Constantine'
+    description: '',
+    location: ''
   },
   {
     id: 'real-5',
@@ -128,8 +128,8 @@ export const galleryData: GalleryItem[] = [
       img9,
       img7
     ],
-    description: 'Livraison simultanée de trois gros porteurs frigorifiques équipés de cloisons amovibles multi-températures pour la distribution urbaine.',
-    location: 'Constantine, Algérie'
+    description: '',
+    location: ''
   },
   {
     id: 'real-6',
@@ -139,8 +139,8 @@ export const galleryData: GalleryItem[] = [
       img11,
       img10,
     ],
-    description: 'Livraison simultanée de trois gros porteurs frigorifiques équipés de cloisons amovibles multi-températures pour la distribution urbaine.',
-    location: 'Constantine, Algérie'
+    description: '',
+    location: ''
   }
 ];
 
