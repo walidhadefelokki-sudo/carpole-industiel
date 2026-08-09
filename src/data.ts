@@ -1,7 +1,7 @@
 import { ServiceItem, GalleryItem, FeedbackItem, QuoteInput, QuoteEstimate } from './types';
 import imageBodywork from './assets/images/DSC09899.jpg';
 import imageFrigo from './assets/images/truck_frigo_installation_1781872814520.jpeg';
-import imageConstantinePorteur from './assets/images/DSC09934.png';
+import imageConstantinePorteur from './assets/images/DSC098011.jpg';
 import image1 from './assets/images/image1.jpeg';
 import image3 from './assets/images/image3.jpeg';
 import image4 from './assets/images/truck_frigo_installation_1781872814520.jpeg';
