@@ -1,7 +1,7 @@
-import React from 'react';
-import { motion } from 'motion/react';
-import { Shield, Sparkles, AlertTriangle, ArrowRight, ArrowDown, ArrowLeft, Tractor, Wrench, Settings } from 'lucide-react';
-import { imageConstantinePorteur } from '../data';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import { Shield, Sparkles, AlertTriangle, ArrowRight, ArrowDown, ArrowLeft, Tractor, Wrench, Settings, Smartphone, Monitor, Layers } from 'lucide-react';
+import { imageHeroDesktop, imageHeroMobile } from '../data';
 import { useLanguage } from '../context/LanguageContext';
 
 interface HeroProps {
@@ -10,6 +10,7 @@ interface HeroProps {
 
 export default function Hero({ onCtaClick }: HeroProps) {
   const { t, isRtl } = useLanguage();
+  const [viewMode, setViewMode] = useState<'auto' | 'pc' | 'mobile'>('auto');
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -31,53 +32,152 @@ export default function Hero({ onCtaClick }: HeroProps) {
     }
   };
 
+  const showDesktopImage = viewMode === 'pc' || (viewMode === 'auto');
+  const showMobileImage = viewMode === 'mobile' || (viewMode === 'auto');
+
   return (
     <section 
       id="accueil" 
       className="relative min-h-screen bg-neutral-950 flex flex-col justify-center pt-24 overflow-hidden"
     >
-      {/* Background Graphic Asset with Dark Opacity Overlay */}
+      {/* Background Graphic Asset with Dark Opacity Overlay - Dual PC & Mobile Render */}
       <div className="absolute inset-0 z-0 overflow-hidden">
-        <motion.img
-          src={imageConstantinePorteur}
-          alt="Camion Frigorifique Carpôle à Constantine"
-          animate={{
-            scale: [1.45, 1.05],
-            y: [-25, 25],
-            x: [-15, 15],
-          }}
-          transition={{
-            duration: 24,
-            repeat: Infinity,
-            repeatType: 'reverse',
-            ease: 'easeInOut',
-          }}
-          className="w-full h-full object-cover object-center opacity-85 sm:opacity-75 md:opacity-55 filter saturate-[105%] brightness-[98%]"
-          referrerPolicy="no-referrer"
-        />
-        {/* Dark radial and gradient overlay - responsive opacity to keep text absolutely readable */}
-        <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/90 via-neutral-950/65 sm:via-neutral-950/50 md:via-neutral-950/35 to-neutral-950/10"></div>
-        <div className="absolute inset-0 bg-radial-gradient from-transparent to-neutral-950/60 md:to-neutral-950/45"></div>
         
-        {/* Subtle decorative grid/dots or moving lights of industrial theme for extra creative touch on mobile */}
-        <div className="absolute inset-0 bg-[radial-gradient(#ffffff08_1px,transparent_1px)] [background-size:24px_24px] opacity-60"></div>
+        {/* 1. PC / DESKTOP SPECIFIC IMAGE DISPLAY */}
+        {(viewMode === 'pc' || viewMode === 'auto') && (
+          <div className={`absolute inset-0 transition-opacity duration-700 ${viewMode === 'auto' ? 'hidden md:block' : 'block'}`}>
+            <motion.img
+              key="hero-desktop-img"
+              src={imageHeroDesktop}
+              alt="Camion Frigorifique Carpôle - Vue PC Desktop"
+              animate={{
+                scale: [1.3, 1.05],
+                y: [-20, 20],
+                x: [-15, 15],
+              }}
+              transition={{
+                duration: 22,
+                repeat: Infinity,
+                repeatType: 'reverse',
+                ease: 'easeInOut',
+              }}
+              className="w-full h-full object-cover object-center opacity-70 lg:opacity-60 filter saturate-[110%] brightness-[96%]"
+              referrerPolicy="no-referrer"
+            />
+            {/* Dark gradient optimized for widescreen PC view */}
+            <div className="absolute inset-0 bg-gradient-to-r from-neutral-950 via-neutral-950/75 to-neutral-950/30"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-transparent to-neutral-950/40"></div>
+            
+            {/* PC Display Watermark Indicator */}
+            <div className="absolute top-28 right-6 hidden md:flex items-center gap-2 px-3 py-1.5 bg-neutral-900/80 border border-brand-yellow/30 rounded-full text-zinc-300 text-[10px] font-mono backdrop-blur-md z-10 shadow-lg">
+              <Monitor className="h-3.5 w-3.5 text-brand-yellow animate-pulse" />
+              <span>{isRtl ? 'عرض الكمبيوتر (PC)' : 'Image HD Optimisée PC'}</span>
+            </div>
+          </div>
+        )}
+
+        {/* 2. PHONE / MOBILE SPECIFIC IMAGE DISPLAY */}
+        {(viewMode === 'mobile' || viewMode === 'auto') && (
+          <div className={`absolute inset-0 transition-opacity duration-700 ${viewMode === 'auto' ? 'block md:hidden' : 'block'}`}>
+            <motion.img
+              key="hero-mobile-img"
+              src={imageHeroMobile}
+              alt="Installation Frigorifique Carpôle - Vue Smartphone"
+              animate={{
+                scale: [1.15, 1.02],
+                y: [-10, 10],
+              }}
+              transition={{
+                duration: 16,
+                repeat: Infinity,
+                repeatType: 'reverse',
+                ease: 'easeInOut',
+              }}
+              className="w-full h-full object-cover object-center opacity-85 filter saturate-[115%] brightness-[98%]"
+              referrerPolicy="no-referrer"
+            />
+            {/* Dark vertical gradient optimized for mobile smartphone screens */}
+            <div className="absolute inset-0 bg-gradient-to-b from-neutral-950/90 via-neutral-950/60 to-neutral-950/95"></div>
+            
+            {/* Mobile Display Watermark Indicator */}
+            <div className="absolute top-28 right-4 flex md:hidden items-center gap-1.5 px-2.5 py-1 bg-neutral-900/85 border border-brand-yellow/40 rounded-full text-zinc-300 text-[9px] font-mono backdrop-blur-md z-10 shadow-md">
+              <Smartphone className="h-3 w-3 text-brand-yellow animate-pulse" />
+              <span>{isRtl ? 'عرض الهاتف' : 'Image Optimisée Mobile'}</span>
+            </div>
+          </div>
+        )}
+
+        {/* Subtle decorative grid overlay */}
+        <div className="absolute inset-0 bg-[radial-gradient(#ffffff08_1px,transparent_1px)] [background-size:24px_24px] opacity-60 pointer-events-none"></div>
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-16 lg:py-24 flex flex-col justify-center h-full">
         <div className="max-w-4xl">
           
-          {/* Subtle Location & Brand Badge */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/10 rounded-full mb-6 backdrop-blur-md"
-          >
-            <span className="w-2 h-2 rounded-full bg-brand-yellow animate-pulse"></span>
-            <span className="text-zinc-300 text-xs font-semibold font-sans tracking-wider uppercase">{t('hero.location')}</span>
-            <span className="text-white/30 text-xs">|</span>
-            <span className="text-zinc-400 text-xs font-mono">{t('hero.badgeText')}</span>
-          </motion.div>
+          {/* Location & PC/Mobile Display Switcher Bar */}
+          <div className={`flex flex-wrap items-center gap-3 mb-6 ${isRtl ? 'flex-row-reverse' : 'flex-row'}`}>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5 }}
+              className="inline-flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/10 rounded-full backdrop-blur-md"
+            >
+              <span className="w-2 h-2 rounded-full bg-brand-yellow animate-pulse"></span>
+              <span className="text-zinc-300 text-xs font-semibold font-sans tracking-wider uppercase">{t('hero.location')}</span>
+              <span className="text-white/30 text-xs">|</span>
+              <span className="text-zinc-400 text-xs font-mono">{t('hero.badgeText')}</span>
+            </motion.div>
+
+            {/* Interactive PC vs Phone Image View Toggle Control */}
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="inline-flex items-center p-1 bg-neutral-900/90 border border-white/15 rounded-full backdrop-blur-md shadow-lg"
+            >
+              <button
+                type="button"
+                onClick={() => setViewMode('auto')}
+                className={`flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-medium transition-all duration-300 ${
+                  viewMode === 'auto'
+                    ? 'bg-brand-yellow text-neutral-950 font-bold shadow'
+                    : 'text-zinc-400 hover:text-white'
+                }`}
+                title="Ajustement automatique selon l'écran"
+              >
+                <Layers className="h-3 w-3" />
+                <span>{isRtl ? 'تلقائي' : 'Auto'}</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setViewMode('pc')}
+                className={`flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-medium transition-all duration-300 ${
+                  viewMode === 'pc'
+                    ? 'bg-brand-yellow text-neutral-950 font-bold shadow'
+                    : 'text-zinc-400 hover:text-white'
+                }`}
+                title="Afficher l'image grand écran PC"
+              >
+                <Monitor className="h-3 w-3" />
+                <span>PC</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setViewMode('mobile')}
+                className={`flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-medium transition-all duration-300 ${
+                  viewMode === 'mobile'
+                    ? 'bg-brand-yellow text-neutral-950 font-bold shadow'
+                    : 'text-zinc-400 hover:text-white'
+                }`}
+                title="Afficher l'image portrait Smartphone"
+              >
+                <Smartphone className="h-3 w-3" />
+                <span>Phone</span>
+              </button>
+            </motion.div>
+          </div>
 
           {/* Main Title Headings with custom display font */}
           <motion.div
