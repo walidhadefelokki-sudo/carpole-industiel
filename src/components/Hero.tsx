@@ -40,7 +40,7 @@ export default function Hero({ onCtaClick }: HeroProps) {
       id="accueil" 
       className="relative min-h-screen bg-neutral-950 flex flex-col justify-center pt-24 overflow-hidden"
     >
-      {/* Background Graphic Asset with Dark Opacity Overlay - Dual PC & Mobile Render */}
+      {/* Background Graphic Asset - Clear & Bright Image Display (Dual PC & Mobile Render) */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         
         {/* 1. PC / DESKTOP SPECIFIC IMAGE DISPLAY */}
@@ -51,9 +51,9 @@ export default function Hero({ onCtaClick }: HeroProps) {
               src={imageHeroDesktop}
               alt="Camion Frigorifique Carpôle - Vue PC Desktop"
               animate={{
-                scale: [1.3, 1.05],
-                y: [-20, 20],
-                x: [-15, 15],
+                scale: [1.2, 1.02],
+                y: [-10, 10],
+                x: [-10, 10],
               }}
               transition={{
                 duration: 22,
@@ -61,12 +61,11 @@ export default function Hero({ onCtaClick }: HeroProps) {
                 repeatType: 'reverse',
                 ease: 'easeInOut',
               }}
-              className="w-full h-full object-cover object-center opacity-70 lg:opacity-60 filter saturate-[110%] brightness-[96%]"
+              className="w-full h-full object-cover object-center opacity-100 filter brightness-100 saturate-[105%]"
               referrerPolicy="no-referrer"
             />
-            {/* Dark gradient optimized for widescreen PC view */}
-            <div className="absolute inset-0 bg-gradient-to-r from-neutral-950 via-neutral-950/75 to-neutral-950/30"></div>
-            <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-transparent to-neutral-950/40"></div>
+            {/* Subtle bottom fade to blend with next section without dimming main image */}
+            <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-neutral-950 via-neutral-950/30 to-transparent"></div>
             
             {/* PC Display Watermark Indicator */}
             <div className="absolute top-28 right-6 hidden md:flex items-center gap-2 px-3 py-1.5 bg-neutral-900/80 border border-brand-yellow/30 rounded-full text-zinc-300 text-[10px] font-mono backdrop-blur-md z-10 shadow-lg">
@@ -84,8 +83,8 @@ export default function Hero({ onCtaClick }: HeroProps) {
               src={imageHeroMobile}
               alt="Installation Frigorifique Carpôle - Vue Smartphone"
               animate={{
-                scale: [1.15, 1.02],
-                y: [-10, 10],
+                scale: [1.1, 1.01],
+                y: [-5, 5],
               }}
               transition={{
                 duration: 16,
@@ -93,11 +92,11 @@ export default function Hero({ onCtaClick }: HeroProps) {
                 repeatType: 'reverse',
                 ease: 'easeInOut',
               }}
-              className="w-full h-full object-cover object-center opacity-85 filter saturate-[115%] brightness-[98%]"
+              className="w-full h-full object-cover object-center opacity-100 filter brightness-100 saturate-[105%]"
               referrerPolicy="no-referrer"
             />
-            {/* Dark vertical gradient optimized for mobile smartphone screens */}
-            <div className="absolute inset-0 bg-gradient-to-b from-neutral-950/90 via-neutral-950/60 to-neutral-950/95"></div>
+            {/* Subtle bottom fade for mobile */}
+            <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-neutral-950 via-neutral-950/40 to-transparent"></div>
             
             {/* Mobile Display Watermark Indicator */}
             <div className="absolute top-28 right-4 flex md:hidden items-center gap-1.5 px-2.5 py-1 bg-neutral-900/85 border border-brand-yellow/40 rounded-full text-zinc-300 text-[9px] font-mono backdrop-blur-md z-10 shadow-md">
@@ -108,7 +107,7 @@ export default function Hero({ onCtaClick }: HeroProps) {
         )}
 
         {/* Subtle decorative grid overlay */}
-        <div className="absolute inset-0 bg-[radial-gradient(#ffffff08_1px,transparent_1px)] [background-size:24px_24px] opacity-60 pointer-events-none"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(#ffffff08_1px,transparent_1px)] [background-size:24px_24px] opacity-30 pointer-events-none"></div>
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-16 lg:py-24 flex flex-col justify-center h-full">

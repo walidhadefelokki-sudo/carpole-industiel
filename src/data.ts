@@ -1,6 +1,6 @@
 import { ServiceItem, GalleryItem, FeedbackItem, QuoteInput, QuoteEstimate } from './types';
 import imageBodywork from './assets/images/DSC09899.jpg';
-import imageFrigo from './assets/images/truck_frigo_installation_1781872814520.jpeg';
+import imageFrigo from './assets/images/DSC099342.png';
 import imageConstantinePorteur from './assets/images/DSC098011.jpg';
 import image1 from './assets/images/image1.jpeg';
 import image3 from './assets/images/image3.jpeg';
@@ -27,11 +27,12 @@ import img8 from './assets/images/DSC09934.jpg';
 import img9 from './assets/images/DSC00001.jpg';
 import img10 from './assets/images/DSC09964.jpg';
 import img11 from './assets/images/DSC00014.jpg';
-import img12 from './assets/images/DSC09801.jpg';   
+import img12 from './assets/images/DSC09801.jpg'; 
 
- 
+const imageHeroDesktop = imageConstantinePorteur;
+const imageHeroMobile = imageFrigo;
 
-export { imageBodywork, imageFrigo, imageConstantinePorteur };
+export { imageBodywork, imageFrigo, imageConstantinePorteur, imageHeroDesktop, imageHeroMobile };
 
 export const servicesData: ServiceItem[] = [
   {
